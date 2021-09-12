@@ -18,6 +18,8 @@ import texmex
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
     content = all_inside_lines(ptn)
+    if not content:
+        content = caption_below(ptn)
     result = iamraw.PageContent(content=content, page=ptn.page)
     return result
 
@@ -44,6 +46,27 @@ def all_inside_lines(ptn):
         ) for done in code
     ]
     content = remove_invalids(converted, ptn)
+    return content
+
+
+def caption_below(ptn):
+    code = []
+    collector = DetectorBelow()
+    minus = 0
+    for index, line in enumerate(ptn):
+        done = collector.run(line, index - minus)
+        if not done:
+            continue
+        # detected
+        code.append(done)
+        minus += 2
+        collector.reset()
+    content = [
+        codero.data.PeaceOfCode(
+            caption=set(utila.ranged_tuple(done[1], done[2])),
+            tokens=set(utila.ranged_tuple(done[0], done[1])),
+        ) for done in code
+    ]
     return content
 
 
@@ -87,6 +110,41 @@ class DetectorAllInside:
                 self.middle = index - 1
             return None
         if text != texmex.HORIZONTAL:
+            return None
+        self.end = index - 2
+        return self.start, self.middle, self.end
+
+    def reset(self):
+        self.start, self.middle, self.end = None, None, None
+
+
+class DetectorBelow:
+    """\
+    ---------------------------------------------------------------------------
+    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
+        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+    ---------------------------------------------------------------------------
+    Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
+    """
+
+    def __init__(self):
+        self.start: int = None
+        self.middle: int = None
+        self.end: int = None
+
+    def run(self, line, index):
+        text = line.text
+        if self.start is None:
+            if text == texmex.HORIZONTAL:
+                self.start = index
+            return None
+        if self.middle is None:
+            if text == texmex.HORIZONTAL:
+                self.middle = index - 1
+            return None
+        if not re.match(LISTING, text):
+            # invalid parsing, reset Detector
+            self.reset()
             return None
         self.end = index - 2
         return self.start, self.middle, self.end
