@@ -1,0 +1,7 @@
+[project]
+short = codero
+name = collect the code
+
+[release]
+fail_on_finding = True
+
