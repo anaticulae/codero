@@ -38,3 +38,20 @@ def test_lines_bachelor75all():
     codes = [len(codero.strategy.lines.parse(page).content) for page in ptcn]
     expected = [1, 1, 1, 2, 1, 1, 2, 1]
     assert codes == expected
+
+
+def test_lines_bachelor111page35():
+    source = power.link(power.BACHELOR111_PDF)
+    ptcn = serializeraw.ptcn_frompath(
+        path=source,
+        prefix='oneline',
+        pages=(35,),
+        horizontals=True,
+    )
+    page35 = ptcn[0]
+    parsed = codero.strategy.lines.parse(page35)
+    assert len(parsed.content) == 1
+    assert parsed.page == 35
+
+
+# 35,45,56,57,60,62,65,
