@@ -6,6 +6,16 @@
 # use or distribution is an offensive act against international law and may
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
+"""\
+    ---------------------------------------------------------------------------
+    Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
+    ---------------------------------------------------------------------------
+    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
+        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+    ---------------------------------------------------------------------------
+"""
+
+import re
 
 import utila
 
@@ -32,7 +42,25 @@ def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
             tokens=set(utila.ranged_tuple(done[1], done[2])),
         ) for done in code
     ]
-    result = iamraw.PageContent(content=converted, page=ptn.page)
+    content = remove_invalids(converted, ptn)
+    result = iamraw.PageContent(content=content, page=ptn.page)
+    return result
+
+
+LISTING = r"""^Listing[ ]\d{1,2}\.\d{1,2}"""
+
+
+def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
+    navigator = [
+        item.text for item in navigator if item.text != texmex.HORIZONTAL
+    ]
+    result = []
+    for item in content:
+        firstindex = list(item.caption)[0]
+        first = navigator[firstindex]
+        if not re.match(LISTING, first):
+            continue
+        result.append(item)
     return result
 
 
