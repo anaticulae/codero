@@ -6,14 +6,6 @@
 # use or distribution is an offensive act against international law and may
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
-"""\
-    ---------------------------------------------------------------------------
-    Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
-    ---------------------------------------------------------------------------
-    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
-        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
-    ---------------------------------------------------------------------------
-"""
 
 import re
 
@@ -25,8 +17,17 @@ import texmex
 
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
+    content = all_inside_lines(ptn)
+    result = iamraw.PageContent(content=content, page=ptn.page)
+    return result
+
+
+LISTING = r"""^Listing[ ]\d{1,2}\.\d{1,2}"""
+
+
+def all_inside_lines(ptn):
     code = []
-    collector = Detector()
+    collector = DetectorAllInside()
     minus = 0
     for index, line in enumerate(ptn):
         done = collector.run(line, index - minus)
@@ -43,11 +44,7 @@ def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
         ) for done in code
     ]
     content = remove_invalids(converted, ptn)
-    result = iamraw.PageContent(content=content, page=ptn.page)
-    return result
-
-
-LISTING = r"""^Listing[ ]\d{1,2}\.\d{1,2}"""
+    return content
 
 
 def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
@@ -64,10 +61,20 @@ def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
     return result
 
 
-class Detector:
-    start: int = None
-    middle: int = None
-    end: int = None
+class DetectorAllInside:
+    """\
+    ---------------------------------------------------------------------------
+    Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
+    ---------------------------------------------------------------------------
+    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
+        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+    ---------------------------------------------------------------------------
+    """
+
+    def __init__(self):
+        self.start: int = None
+        self.middle: int = None
+        self.end: int = None
 
     def run(self, line, index):
         text = line.text
