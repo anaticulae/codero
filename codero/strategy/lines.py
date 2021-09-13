@@ -7,13 +7,12 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import re
-
+import elements
+import iamraw
+import texmex
 import utila
 
 import codero.data
-import iamraw
-import texmex
 
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
@@ -22,9 +21,6 @@ def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
         content = caption_below(ptn)
     result = iamraw.PageContent(content=content, page=ptn.page)
     return result
-
-
-LISTING = r"""^Listing[ ]\d{1,2}\.\d{1,2}"""
 
 
 def all_inside_lines(ptn):
@@ -78,7 +74,7 @@ def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
     for item in content:
         firstindex = list(item.caption)[0]
         first = navigator[firstindex]
-        if not re.match(LISTING, first):
+        if not elements.iscaption_code(first):
             continue
         result.append(item)
     return result
@@ -142,7 +138,7 @@ class DetectorBelow:
             if text == texmex.HORIZONTAL:
                 self.middle = index - 1
             return None
-        if not re.match(LISTING, text):
+        if not elements.iscaption_code(text):
             # invalid parsing, reset Detector
             self.reset()
             return None
