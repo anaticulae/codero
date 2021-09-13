@@ -15,4 +15,3 @@ completed
 
 .. toctree::
   :maxdepth: 1
-
