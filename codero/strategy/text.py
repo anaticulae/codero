@@ -14,8 +14,6 @@ import iamraw
 import texmex
 import utila
 
-import codero.data
-
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
     content = linenumbers_and_caption(ptn)
@@ -36,7 +34,7 @@ def linenumbers_and_caption(ptn):
         code.append(done)
         collector.reset()
     content = [
-        codero.data.PeaceOfCode(
+        iamraw.PeaceOfCode(
             caption=set(utila.ranged_tuple(done[1], done[2])),
             tokens=set(utila.ranged_tuple(done[0], done[1])),
         ) for done in code
@@ -58,9 +56,8 @@ def raw_code(ptn):
         # raw code till page end
         code.append((collector.start, collector.middle, len(ptn)))
     content = [
-        codero.data.PeaceOfCode(
-            tokens=set(utila.ranged_tuple(done[1], done[2])))
-        if done[0] == 'NOHEADLINE' else codero.data.PeaceOfCode(
+        iamraw.PeaceOfCode(tokens=set(utila.ranged_tuple(done[1], done[2])))
+        if done[0] == 'NOHEADLINE' else iamraw.PeaceOfCode(
             caption=set(utila.ranged_tuple(done[0], done[1])),
             tokens=set(utila.ranged_tuple(done[1], done[2])),
         ) for done in code

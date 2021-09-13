@@ -12,8 +12,6 @@ import iamraw
 import texmex
 import utila
 
-import codero.data
-
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
     content = all_inside_lines(ptn)
@@ -36,7 +34,7 @@ def all_inside_lines(ptn):
         minus += 3
         collector.reset()
     converted = [
-        codero.data.PeaceOfCode(
+        iamraw.PeaceOfCode(
             caption=set(utila.ranged_tuple(done[0], done[1])),
             tokens=set(utila.ranged_tuple(done[1], done[2])),
         ) for done in code
@@ -58,7 +56,7 @@ def caption_below(ptn):
         minus += 2
         collector.reset()
     content = [
-        codero.data.PeaceOfCode(
+        iamraw.PeaceOfCode(
             caption=set(utila.ranged_tuple(done[1], done[2])),
             tokens=set(utila.ranged_tuple(done[0], done[1])),
         ) for done in code
