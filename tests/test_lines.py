@@ -54,4 +54,17 @@ def test_lines_bachelor111page35():
     assert parsed.page == 35
 
 
-# 35,45,56,57,60,62,65,
+def test_lines_bachelor111all():
+    source = power.link(power.BACHELOR111_PDF)
+    ptcn = serializeraw.ptcn_frompath(
+        path=source,
+        prefix='oneline',
+        pages=(35, 45, 56, 57, 60, 62, 65),
+        horizontals=True,
+    )
+    codes = [len(codero.strategy.lines.parse(page).content) for page in ptcn]
+    # HINT: Page 60 is incomplete, therefore the current strategy can not
+    # parse this linting.
+    # expected = [1, 1, 2, 1, 1, 1, 1]
+    expected = [1, 1, 2, 1, 0, 1, 1]
+    assert codes == expected
