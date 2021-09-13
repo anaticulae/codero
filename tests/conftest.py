@@ -24,6 +24,7 @@ RESOURCES = [
     (power.BACHELOR075_PDF, '18,40:65'),
     (power.BACHELOR111_PDF, '35,45:66'),
     (power.BACHELOR067_PDF, '10:21,40:65'),
+    (power.BACHELOR241_PDF, '156,200:240'),
 ]
 
 
