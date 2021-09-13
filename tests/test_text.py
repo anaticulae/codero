@@ -8,21 +8,18 @@
 # =============================================================================
 
 import power
-import serializeraw
 import utila
 
 import codero.strategy.text
+import tests.utils
 
 
 def test_text_bachelor67page11():
-    source = power.link(power.BACHELOR067_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
+    parsed = tests.utils.run(
+        codero.strategy.text.parse,
+        resource=power.BACHELOR067_PDF,
         pages=11,
     )
-    page11 = ptcn[0]
-    parsed = codero.strategy.text.parse(page11)
     assert len(parsed.content) == 1
     assert parsed.page == 11
     code = parsed.content[0].tokens
@@ -37,14 +34,11 @@ def test_text_bachelor67page20():
 
     TODO: INTRODUCE PAGE CODE MERGER
     """
-    source = power.link(power.BACHELOR067_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
+    parsed = tests.utils.run(
+        codero.strategy.text.parse,
+        resource=power.BACHELOR067_PDF,
         pages=20,
     )
-    page20 = ptcn[0]
-    parsed = codero.strategy.text.parse(page20)
     code = parsed.content[0].tokens
     caption = parsed.content[0].caption
     assert len(code) == 10
@@ -52,27 +46,23 @@ def test_text_bachelor67page20():
 
 
 def test_text_bachelor67all():
-    source = power.link(power.BACHELOR067_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
+    parsed = tests.utils.run(
+        codero.strategy.text.parse,
+        resource=power.BACHELOR067_PDF,
         pages=(11, 18, 20, 43, 47, 59, 60, 61),
     )
-    codes = [len(codero.strategy.text.parse(page).content) for page in ptcn]
+    codes = [len(page.content) for page in parsed]
     # 11, 17, 18, 20, 42, 47, 59, 60, 61
     expected = [1, 2, 1, 1, 1, 2, 2, 2]  # TODO: VALIDATE LATER
     assert codes == expected
 
 
 def test_text_bachelor241page156():
-    source = power.link(power.BACHELOR241_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
+    parsed = tests.utils.run(
+        codero.strategy.text.parse,
+        resource=power.BACHELOR241_PDF,
         pages=156,
     )
-    page156 = ptcn[0]
-    parsed = codero.strategy.text.parse(page156)
     # 2 block auf code
     assert len(parsed.content) == 2
     assert parsed.content[0].caption == {14}
@@ -82,13 +72,12 @@ def test_text_bachelor241page156():
 
 
 def test_text_bachelor241all():
-    source = power.link(power.BACHELOR241_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
+    parsed = tests.utils.run(
+        codero.strategy.text.parse,
+        resource=power.BACHELOR241_PDF,
         pages=utila.ranged_tuple(200, 240),
     )
-    codes = [len(codero.strategy.text.parse(page).content) for page in ptcn]
+    codes = [len(page.content) for page in parsed]
     expected = [
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0

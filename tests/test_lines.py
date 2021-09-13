@@ -8,61 +8,53 @@
 # =============================================================================
 
 import power
-import serializeraw
 
 import codero.strategy.lines
+import tests.utils
 
 
 def test_lines_bachelor75page18():
-    source = power.link(power.BACHELOR075_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
-        pages=18,
+    parsed = tests.utils.run(
+        codero.strategy.lines.parse,
+        resource=power.BACHELOR075_PDF,
         horizontals=True,
+        pages=18,
     )
-    page18 = ptcn[0]
-    parsed = codero.strategy.lines.parse(page18)
     assert len(parsed.content) == 1
     assert parsed.page == 18
 
 
 def test_lines_bachelor75all():
-    source = power.link(power.BACHELOR075_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
-        pages=(18, 43, 47, 48, 53, 54, 57, 62),
+    parsed = tests.utils.run(
+        codero.strategy.lines.parse,
+        resource=power.BACHELOR075_PDF,
         horizontals=True,
+        pages=(18, 43, 47, 48, 53, 54, 57, 62),
     )
-    codes = [len(codero.strategy.lines.parse(page).content) for page in ptcn]
+    codes = [len(page.content) for page in parsed]
     expected = [1, 1, 1, 2, 1, 1, 2, 1]
     assert codes == expected
 
 
 def test_lines_bachelor111page35():
-    source = power.link(power.BACHELOR111_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
-        pages=(35,),
+    parsed = tests.utils.run(
+        codero.strategy.lines.parse,
+        resource=power.BACHELOR111_PDF,
         horizontals=True,
+        pages=35,
     )
-    page35 = ptcn[0]
-    parsed = codero.strategy.lines.parse(page35)
     assert len(parsed.content) == 1
     assert parsed.page == 35
 
 
 def test_lines_bachelor111all():
-    source = power.link(power.BACHELOR111_PDF)
-    ptcn = serializeraw.ptcn_frompath(
-        path=source,
-        prefix='oneline',
-        pages=(35, 45, 56, 57, 60, 62, 65),
+    parsed = tests.utils.run(
+        codero.strategy.lines.parse,
+        resource=power.BACHELOR111_PDF,
         horizontals=True,
+        pages=(35, 45, 56, 57, 60, 62, 65),
     )
-    codes = [len(codero.strategy.lines.parse(page).content) for page in ptcn]
+    codes = [len(page.content) for page in parsed]
     # HINT: Page 60 is incomplete, therefore the current strategy can not
     # parse this linting.
     # expected = [1, 1, 2, 1, 1, 1, 1]
