@@ -42,6 +42,9 @@ def linenumbers_and_caption(ptn):
     return content
 
 
+RAWCODE_MIN_LENGTH = 5  # TODO: HOLY VALUE
+
+
 def raw_code(ptn):
     code = []
     collector = DetectorWithHeadline()
@@ -62,6 +65,15 @@ def raw_code(ptn):
             tokens=set(utila.ranged_tuple(done[1], done[2])),
         ) for done in code
     ]
+
+    def is_valid_raw(item):
+        if not item.caption:
+            if len(item.tokens) < RAWCODE_MIN_LENGTH:
+                # Too short code without any caption
+                return False
+        return True
+
+    content = [item for item in content if is_valid_raw(item)]
     return content
 
 
