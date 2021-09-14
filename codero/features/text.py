@@ -15,10 +15,10 @@ import codero.strategy.decider
 def work(
     oneline_text: str,
     oneline_textposition: str,
-    sizeandborder: str,
-    headerfooter: str,
     oneline_font_header: str,
     oneline_font_content: str,
+    sizeandborder: str,
+    headerfooter: str,
     horizontals: str,
     pages: tuple = None,
 ) -> str:
