@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.1.1
+
+### Feature
+
+* add result step to select best code parsing (9e17b3593742)
+
 ## v0.1.0
 
 ### Feature
