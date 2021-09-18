@@ -27,6 +27,13 @@ WORKPLAN = [
         ],
         output=('text',),
     ),
+    utila.create_step(
+        'result',
+        inputs=[
+            utila.ResultFile('codero', 'text_text'),
+        ],
+        output=('result',),
+    ),
 ]
 
 
