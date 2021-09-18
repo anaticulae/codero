@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.2.0
+
+### Feature
+
+* insert code bounding to best result (4d101a0cb1e6)
+
 ## v0.1.1
 
 ### Feature
