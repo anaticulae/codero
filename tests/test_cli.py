@@ -21,3 +21,11 @@ def test_nocodes(testdir, monkeypatch):
     outpath = os.path.join(testdir.tmpdir, 'codero__text_text.yaml')
     loaded = serializeraw.load_codes(outpath)
     assert not loaded
+
+
+def test_cli(testdir, monkeypatch):
+    source = power.link(power.BACHELOR241_PDF)
+    tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
+    outpath = os.path.join(testdir.tmpdir, 'codero__result_result.yaml')
+    loaded = serializeraw.load_codes(outpath)
+    assert loaded
