@@ -7,7 +7,9 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
+import iamraw
 import texmex
+import utila
 
 import codero.strategy.lines
 import codero.strategy.text
@@ -22,15 +24,16 @@ def run(navigators: texmex.PageTextContentNavigators):
     work = [[strategy(page) for page in navigators] for strategy in STRATEGIES]
     # remove empty page parsing
     noempty = [[page for page in result if page.content] for result in work]
-    best = decide(noempty)
+    best = decide(noempty, navigators)
     return best
 
 
-def decide(results):
+def decide(results, ptns):
     best = results[0]
     for item in results[1:]:
         if judge(item) > judge(best):
             best = item
+    best = insert_code_boundings(best, ptns)
     return best
 
 
@@ -39,3 +42,14 @@ def judge(result) -> int:
     for item in result:
         count += len(item.content)
     return count
+
+
+def insert_code_boundings(codes: iamraw.PeaceOfCodes, ptns):
+    for page in codes:
+        ptn = utila.select_page(ptns, page=page.page)
+        for code in page.content:
+            for caption in code.caption:
+                code.caption_bounding.append(tuple(ptn[caption].bounding))
+            for token in code.tokens:
+                code.tokens_bounding.append(tuple(ptn[token].bounding))
+    return codes
