@@ -29,6 +29,11 @@ def all_inside_lines(ptn):
         done = collector.run(line, index - minus)
         if not done:
             continue
+        if len(utila.make_unique(done)) != 3:
+            # false posititve, a lot of lines with any content. We require
+            # content between detected lines to have valid code detection.
+            collector.reset()
+            continue
         # detected
         code.append(done)
         minus += 3
