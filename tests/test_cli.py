@@ -10,6 +10,7 @@
 import os
 
 import power
+import pytest
 import serializeraw
 
 import tests
@@ -23,8 +24,12 @@ def test_nocodes(testdir, monkeypatch):
     assert not loaded
 
 
-def test_cli(testdir, monkeypatch):
-    source = power.link(power.BACHELOR241_PDF)
+@pytest.mark.parametrize(
+    'source',
+    (pytest.param(power.BACHELOR241_PDF, id='bachelor241'),),
+)
+def test_cli_all(source, testdir, monkeypatch):
+    source = power.link(source)
     tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
     outpath = os.path.join(testdir.tmpdir, 'codero__result_result.yaml')
     loaded = serializeraw.load_codes(outpath)
