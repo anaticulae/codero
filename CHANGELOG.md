@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.2.1
+
+### Fix
+
+* skip false positive parsing (5b3a24a089ab)
+
 ## v0.2.0
 
 ### Feature
