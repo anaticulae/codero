@@ -12,6 +12,7 @@ import os
 import power
 import pytest
 import serializeraw
+import utilatest
 
 import tests
 
@@ -26,11 +27,19 @@ def test_nocodes(testdir, monkeypatch):
 
 @pytest.mark.parametrize(
     'source',
-    (pytest.param(power.BACHELOR241_PDF, id='bachelor241'),),
+    (
+        pytest.param(power.BACHELOR241_PDF, id='bachelor241'),
+        pytest.param(power.BACHELOR063_PDF, id='bachelor063'),
+    ),
 )
 def test_cli_all(source, testdir, monkeypatch):
+    """\
+    bachelor063: regression test to skip invalid parsings
+    """
+    utilatest.fixture_requires(source)
     source = power.link(source)
     tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
     outpath = os.path.join(testdir.tmpdir, 'codero__result_result.yaml')
     loaded = serializeraw.load_codes(outpath)
-    assert loaded
+    # ensure that loader is runned correctly
+    assert loaded or loaded == []
