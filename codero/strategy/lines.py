@@ -70,13 +70,18 @@ def caption_below(ptn):
 
 
 def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
+    page = navigator.page
     navigator = [
         item.text for item in navigator if item.text != texmex.HORIZONTAL
     ]
     result = []
     for item in content:
         firstindex = list(item.caption)[0]
-        first = navigator[firstindex]
+        try:
+            first = navigator[firstindex]
+        except IndexError:
+            utila.error(f'index out of range page: {page} {firstindex} {len(navigator)}')  # yapf:disable
+            continue
         if not elements.iscaption_code(first):
             continue
         result.append(item)
