@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.2.2
+
+### Fix
+
+* skip code out of navigator range (f1f7ab5249f6)
+
 ## v0.2.1
 
 ### Fix
