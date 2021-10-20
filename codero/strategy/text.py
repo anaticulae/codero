@@ -43,7 +43,7 @@ def linenumbers_and_caption(ptn):
     return content
 
 
-RAWCODE_MIN_LENGTH = configo.HV_INT_PLUS(default=5)
+RAWCODE_LENGTH_MIN = configo.HV_INT_PLUS(default=5)
 
 
 def raw_code(ptn):
@@ -69,7 +69,7 @@ def raw_code(ptn):
 
     def is_valid_raw(item):
         if not item.caption:
-            if len(item.tokens) < RAWCODE_MIN_LENGTH:
+            if len(item.tokens) < RAWCODE_LENGTH_MIN:
                 # Too short code without any caption
                 return False
         return True
