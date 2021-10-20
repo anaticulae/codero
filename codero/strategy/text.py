@@ -9,6 +9,7 @@
 
 import re
 
+import configo
 import elements
 import iamraw
 import texmex
@@ -42,7 +43,7 @@ def linenumbers_and_caption(ptn):
     return content
 
 
-RAWCODE_MIN_LENGTH = 5  # TODO: HOLY VALUE
+RAWCODE_MIN_LENGTH = configo.HV_INT_PLUS(default=5)
 
 
 def raw_code(ptn):
