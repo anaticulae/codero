@@ -146,6 +146,44 @@ class DetectorLineNumbers:
         self.start, self.middle, self.end = None, None, None
 
 
+CWC_CODE_LENGTH_MIN = configo.HV_INT_PLUS(default=2)
+
+
+class CodeWithoutCaption(DetectorLineNumbers):
+    """\
+    Code inside text
+    >>> cwc = CodeWithoutCaption()
+    >>> cwc.run('Text text text.', 9)
+    >>> cwc.run('1 import collections', 10)
+    >>> cwc.run('2 Abc = collections.namedtuple("Abc a b c")', 11)
+    >>> cwc.run('3 print("hello")', 12)
+    >>> cwc.run('Ich bin kein Quellcode.', 13)
+    (10, 13)
+
+    Normal List
+    >>> cwc = CodeWithoutCaption()
+    >>> cwc.run('1. Ich bin ein Listenpunkt', 3)
+    >>> cwc.run('2. Haus', 4)
+    >>> cwc.run('3. Hund', 5)
+    >>> cwc.run('Ich bin kein Quellcode.', 6)
+    """
+
+    def valid(self, text: str) -> bool:
+        if elements.iscaption_code(text):
+            # see DetectorLineNumbers
+            return False
+        length = self.middle - self.start
+        if length < CWC_CODE_LENGTH_MIN:
+            self.reset()
+            return False
+        return True
+
+    def final(self):
+        result = self.start, self.middle
+        self.reset()
+        return result
+
+
 RCODE = re.compile(r'^R-Code:')
 
 
