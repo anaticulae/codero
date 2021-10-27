@@ -90,7 +90,7 @@ def raw_code(ptn):
     return content
 
 
-CODE_NUMBER = re.compile(r'^\d{1,3}')
+CODE_NUMBER = re.compile(r'^\d{1,3}(?!\.)')
 
 
 class DetectorLineNumbers:
