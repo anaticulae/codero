@@ -6,6 +6,15 @@
 # use or distribution is an offensive act against international law and may
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
+"""Code Inside Text Detector
+=========================
+
+Detect code as a normal part of written text. There are no special
+elements which help detecting these lines of code.
+
+1. Strategy: Lines number and caption below
+2. Strategy: Specialized R-Code with headline detector
+"""
 
 import re
 
