@@ -6,6 +6,12 @@
 # use or distribution is an offensive act against international law and may
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
+"""Code Between Lines Detector
+===========================
+
+1. Strategy: Code and listings is detected inside 3 horizonals
+2. Backup: Code is detected inside 2 horizonals and caption is detected below
+"""
 
 import elements
 import iamraw
@@ -14,14 +20,24 @@ import utila
 
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
-    content = all_inside_lines(ptn)
+    content = all_inside_textual_horizontals(ptn)
     if not content:
-        content = caption_below(ptn)
+        content = caption_below_code(ptn)
     result = iamraw.PageContent(content=content, page=ptn.page)
     return result
 
 
-def all_inside_lines(ptn):
+def all_inside_textual_horizontals(ptn):
+    """\
+    Example
+
+    ---------------------------------------------------------------------------
+    Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
+    ---------------------------------------------------------------------------
+    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
+        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+    ---------------------------------------------------------------------------
+    """
     code = []
     collector = DetectorAllInside()
     minus = 0
@@ -48,7 +64,7 @@ def all_inside_lines(ptn):
     return content
 
 
-def caption_below(ptn):
+def caption_below_code(ptn):
     code = []
     collector = DetectorBelow()
     minus = 0
