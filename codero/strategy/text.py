@@ -37,7 +37,7 @@ def linenumbers_and_caption(ptn):
     code = []
     collector = DetectorLineNumbers()
     for index, line in enumerate(ptn):
-        done = collector.run(line, index)
+        done = collector.run(line.text, index)
         if not done:
             continue
         # detected
@@ -59,7 +59,7 @@ def raw_code(ptn):
     code = []
     collector = DetectorWithHeadline()
     for index, line in enumerate(ptn):
-        done = collector.run(line, index)
+        done = collector.run(line.text, index)
         if not done:
             continue
         # detected
@@ -97,6 +97,12 @@ class DetectorLineNumbers:
     3 / __/__ ___ _____/ /__
 
     Listing 2.1: Word Count in der Spark Konsole
+
+    >>> dtn = DetectorLineNumbers()
+    >>> dtn.run('1 import collections', 10)
+    >>> dtn.run('2 Abc = collections.namedtuple("Abc a b c")', 11)
+    >>> dtn.run('Listing 3: Simple python example', 12)
+    (10, 12, 13)
     """
 
     def __init__(self):
@@ -104,8 +110,8 @@ class DetectorLineNumbers:
         self.middle: int = None
         self.end: int = None
 
-    def run(self, line, index):
-        text = line.text.strip()
+    def run(self, line: str, index: int):
+        text = line.strip()
         if self.start is None:
             if CODE_NUMBER.search(text):
                 self.start = index
@@ -142,8 +148,8 @@ class DetectorWithHeadline:
         self.middle: int = None
         self.end: int = None
 
-    def run(self, line, index):
-        text = line.text.strip()
+    def run(self, line: str, index: int):
+        text = line.strip()
         if self.start is None:
             if RCODE.search(text):
                 self.start = index
