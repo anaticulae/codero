@@ -113,19 +113,31 @@ class DetectorLineNumbers:
     def run(self, line: str, index: int):
         text = line.strip()
         if self.start is None:
-            if CODE_NUMBER.search(text):
+            if self.loc(text):
                 self.start = index
             return None
-        if CODE_NUMBER.search(text):
+        if self.loc(text):
             self.middle = index + 1
             return None
-        if elements.iscaption_code(text):
+        if self.valid(text):
             self.middle = index
             self.end = index + 1
         else:
             self.reset()
             return None
-        return self.start, self.middle, self.end
+        return self.final()
+
+    def loc(self, text: str) -> bool:  # pylint:disable=R0201
+        """Determine if text can be a line of code."""
+        return CODE_NUMBER.search(text)
+
+    def valid(self, text: str) -> bool:  # pylint:disable=R0201
+        return elements.iscaption_code(text)
+
+    def final(self):
+        result = self.start, self.middle, self.end
+        self.reset()
+        return result
 
     def reset(self):
         self.start, self.middle, self.end = None, None, None
