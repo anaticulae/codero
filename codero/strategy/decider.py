@@ -31,13 +31,14 @@ def run(navigators: texmex.PageTextContentNavigators):
 def decide(results, ptns):
     best = results[0]
     for item in results[1:]:
-        if judge(item) > judge(best):
+        if score(item) > score(best):
             best = item
     best = insert_code_boundings(best, ptns)
     return best
 
 
-def judge(result) -> int:
+def score(result) -> int:
+    """Count number of detected lines of code and comments."""
     count = 0
     for item in result:
         count += len(item.content)
