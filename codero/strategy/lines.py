@@ -80,7 +80,8 @@ def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
         try:
             first = navigator[firstindex]
         except IndexError:
-            utila.error(f'index out of range page: {page} {firstindex} {len(navigator)}')  # yapf:disable
+            msg = f'out of range page: {page} {firstindex} {len(navigator)}'
+            utila.error(msg)
             continue
         if not elements.iscaption_code(first):
             continue
