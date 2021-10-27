@@ -33,6 +33,9 @@ def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
     return result
 
 
+NOHEADLINE = '<<<NOHEADLINE>>>'
+
+
 def linenumbers_and_caption(ptn):
     code = []
     collector = DetectorLineNumbers()
@@ -70,7 +73,7 @@ def raw_code(ptn):
         code.append((collector.start, collector.middle, len(ptn)))
     content = [
         iamraw.PeaceOfCode(tokens=set(utila.ranged_tuple(done[1], done[2])))
-        if done[0] == 'NOHEADLINE' else iamraw.PeaceOfCode(
+        if done[0] == NOHEADLINE else iamraw.PeaceOfCode(
             caption=set(utila.ranged_tuple(done[0], done[1])),
             tokens=set(utila.ranged_tuple(done[1], done[2])),
         ) for done in code
@@ -169,7 +172,7 @@ class DetectorWithHeadline:
             if text and text[0] in '#>+':
                 # TODO: MAKE THIS MORE GENERAL
                 # R-Code start without headline
-                self.start = 'NOHEADLINE'
+                self.start = NOHEADLINE
                 self.middle = index
             return None
         if text and text[0] in '#>+':
