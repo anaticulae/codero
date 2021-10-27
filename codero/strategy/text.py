@@ -16,6 +16,7 @@ elements which help detecting these lines of code.
 2. Strategy: Specialized R-Code with headline detector
 """
 
+import keyword
 import re
 
 import configo
@@ -27,6 +28,8 @@ import utila
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
     content = linenumbers_and_caption(ptn)
+    if not content:
+        content = code_without_caption(ptn)
     if not content:
         content = raw_code(ptn)
     result = iamraw.PageContent(content=content, page=ptn.page)
@@ -49,6 +52,24 @@ def linenumbers_and_caption(ptn):
     content = [
         iamraw.PeaceOfCode(
             caption=set(utila.ranged_tuple(done[1], done[2])),
+            tokens=set(utila.ranged_tuple(done[0], done[1])),
+        ) for done in code
+    ]
+    return content
+
+
+def code_without_caption(ptn):
+    code = []
+    collector = CodeWithoutCaption()
+    for index, line in enumerate(ptn):
+        done = collector.run(line.text, index)
+        if not done:
+            continue
+        # detected
+        code.append(done)
+    content = [
+        iamraw.PeaceOfCode(
+            caption=set(),
             tokens=set(utila.ranged_tuple(done[0], done[1])),
         ) for done in code
     ]
@@ -90,7 +111,7 @@ def raw_code(ptn):
     return content
 
 
-CODE_NUMBER = re.compile(r'^\d{1,3}(?!\.)')
+CODE_NUMBER = re.compile(r'^\d{1,3}([ ]|(?!\.))')
 
 
 class DetectorLineNumbers:
@@ -168,9 +189,20 @@ class CodeWithoutCaption(DetectorLineNumbers):
     >>> cwc.run('Ich bin kein Quellcode.', 6)
     """
 
+    def loc(self, text: str) -> bool:
+        if not CODE_NUMBER.search(text):
+            return False
+        if not lineofcode(CODE_NUMBER.sub('', text)):
+            return False
+        return True
+
     def valid(self, text: str) -> bool:
         if elements.iscaption_code(text):
             # see DetectorLineNumbers
+            self.reset()
+            return False
+        if self.middle is None:
+            self.reset()
             return False
         length = self.middle - self.start
         if length < CWC_CODE_LENGTH_MIN:
@@ -182,6 +214,19 @@ class CodeWithoutCaption(DetectorLineNumbers):
         result = self.start, self.middle
         self.reset()
         return result
+
+
+CHARS = '/* * // { } [ ] == != ='.split()
+JS = 'val map apply new'.split()
+KEYWORDS = CHARS + utila.lower(*keyword.kwlist) + JS
+
+
+def lineofcode(text: str) -> bool:
+    # TODO: REPLACE WITH SOPHISTICATED LOC CHECK
+    text = text.lower().strip()
+    if any(item in text for item in KEYWORDS):
+        return True
+    return False
 
 
 RCODE = re.compile(r'^R-Code:')
