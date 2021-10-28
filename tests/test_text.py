@@ -39,6 +39,16 @@ def test_text_bachelor67page40():
     assert len(content[0].tokens) == 3
 
 
+def test_text_bachelor67page41():
+    parsed = tests.utils.run(
+        codero.strategy.text.parse,
+        resource=power.BACHELOR067_PDF,
+        pages=41,
+    )
+    content = parsed.content
+    assert len(content) == 2
+
+
 def test_text_bachelor67page20():
     """Code does not start with number 1. This code forwards code from
     page before.
