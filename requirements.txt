@@ -7,7 +7,7 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-utila>=2.59.2<3.0.0
-iamraw>=4.38.1<5.0.0
+utila>=2.59.3<3.0.0
+iamraw>=4.39.1<5.0.0
 elements>=0.10.2<1.0.0
 configo>=0.16.2<1.0.0
