@@ -39,7 +39,6 @@ def test_cli_all(source, testdir, monkeypatch):
     utilatest.fixture_requires(source)
     source = power.link(source)
     tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
-    outpath = os.path.join(testdir.tmpdir, 'codero__result_result.yaml')
-    loaded = serializeraw.load_codes(outpath)
+    loaded = serializeraw.load_codes(testdir.tmpdir)
     # ensure that loader is runned correctly
     assert loaded or loaded == []
