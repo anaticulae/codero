@@ -1,0 +1,209 @@
+############ 11 ############
+TOKENS:
+1 $ ./spark-shell
+2 [...]
+3 / __/__ ___ _____/ /__
+4 _\ \/ _ \/ _ ‘/ __/ ’_/
+5 /___/ .__/\_,_/_/ /_/\_\ version 1.3.0
+6 /_/
+7 Using Scala version 2.10.4 (OpenJDK 64-Bit Server VM, Java 1.7.0_75)
+8 Type in expressions to have them evaluated.
+9 [...]
+10 scala> val text = sc.textFile("../Heinrich Heine - Der Ex-Lebendige")
+11 [...]
+12 scala> :paste
+13 text.flatMap(line => line.split(" "))
+14 .map(word => (word, 1))
+15 .reduceByKey(_ + _)
+16 .collect()
+17 [...]
+18 res0: Array[(String, Int)] = Array((Tyrann,,1), (im,2), (Doch,1) ...)
+CAPTION:
+Listing 2.1: Word Count in der Spark Konsole
+############ 18 ############
+TOKENS:
+1 /**
+2 * Return a new RDD by applying a function to all elements of
+3 * this RDD.
+4 */
+5 def map[U: ClassTag](f: T => U): RDD[U] = {
+6 val cleanF = sc.clean(f)
+7 new MapPartitionsRDD[U, T](this, (context, pid, iter)
+8 => iter.map(cleanF))
+9 }
+CAPTION:
+Listing 2.2: Map-Methode aus org.apache.spark.rdd.RDD v1.3.0
+TOKENS:
+1 /**
+2 * Applies a function f to all elements of this RDD.
+3 */
+4 def foreach(f: T => Unit) {
+5 val cleanF = sc.clean(f)
+6 sc.runJob(this, (iter: Iterator[T]) => iter.foreach(cleanF))
+7 }
+CAPTION:
+Listing 2.3: foreach-Methode aus org.apache.spark.rdd.RDD v1.3.0
+############ 20 ############
+TOKENS:
+6 */
+7 class MinimalPartitioner extends Partitioner {
+8 def numPartitions = 10
+9
+10 def getPartition(key: Any): Int =
+11 key.hashCode % numPartitions
+12
+13 def equals(other: Any): Boolean =
+14 other.isInstanceOf[MinimalPartitioner]
+15 }
+CAPTION:
+Listing 2.4: Beispiel: Minimaler Partitionierer
+############ 40 ############
+TOKENS:
+1 val documents: RDD[Seq[String]] = sc.textFile(textFile)
+2 .map(_.toLowerCase)
+3 .map(_.split(" ").filter(_.length > 2).toSeq)
+CAPTION:
+
+############ 41 ############
+TOKENS:
+1 val idf = new IDF().fit(tf)
+2 val tfidf: RDD[Vector] = idf.transform(tf)
+CAPTION:
+
+TOKENS:
+1 val relevanceVector = tfidf
+2 .take(docWindowSize)
+3 .reduce((vector1, vector2) =>
+CAPTION:
+
+############ 42 ############
+TOKENS:
+1 // Split text string into single words
+2 val splitTweets = {
+3 stream.map(status =>
+4 (status.getText.split(" "), status)
+5 )
+6 }
+7
+8 // calculate score for each word, then sum and normalize the scores
+9 val scoredTweets = {
+10 splitTweets.map(splitTweet => {
+11 (splitTweet._1.map(word =>
+12 broadcastScores.value.apply(
+13 hashingTF.indexOf(word.toLowerCase
+14 .replaceAll("[^a-zA-Z0-9]", " ")))
+15 ).sum./(splitTweet._2.getText.split(" ").length),
+CAPTION:
+
+############ 43 ############
+TOKENS:
+19 }
+CAPTION:
+Listing 3.1: Bewertung von Tweets
+############ 47 ############
+TOKENS:
+1 val documents: RDD[Seq[String]] = sc.textFile(textFile)
+2 .map(_.toLowerCase) // stage 0
+3 .map(_.split(" ").filter(_.length > 2).toSeq) // stage 0
+4 val hashingTF = new HashingTF(1 << 20)
+5 val tf: RDD[Vector] = hashingTF.transform(documents) // stage 0
+6 tf.cache() // keep the tf cached because it will be used twice
+7
+8 val beginFeatureExtraction = System.currentTimeMillis()
+9
+10 val idf = new IDF().fit(tf) // stage 0/1
+11 val tfidf: RDD[Vector] = idf.transform(tf) // stage 2
+12
+13 val relevanceVector = tfidf
+14 .take(docWindowSize) // stage 2
+15 .reduce((vector1, vector2) =>
+16 addSparseVectors(vector1.asInstanceOf[SparseVector],
+17 vector2.asInstanceOf[SparseVector])
+18 ) // end stage 2, execution ends here
+19
+20 val finishFeatureExtraction = System.currentTimeMillis()
+CAPTION:
+Listing 3.2: Laufzeitmessung
+############ 59 ############
+TOKENS:
+1 echo 3 > /proc/sys/vm/drop_caches
+2 dd if=/dev/zero of=test512.out bs=512MB count=1
+CAPTION:
+Listing 1: Messung der Festplattenperformance - Beispiel: Schreiben einer 512MB Datei
+TOKENS:
+1 iperf -c <IP-Adresse des Peers> -r -P 4
+CAPTION:
+Listing 2: Messung der Netzwerkperformance
+############ 60 ############
+TOKENS:
+28 done
+29 cp ~/$1.log ~/metrics/dstat/$1_dell01_$TIME.csv
+30
+31 # Clean up
+32 for host in $WORKERS; do
+33 ssh $host "rm /home/daniel/$1.log"
+34 done
+CAPTION:
+Listing 3: Monitoring des Clusters (Betriebssystem), Beispiel ModelBuilder
+TOKENS:
+1 #/bin/bash
+2
+3 export SPARK_HOME=/opt/spark/
+4
+5 # clean up previous build
+6 rm -rf ~/autobuilds/model_builder
+7 cd ~/autobuilds
+8 git clone ~/git/model_builder
+9 cd model_builder
+10
+11 # run build
+12 sbt package
+13 if [ $? -ne "0" ]; then exit 1; fi
+14
+15 # run test suite
+16 sbt test
+17 if [ $? -ne "0" ]; then exit 1; fi
+18
+19 # deploy to cluster
+20 /opt/spark/bin/spark-submit --class "de.haw.bachelorthesis.dkirchner\
+21 .ModelBuilder" --master spark://192.168.206.131:7077 --driver-memory\
+22 256m --executor-memory 384m \
+23 ~/autobuilds/model_builder/ [...] /model-builder_2.10-1.0.jar\
+24 hdfs://192.168.206.131:54310/user/daniel/user_emails_corpus1.txt\
+25 <emailaccount> <passwort>
+CAPTION:
+Listing 4: Einfache Continuous Deployment Pipeline. Beispiel: ModelBuilder
+############ 61 ############
+TOKENS:
+2 Konfigurationen
+1 <configuration>
+2 <property>
+3 <name>dfs.replication</name>
+4 <value>1</value>
+5 </property>
+6 <property>
+7 <name>dfs.block.size</name>
+8 <value>33554432</value>
+9 </property>
+10 <property>
+11 <name>dfs.permissions</name>
+12 <value>false</value>
+13 </property>
+14 <property>
+15 <name>dfs.datanode.drop.cache.behind.writes</name>
+16 <value>true</value>
+17 </property>
+18 <property>
+19 <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+20 <value>false</value>
+21 </property>
+22 </configuration>
+CAPTION:
+Listing 5: hdfs-site.xml (Auszug): Beispiel mit Replikationsfaktor 1 und Blockgröße 32MB
+TOKENS:
+1 spark.master spark://dell01:7077
+2 spark.eventLog.enabled true
+3 spark.eventLog.dir file:///home/spark/metrics/secondary
+4 spark.shuffle.memoryFraction 0.3
+CAPTION:
+Listing 6: spark-defaults.conf (Auszug)
