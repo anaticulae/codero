@@ -34,8 +34,9 @@ def all_inside_textual_horizontals(ptn):
     ---------------------------------------------------------------------------
     Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
     ---------------------------------------------------------------------------
-    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
-        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN
+        FROM MAKING CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF
+        IMPACT 30 MPH.
     ---------------------------------------------------------------------------
     """
     code = []
@@ -110,8 +111,9 @@ class DetectorAllInside:
     ---------------------------------------------------------------------------
     Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
     ---------------------------------------------------------------------------
-    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
-        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN
+        FROM MAKING CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF
+        IMPACT 30 MPH.
     ---------------------------------------------------------------------------
     """
 
@@ -142,8 +144,9 @@ class DetectorAllInside:
 class DetectorBelow:
     """\
     ---------------------------------------------------------------------------
-    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
-        CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+    WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN
+        FROM MAKING CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF
+        IMPACT 30 MPH.
     ---------------------------------------------------------------------------
     Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
     """
