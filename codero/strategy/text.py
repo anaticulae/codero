@@ -16,7 +16,6 @@ elements which help detecting these lines of code.
 2. Strategy: Specialized R-Code with headline detector
 """
 
-import keyword
 import re
 
 import configo
@@ -24,6 +23,8 @@ import elements
 import iamraw
 import texmex
 import utila
+
+import codero.loc
 
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
@@ -192,7 +193,7 @@ class CodeWithoutCaption(DetectorLineNumbers):
     def loc(self, text: str) -> bool:
         if not CODE_NUMBER.search(text):
             return False
-        if not lineofcode(CODE_NUMBER.sub('', text)):
+        if not codero.loc.determine(CODE_NUMBER.sub('', text)):
             return False
         return True
 
@@ -214,19 +215,6 @@ class CodeWithoutCaption(DetectorLineNumbers):
         result = self.start, self.middle
         self.reset()
         return result
-
-
-CHARS = '/* * // { } [ ] == != ='.split()
-JS = 'val map apply new'.split()
-KEYWORDS = CHARS + utila.lower(*keyword.kwlist) + JS
-
-
-def lineofcode(text: str) -> bool:
-    # TODO: REPLACE WITH SOPHISTICATED LOC CHECK
-    text = text.lower().strip()
-    if any(item in text for item in KEYWORDS):
-        return True
-    return False
 
 
 RCODE = re.compile(r'^R-Code:')
