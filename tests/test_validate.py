@@ -17,6 +17,7 @@ import utilatest
 
 import codero
 import tests
+import tests.utils
 
 CODE = os.path.join(codero.ROOT, 'tests/validate')
 read_code = lambda x: utila.file_read(os.path.join(CODE, x)).strip()  # pylint:disable=C0103
@@ -36,35 +37,7 @@ def test_validate(source, expected, testdir, monkeypatch):
     if expected is None:
         return
     expected = read_code(expected)
-    current = raw(source, loaded)
+    current = tests.utils.raw(source, loaded)
     if current != expected:
         utila.file_create('baseline', current)
     assert current == expected
-
-
-def raw(source, extracted) -> str:
-    collected = []
-    ptcns = serializeraw.ptcn_frompath(
-        source,
-        prefix='oneline',
-        horizontals=True,
-    )
-    for page in extracted:
-        ptcn = utila.select_page(ptcns, page.page)
-        collected.append(rawpage(ptcn, page))
-    result = utila.NEWLINE.join(collected)
-    return result
-
-
-def rawpage(ptcn, page) -> str:
-    pagenr = page.page
-    content = page.content
-    collected = []
-    for poc in content:
-        code = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.tokens)
-        captio = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.caption)
-        collected.append('TOKENS:\n' + code)
-        collected.append('CAPTION:\n' + captio)
-    header = f'############ {pagenr} ############\n'
-    result = header + utila.NEWLINE.join(collected)
-    return result
