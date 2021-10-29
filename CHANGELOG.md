@@ -2,6 +2,27 @@
 
 Every noteable change is logged here.
 
+## v0.3.0
+
+### Feature
+
+* convert codero detection to non horizontal ptn indexes (01af6acfaae8)
+* extend loc detector (2b762f1bb604)
+* add loc line decider (8fea1c21981a)
+* add code detector without caption to general strategy (445431ebbfe4)
+* add code inside text extractor (b3465180d9c1)
+
+### Fix
+
+* adjust index and remove invalids (d0d8fa9591e4)
+* adjust horizontal non horizontal line numbering (92a735e64719)
+* distinguish code from list (86bb980c7542)
+
+### Documentation
+
+* add module documentation (830d110dec52)
+* add module documentation (9b23306085f1)
+
 ## v0.2.2
 
 ### Fix
