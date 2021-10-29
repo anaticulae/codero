@@ -26,6 +26,7 @@ read_code = lambda x: utila.file_read(os.path.join(CODE, x)).strip()  # pylint:d
 @pytest.mark.parametrize('source, expected', [
     pytest.param(power.BACHELOR067_PDF, 'bachelor067', id='bachelor067'),
     pytest.param(power.BACHELOR075_PDF, 'bachelor075', id='bachelor075'),
+    pytest.param(power.BACHELOR111_PDF, 'bachelor111', id='bachelor111'),
 ])
 def test_validate(source, expected, testdir, monkeypatch):
     utilatest.fixture_requires(source)
