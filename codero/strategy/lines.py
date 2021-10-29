@@ -75,10 +75,11 @@ def caption_below_code(ptn):
         collector.reset()
     content = [
         iamraw.PeaceOfCode(
-            caption=set(utila.ranged_tuple(done[1], done[2])),
-            tokens=set(utila.ranged_tuple(done[0], done[1])),
+            caption=utila.ranged_tuple(done[1] + 1, done[2] + 1),
+            tokens=utila.ranged_tuple(done[0] + 1, done[1]),
         ) for done in code
     ]
+    content = remove_invalids(content, ptn)
     return content
 
 
@@ -156,13 +157,13 @@ class DetectorBelow:
             return None
         if self.middle is None:
             if text == texmex.HORIZONTAL:
-                self.middle = index - 1
+                self.middle = index
             return None
         if not elements.iscaption_code(text):
             # invalid parsing, reset Detector
             self.reset()
             return None
-        self.end = index - 2
+        self.end = index
         return self.start, self.middle, self.end
 
     def reset(self):
