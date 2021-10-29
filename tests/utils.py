@@ -32,7 +32,7 @@ def raw(source, extracted) -> str:
     ptcns = serializeraw.ptcn_frompath(
         source,
         prefix='oneline',
-        horizontals=True,
+        horizontals=False,
     )
     for page in extracted:
         ptcn = utila.select_page(ptcns, page.page)

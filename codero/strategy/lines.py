@@ -41,9 +41,8 @@ def all_inside_textual_horizontals(ptn):
     """
     code = []
     collector = DetectorAllInside()
-    minus = 0
     for index, line in enumerate(ptn):
-        done = collector.run(line, index - minus)
+        done = collector.run(line, index)
         if not done:
             continue
         if len(utila.make_unique(done)) != 3:
@@ -53,12 +52,11 @@ def all_inside_textual_horizontals(ptn):
             continue
         # detected
         code.append(done)
-        minus += 3
         collector.reset()
     converted = [
         iamraw.PeaceOfCode(
-            caption=set(utila.ranged_tuple(done[0], done[1])),
-            tokens=set(utila.ranged_tuple(done[1], done[2])),
+            caption=utila.ranged_tuple(done[0] + 1, done[1]),
+            tokens=utila.ranged_tuple(done[1] + 1, done[2]),
         ) for done in code
     ]
     content = remove_invalids(converted, ptn)
@@ -68,14 +66,12 @@ def all_inside_textual_horizontals(ptn):
 def caption_below_code(ptn):
     code = []
     collector = DetectorBelow()
-    minus = 0
     for index, line in enumerate(ptn):
-        done = collector.run(line, index - minus)
+        done = collector.run(line, index)
         if not done:
             continue
         # detected
         code.append(done)
-        minus += 2
         collector.reset()
     content = [
         iamraw.PeaceOfCode(
@@ -87,20 +83,16 @@ def caption_below_code(ptn):
 
 
 def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
-    page = navigator.page
-    navigator = [
-        item.text for item in navigator if item.text != texmex.HORIZONTAL
-    ]
     result = []
     for item in content:
-        firstindex = list(item.caption)[0]
-        try:
-            first = navigator[firstindex]
-        except IndexError:
-            msg = f'out of range page: {page} {firstindex} {len(navigator)}'
-            utila.error(msg)
+        if not item.tokens:
+            # skip three horizontals in a row
             continue
-        if not elements.iscaption_code(first):
+        if not item.caption:
+            # skip three horizontals in a row
+            continue
+        firstindex = item.caption[0]
+        if not elements.iscaption_code(navigator[firstindex].text):
             continue
         result.append(item)
     return result
@@ -130,11 +122,11 @@ class DetectorAllInside:
             return None
         if self.middle is None:
             if text == texmex.HORIZONTAL:
-                self.middle = index - 1
+                self.middle = index
             return None
         if text != texmex.HORIZONTAL:
             return None
-        self.end = index - 2
+        self.end = index
         return self.start, self.middle, self.end
 
     def reset(self):

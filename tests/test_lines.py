@@ -20,8 +20,13 @@ def test_lines_bachelor75page18():
         horizontals=True,
         pages=18,
     )
-    assert len(parsed.content) == 1
+    content = parsed.content
+    assert len(content) == 1
     assert parsed.page == 18
+    code = content[0]
+    # These lines numbers are with horizonals, without (0,); (1, 2)
+    assert code.caption == (1,)
+    assert code.tokens == (3, 4)
 
 
 def test_lines_bachelor75all():
