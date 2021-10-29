@@ -23,12 +23,9 @@ CODE = os.path.join(codero.ROOT, 'tests/validate')
 read_code = lambda x: utila.file_read(os.path.join(CODE, x)).strip()  # pylint:disable=C0103
 
 
-@pytest.mark.parametrize(
-    'source, expected',
-    [
-        pytest.param(power.BACHELOR067_PDF, 'bachelor067', id='bachelor067'),
-    ],
-)
+@pytest.mark.parametrize('source, expected', [
+    pytest.param(power.BACHELOR067_PDF, 'bachelor067', id='bachelor067'),
+])
 def test_validate(source, expected, testdir, monkeypatch):
     utilatest.fixture_requires(source)
     source = power.link(source)
