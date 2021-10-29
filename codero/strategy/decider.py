@@ -34,6 +34,7 @@ def decide(results, ptns):
         if score(item) > score(best):
             best = item
     best = insert_code_boundings(best, ptns)
+    best = horizontals_remove(best, ptns)
     return best
 
 
@@ -54,3 +55,24 @@ def insert_code_boundings(codes: iamraw.PeaceOfCodes, ptns):
             for token in code.tokens:
                 code.tokens_bounding.append(tuple(ptn[token].bounding))
     return codes
+
+
+def horizontals_remove(codes: iamraw.PeaceOfCodes, ptns):
+    """Adjust indexes of caption and token to ptns without horizontals."""
+    for page in codes:
+        ptn = utila.select_page(ptns, page=page.page)
+        before = horizontals_before(ptn)
+        for code in page.content:
+            code.caption = {item - before[item] for item in code.caption}
+            code.tokens = {item - before[item] for item in code.tokens}
+    return codes
+
+
+def horizontals_before(ptn):
+    before = 0
+    result = []
+    for item in ptn:
+        result.append(before)
+        if item.text == texmex.HORIZONTAL:
+            before += 1
+    return result
