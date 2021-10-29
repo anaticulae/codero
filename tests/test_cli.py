@@ -12,9 +12,11 @@ import os
 import power
 import pytest
 import serializeraw
+import utila
 import utilatest
 
 import tests
+import tests.utils
 
 
 def test_nocodes(testdir, monkeypatch):
@@ -22,6 +24,8 @@ def test_nocodes(testdir, monkeypatch):
     tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
     outpath = os.path.join(testdir.tmpdir, 'codero__text_text.yaml')
     loaded = serializeraw.load_codes(outpath)
+    if loaded:
+        utila.log(tests.utils.raw(source, loaded))
     assert not loaded
 
 
