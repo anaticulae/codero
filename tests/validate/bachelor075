@@ -1,0 +1,130 @@
+############ 18 ############
+TOKENS:
+WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
+CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
+CAPTION:
+Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
+############ 43 ############
+TOKENS:
+class RegexSubstitution(PreprocessBase):
+"""Class for searching for regular expressions and when found, it will be replaced
+with a specified substitution."""
+(...)
+def transform_string(self, text):
+return re.sub(self._regex, self._substitution, text)
+def transform_tokens(self, tokens):
+return [re.sub(self._regex, self._substitution, token) for token in tokens]
+CAPTION:
+Listing 6.1 Beispielimplementierung eines Vorverarbeitungsschritts - Regex-Substitution
+############ 47 ############
+TOKENS:
+class GermanStemmer(PreprocessBase):
+"""Class for applying the german stemmer from nltk."""
+def __init__(self):
+self._stemmer = stem.snowball.GermanStemmer()
+def transform_string(self, text):
+return " ".join(self.transform_tokens(text.split()))
+def transform_tokens(self, tokens):
+return [self._stemmer.stem(token) for token in tokens]
+CAPTION:
+Listing 6.2 Erweiterung des Prototyps - GermanStemmer
+############ 48 ############
+TOKENS:
+def handle_preprocessing(self, preprocessing_dict):
+(...)
+elif entry == ’stemmer’:
+stem = preprocessingStep[entry]
+(...)
+elif stem == ’GermanStemmer’:
+pipeline.add_preprocessig_step(stemmer.GermanStemmer())
+CAPTION:
+Listing 6.3 Erweiterung des Prototyps - Konfigurationsleser
+TOKENS:
+[PREPROCESSING]
+(..)
+stemmer = option(PorterStemmer, GermanStemmer, default=None)
+CAPTION:
+Listing 6.4 Erweiterung des Prototyps - Konfigurationsspezifikation
+############ 53 ############
+TOKENS:
+[INPUT]
+input_type = MSACCESS #Eingabeformat MSACCESS oder CSV
+input_path = "C:\\FLAT_CMPL.accdb" #Pfad zum Datensatz
+table_name = ’FLAT_CMPL’ #Tabelle in der Datenbank
+[[CATEGORY]]
+column_with_category = Category #Spalte mit den Kategorien zur Gruppierung
+categories_to_choose = ’AIR BAGS’, #Kategorien nach denen gruppiert werden soll
+columns_with_text_fields = "Feld20", #Spalten mit den Freitextfeldern
+[OUTPUT]
+save_plot = True #Visualisierungen speichern?
+[PREPROCESSING]
+[[step1]]
+lowercase = True #Umwandeln in Kleinbuchstaben
+remove_punctuation = True #Satzzeichen entfernen
+unpack_contractions = True #Kontraktionen expandieren
+[[[CONTEXT-SYNONYMS]]] #Kontextsynonyme
+[[[[UNAVAILABLE]]]]
+#’not available’ ersetzen durch ’unavailable’
+main_words = ’available’,
+context_words = ’not’,
+before = 1
+after = 0
+substitution = ’unavailable’
+[[[[notdeploy]]]]
+#Beispielsweise ’deployment failed’ ersetzen durch ’notdeploy’
+main_words = ’deploy’, ’deployment’
+context_words = ’failed’, ’not’
+before = 5
+after = 1
+substitution = ’notdeploy’
+[VECTORIZING]
+vectorizer = TF-IDF #Wahl des Vektorisierers. Alternative CountVectorizer
+min_df = 0.02 #Minimales Vorkommen eines Worts im Datensatz
+[CLUSTERING]
+algorithm = kmeans #Wahl des Clustering-Algorithmus
+n_clusters = 12 #Anzahl der Cluster
+CAPTION:
+Listing 7.1 Beispielhafte Konfigurationsdatei
+############ 54 ############
+TOKENS:
+SHAPE: 88017, 225
+FEATURES:
+acceler, act, activ, addit, address, advis, affect, ago, air bag warning light, (...)
+vectorizer: TfidfVectorizer(binary=True (...))
+Clustering sparse data with KMeans(n_clusters=12 (...))
+Cluster 0 22708 : sensor 0.041, deploy 0.036, avail 0.030, (...)
+Cluster 1 7254 : air bag warning light 0.444, (...)
+Cluster 2 6284 : deploy 0.570, (...)
+Cluster 3 4473 : notdeploy 1.000, (...)
+Cluster 4 15226 : notdeploy 0.269, front end 0.075, (...)
+Cluster 5 8725 : unavail 0.557, nhtsa campaign 0.549, (...)
+Cluster 6 4813 : seat belt 0.361, notdeploy 0.121, (...)
+Cluster 7 9304 : light 0.320, (...)
+(...)
+CAPTION:
+Listing 7.2 Ausgabe der Cluster-Informationen
+############ 57 ############
+TOKENS:
+SPRING FAILURE IN AIRBAG.
+HEAD ON COLLISION AT 50MPH FAILED TO SET OFF AIRBAG
+(...) CUSTOMER SHOULD NOT HAVE TO PAY FOR REPLACING A FAILTY PART AS AND AIR BAG CHIP.
+CAPTION:
+Listing 8.1 Beispiel für selten vorkommende Beschwerden, die zum selben Cluster zugeordnet
+wurden sind
+TOKENS:
+ClusterMainTermWeight > 0.1
+SELECT CMPLID, MAKETXT, MODELTXT, YEARTXT, FIRE COMPDESC, ClusterMainTerm, Distance,
+ClusterMainTermWeight from FLAT_CMPL WHERE ClusterMainTerm NOT IN (’’) AND
+CAPTION:
+Listing 8.2 SQL-Befehl zur Filterung der zu analysierenden Beschwerden
+############ 62 ############
+TOKENS:
+SELECT FLAT_CMPL.COMPLID, FLAT_CMPL.MAKETXT, FLAT_CMPL.MODELTXT, FLAT_CMPL.YEARTXT,
+FLAT_CMPL.COMPDESC, FLAT_CMPL.CDESCR, FLAT_CMPL.ClusterMainterm, FLAT_CMPL.Distance,
+FLAT_CMPL.ClusterMainTermWeight, FLAT_RCL.RECORD_ID
+FROM FLAT_CMPL INNER JOIN FLAT_RCL ON ((FLAT_CMPL.MAKETXT = FLAT_RCL. MAKETXT) AND
+(FLAT_CMPL.MODELTXT = FLAT_RCL.MODELTXT) AND (FLAT_CMPL.COMPDESC =
+FLAT_RCL.COMPNAME)) AND ((FLAT_CMPL.YEARTXT = FLAT_RCL.YEARTXT) OR FLAT_RCL.YEARTXT =
+9999) WHERE ClusterMainTerm NOT IN (’’) AND ClusterMainTermWeight > 0.1;
+CAPTION:
+Listing 8.3 SQL-Befehl für die Verknüpfung der Beschwerden und der Rückrufe
