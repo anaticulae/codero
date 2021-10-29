@@ -188,12 +188,22 @@ class CodeWithoutCaption(DetectorLineNumbers):
     >>> cwc.run('2. Haus', 4)
     >>> cwc.run('3. Hund', 5)
     >>> cwc.run('Ich bin kein Quellcode.', 6)
+
+    TODO: ADD OPTION TO HAVE SOME LINES FALSE DETECTION
     """
+
+    def __init__(self):
+        super().__init__()
+        self.empty_line_count = 0
 
     def loc(self, text: str) -> bool:
         if not CODE_NUMBER.search(text):
             return False
-        if not codero.loc.determine(CODE_NUMBER.sub('', text)):
+        nonumber = CODE_NUMBER.sub('', text).strip()
+        if not nonumber:
+            self.empty_line_count += 1
+            return True
+        if not codero.loc.determine(nonumber):
             return False
         return True
 
@@ -209,7 +219,16 @@ class CodeWithoutCaption(DetectorLineNumbers):
         if length < CWC_CODE_LENGTH_MIN:
             self.reset()
             return False
+        empty_rate = self.empty_line_count / length
+        if empty_rate > 0.34:  # TODO: HOLY VALUE
+            # skip too many empty lines which are false positive dectections
+            self.reset()
+            return False
         return True
+
+    def reset(self):
+        super().reset()
+        self.empty_line_count = 0
 
     def final(self):
         result = self.start, self.middle

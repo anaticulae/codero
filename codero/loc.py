@@ -7,6 +7,8 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
+import re
+
 import utila
 
 
@@ -25,7 +27,9 @@ def determine(text: str) -> bool:
     return False
 
 
-def prepare(keys, left=r'\b', right=r'\b'):
+def prepare(keys, left=r'\b', right=r'\b', escape: bool = False):
+    if escape:
+        keys = (re.escape(item) for item in keys)
     items = [left + item + right for item in keys]
     result = utila.compiles('(' + '|'.join(items) + ')')
     return result
@@ -61,23 +65,30 @@ def ispython(text: str) -> bool:
 JAVASCRIPT_KEYWORDS = utila.splitlines("""for own in of while until loop
 break return continue switch when then if unless else throw try catch
 finally new delete typeof instanceof super true false yes no on off null
-NaN Infinity undefined void val map apply""")
+NaN Infinity undefined void val map apply length split sum""")
 JAVASCRIPT_KEYWORDS = prepare(JAVASCRIPT_KEYWORDS)
 # .reduce(
 JAVASCRIPT_METHODS = utila.compiles(r'\.[a-z]{3,15}\(')
+JAVASCRIPT_START = utila.splititems("""// /** /* * ) } )} val""")
+JAVASCRIPT_START = prepare(
+    keys=JAVASCRIPT_START,
+    left=r'^',
+    right='',
+    escape=True,
+)
 
 
 def isjs(text: str) -> bool:
     """\
     >>> isjs('.reduce((vector1, vector2) =>')
     True
+    >>> isjs('}')
+    True
     """
     if JAVASCRIPT_KEYWORDS.search(text):
         return True
     if JAVASCRIPT_METHODS.search(text):
         return True
-    if '//' in text:
-        return True
-    if '/*' in text:
+    if JAVASCRIPT_START.search(text):
         return True
     return False
