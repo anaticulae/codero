@@ -10,7 +10,7 @@
 import utila
 
 
-def work(text: str) -> str:
+def work(textx: str) -> str:
     # TODO: INTRODUCE DECIDER AFTER ADDING FURTHER STRATEGIES
-    text = utila.file_read(text)
+    text = utila.file_read(textx)
     return text
