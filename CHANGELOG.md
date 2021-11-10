@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.3.1
+
+### Fix
+
+* remove magic parameter (6159a59afa34)
+
 ## v0.3.0
 
 ### Feature
