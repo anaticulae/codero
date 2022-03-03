@@ -10,9 +10,11 @@
 import power
 import serializeraw
 import utila
+import utilatest
 
 
 def run(strategy, resource, pages: tuple = None, horizontals: bool = False):
+    utilatest.fixture_requires(resource)
     source = power.link(resource)
     ptcn = serializeraw.ptcn_frompath(
         path=source,

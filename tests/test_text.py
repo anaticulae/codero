@@ -28,7 +28,7 @@ def test_text_bachelor67page11():
     assert caption == {27}
 
 
-def test_text_bachelor67page40():
+def test_text_bachelor67p40():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
         resource=power.BACHELOR067_PDF,
@@ -50,8 +50,9 @@ def test_text_bachelor67page41():
 
 
 def test_text_bachelor67page20():
-    """Code does not start with number 1. This code forwards code from
-    page before.
+    """Code does not start with number 1.
+
+    This code forwards code from page before.
 
     TODO: INTRODUCE PAGE CODE MERGER
     """

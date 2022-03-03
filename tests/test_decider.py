@@ -9,10 +9,12 @@
 
 import power
 import serializeraw
+import utilatest
 
 import codero.strategy.decider
 
 
+@utilatest.requires(power.BACHELOR075_PDF)
 def test_decider_bachelor75all():
     source = power.link(power.BACHELOR075_PDF)
     ptcn = serializeraw.ptcn_frompath(

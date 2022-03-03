@@ -19,6 +19,7 @@ import tests
 import tests.utils
 
 
+@utilatest.requires(power.MASTER110_PDF)
 def test_nocodes(testdir, monkeypatch):
     source = power.link(power.MASTER110_PDF)
     tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
@@ -29,13 +30,10 @@ def test_nocodes(testdir, monkeypatch):
     assert not loaded
 
 
-@pytest.mark.parametrize(
-    'source',
-    (
-        pytest.param(power.BACHELOR241_PDF, id='bachelor241'),
-        pytest.param(power.BACHELOR063_PDF, id='bachelor063'),
-    ),
-)
+@pytest.mark.parametrize('source', (
+    pytest.param(power.BACHELOR241_PDF, id='bachelor241'),
+    pytest.param(power.BACHELOR063_PDF, id='bachelor063'),
+))
 def test_cli_all(source, testdir, monkeypatch):
     """\
     bachelor063: regression test to skip invalid parsings
