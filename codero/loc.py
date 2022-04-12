@@ -96,9 +96,26 @@ def isjs(text: str) -> bool:
 
 
 BASH_KEYWORDS = utila.splititems("""for do done in while screen quit ssh
- #/bin/bash bin bash .sh csp
+ #/bin/bash bin bash .sh csp scp
 """)
 BASH_KEYWORDS = prepare(BASH_KEYWORDS, escape=True)
+BASH_ASSIGNMENT = utila.compiles(r"""
+    ^
+    [\w|\_]{1,30}
+    \=
+    ["'‘]
+""")
+BASH_COMMENT = utila.compiles(r"""
+    ^
+    \#{1,4}[ ]
+""")
+BASH_VAR = utila.compiles(r"""
+    [$]
+    (
+        \d|
+        \w{1,10}
+    )
+""")
 
 
 def isbash(text: str) -> bool:
@@ -107,5 +124,11 @@ def isbash(text: str) -> bool:
     True
     """
     if BASH_KEYWORDS.search(text):
+        return True
+    if BASH_ASSIGNMENT.search(text):
+        return True
+    if BASH_COMMENT.search(text):
+        return True
+    if BASH_VAR.search(text):
         return True
     return False
