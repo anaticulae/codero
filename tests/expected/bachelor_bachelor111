@@ -26,27 +26,27 @@ CAPTION:
 Listing 4.1: Auszug aus der Gruppen-Konfigurationsdatei der ETS
 ############ 56 ############
 TOKENS:
-1 − ( v o i d ) p a r s e r D i d S t a r t D o c u m e n t : ( NSXMLParser ∗ ) p a r s e r ;
-2 − ( v o i d ) parserDidEndDocument: ( NSXMLParser ∗ ) p a r s e r ;
-3 − ( v o i d ) p a r s e r : ( NSXMLParser ∗ ) p a r s e r p a r s e E r r o r O c c u r r e d :
-4 ( NSError ∗ ) p a r s e E r r o r ;
-5 − ( v o i d ) p a r s e r : ( NSXMLParser ∗ ) p a r s e r f o u n d C h a r a c t e r s :
-6 ( NSString ∗ ) s t r i n g ;
-7 − ( v o i d ) p a r s e r : ( NSXMLParser ∗ ) p a r s e r d i d S t a r t E l e m e n t :
-8 ( NSString ∗ ) elementName namespaceURI: ( NSString ∗ )
-9 namespaceURI q u a l i f i e d N a m e : ( NSString ∗ ) q u a l i f i e d N a m e
-10 a t t r i b u t e s : ( NSDictionary ∗ ) a t t r i b u t e D i c t ;
-11 − ( v o i d ) p a r s e r : ( NSXMLParser ∗ ) p a r s e r didEndElement:
-12 ( NSString ∗ ) elementName namespaceURI:
-13 ( NSString ∗ ) namespaceURI q u a l i f i e d N a m e : ( NSString ∗ )qName ;
+1 − ( v o i d ) p a r s e r D i d S t a r t D o c u m e n t : ( NSXMLParser * ) p a r s e r ;
+2 − ( v o i d ) parserDidEndDocument: ( NSXMLParser * ) p a r s e r ;
+3 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r p a r s e E r r o r O c c u r r e d :
+4 ( NSError * ) p a r s e E r r o r ;
+5 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r f o u n d C h a r a c t e r s :
+6 ( NSString * ) s t r i n g ;
+7 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r d i d S t a r t E l e m e n t :
+8 ( NSString * ) elementName namespaceURI: ( NSString * )
+9 namespaceURI q u a l i f i e d N a m e : ( NSString * ) q u a l i f i e d N a m e
+10 a t t r i b u t e s : ( NSDictionary * ) a t t r i b u t e D i c t ;
+11 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r didEndElement:
+12 ( NSString * ) elementName namespaceURI:
+13 ( NSString * ) namespaceURI q u a l i f i e d N a m e : ( NSString * )qName ;
 CAPTION:
 Listing 5.1: Delegate-Methodes der Klasse NSXMLParser (Auszug)
 TOKENS:
 9 }
 10 }
 11 }
-1 − ( v o i d ) p a r s e r : ( NSXMLParser ∗ ) p a r s e r f o u n d C h a r a c t e r s :
-2 ( NSString ∗ ) s t r i n g {
+1 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r f o u n d C h a r a c t e r s :
+2 ( NSString * ) s t r i n g {
 3 i f ( ! [ s t r i n g i s E q u a l T o S t r i n g : @ " \n " ] ) {
 4 i f ( f o u n d C h a r a c t e r s != n i l ) {
 5 f o u n d C h a r a c t e r s = [ f o u n d C h a r a c t e r s
@@ -59,7 +59,7 @@ Listing 5.2: Das Sammeln und Ergänzen von Zeichenketten im Delegate-
 TOKENS:
 1 KnxTelegram t ;
 2 . . .
-3 /∗ s e t t i n g t h e t a r g e t a d r e s s ( 2 byte ) ∗/
+3 /* s e t t i n g t h e t a r g e t a d r e s s ( 2 byte ) */
 4 // c h e c k i n g t a r g e t a d r e s s type
 5 i f ( [ [ t a r g e t objectForKey:@ " type " ] i s E q u a l T o S t r i n g : @ " group " ] ) {
 6 // t a r g e t a d d r e s s type i s group a d d r e s s
@@ -83,9 +83,9 @@ Listing 5.3: Schreiben der Zieladresse in die Struktur KnxTelegram mit
 TOKENS:
 1 @ p r o t o c o l T e l e g r a m S e n d e r I n t e r f a c e
 2
-3 −( v o i d ) sendReadTelegramToGroup: ( NSDictionary ∗ ) g r o u p D i c t ;
-4 −( v o i d ) sendWriteTelegramToGroup: ( NSDictionary ∗ ) g r o u p D i c t
-5 w i t h V a l u e : ( NSDictionary ∗ ) v a l u e D i c t ;
+3 −( v o i d ) sendReadTelegramToGroup: ( NSDictionary * ) g r o u p D i c t ;
+4 −( v o i d ) sendWriteTelegramToGroup: ( NSDictionary * ) g r o u p D i c t
+5 w i t h V a l u e : ( NSDictionary * ) v a l u e D i c t ;
 6
 7 @end
 CAPTION:
@@ -94,7 +94,7 @@ Listing 5.5: Schnittstelle TelegramSenderInterface des MainController zum
 TOKENS:
 1 // g e t dpt and c r e a t e UISwitch o b j e c t when dpt i s " 1001 "
 2 i f ( [ [ s g d p t S t r i n g ] i s E q u a l T o S t r i n g : @ " 1001 " ] ) {
-3 UISwitch ∗sw = [ [ UISwitch a l l o c ] initWithFrame:CGRectMake
+3 UISwitch *sw = [ [ UISwitch a l l o c ] initWithFrame:CGRectMake
 4 ( 1 5 8 , 1 5 0 , 0 , 0 ) ] ;
 5 // s e t t a g f o r l a t e r i d e n t i f i c a t i o n
 6 [ sw s e t T a g : 1 0 0 1 0 0 ] ;

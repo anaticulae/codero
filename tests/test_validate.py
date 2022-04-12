@@ -7,7 +7,7 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import os
+import functools
 
 import power
 import pytest
@@ -17,26 +17,66 @@ import utilatest
 
 import codero
 import tests
-import tests.utils
 
-CODE = os.path.join(codero.ROOT, 'tests/validate')
-read_code = lambda x: utila.file_read(os.path.join(CODE, x)).strip()  # pylint:disable=C0103
+ARCHIVE = utila.join(codero.ROOT, 'tests/expected', exist=True)
 
 
-@pytest.mark.parametrize('source, expected', [
-    pytest.param(power.BACHELOR067_PDF, 'bachelor067', id='bachelor067'),
-    pytest.param(power.BACHELOR075_PDF, 'bachelor075', id='bachelor075'),
-    pytest.param(power.BACHELOR111_PDF, 'bachelor111', id='bachelor111'),
+@pytest.mark.parametrize('source', [
+    pytest.param(power.BACHELOR067_PDF, id='bachelor067'),
+    pytest.param(power.BACHELOR075_PDF, id='bachelor075'),
+    pytest.param(power.BACHELOR111_PDF, id='bachelor111'),
 ])
-def test_validate(source, expected, testdir, monkeypatch):
+def test_validate(source, testdir, monkeypatch):
     utilatest.fixture_requires(source)
-    source = power.link(source)
-    tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
-    loaded = serializeraw.load_codes(testdir.tmpdir)
-    if expected is None:
-        return
-    expected = read_code(expected)
-    current = tests.utils.raw(source, loaded)
-    if current != expected:
-        utila.file_create('baseline', current)
-    assert current == expected
+    Evaluate(
+        source,
+        testdir.tmpdir,
+        monkeypatch=monkeypatch,
+    ).evaluate()
+
+
+class Evaluate(utilatest.BaseLiner):
+
+    def __init__(self, source, workdir, monkeypatch):
+        super().__init__(
+            program=functools.partial(tests.run, monkeypatch=monkeypatch),
+            step='',
+            pages=':',
+            source=power.link(source),
+            workdir=workdir,
+            archive=ARCHIVE,
+            loader=self.frompath,
+            convert_source=False,
+        )
+        self.generated = power.link(source)
+
+    def frompath(self, workdir):  # pylint:disable=no-self-use
+        loaded = serializeraw.load_codes(workdir)
+        return loaded
+
+    def raw(self, value) -> str:
+        collected = []
+        ptcns = serializeraw.ptcn_frompath(
+            self.generated,
+            prefix='oneline',
+            horizontals=False,
+        )
+        for page in value:
+            ptcn = utila.select_page(ptcns, page.page)
+            collected.append(rawpage(ptcn, page))
+        result = utila.NEWLINE.join(collected)
+        return result
+
+
+def rawpage(ptcn, page) -> str:
+    pagenr = page.page
+    content = page.content
+    collected = []
+    for poc in content:
+        code = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.tokens)
+        captio = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.caption)
+        collected.append('TOKENS:\n' + code)
+        collected.append('CAPTION:\n' + captio)
+    header = f'############ {pagenr} ############\n'
+    result = header + utila.NEWLINE.join(collected)
+    return result
