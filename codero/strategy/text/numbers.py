@@ -45,6 +45,9 @@ def code_without_caption(ptn):
             continue
         # detected
         code.append(done)
+    final = collector.final()
+    if final[0] is not None and final[1] is not None:
+        code.append(final)
     content = [
         iamraw.PeaceOfCode(
             caption=set(),

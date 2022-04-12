@@ -51,6 +51,19 @@ Listing 2.3: foreach-Methode aus org.apache.spark.rdd.RDD v1.3.0
 
 
 
+################################# 19 #################################
+TOKENS:
+1 /*
+2 * Beispiel fuer einen minimalen Partitionierer.
+3 * Ueber selbstdefinierte Hash Codes kann hier eine
+4 * massgeschneiderte Verteilung ueber die
+5 * Knoten erreicht werden.
+CAPTION:
+
+
+
+
+
 ################################# 20 #################################
 TOKENS:
 6 */
@@ -115,6 +128,11 @@ TOKENS:
 15 ).sum./(splitTweet._2.getText.split(" ").length),
 CAPTION:
 
+TOKENS:
+17 )}
+18 )
+CAPTION:
+
 
 
 
@@ -167,20 +185,33 @@ TOKENS:
 CAPTION:
 Listing 2: Messung der Netzwerkperformance
 TOKENS:
+1 #/bin/bash
+2
+3 ### ModelBuilder Wrapper Skript
+4
+5 TIME=‘date +"%H-%M"‘
+6 WORKERS="pi00 pi01 pi02 pi03"
+7
+8 # Start Monitoring
 9
 10 for host in $WORKERS; do
 11 ssh $host "screen -d -m dstat -cdlsmn --output $1.log"
 12 done
 13 screen -d -m dstat -cdlsm --output $1.log
 14
-CAPTION:
-
-TOKENS:
+15 # Run App
+16 /home/daniel/start_modelbuilder.sh $1-$TIME 2>&1 > \
+17 ~/metrics/$1_$TIME.log
+18
+19 # Stop Monitoring
 20 for host in $WORKERS; do
 21 ssh $host ’screen -X quit’
 22 done
 23 screen -X quit
 24
+25 # Collect results
+26 for host in $WORKERS; do
+27 scp $host:/home/daniel/$1.log ~/metrics/dstat/$1_$host_$TIME.csv
 CAPTION:
 
 
