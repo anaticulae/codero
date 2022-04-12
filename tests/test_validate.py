@@ -24,6 +24,7 @@ ARCHIVE = utila.join(codero.ROOT, 'tests/expected', exist=True)
 @pytest.mark.parametrize('source', [
     pytest.param(power.BACHELOR067_PDF, id='bachelor067'),
     pytest.param(power.BACHELOR075_PDF, id='bachelor075'),
+    pytest.param(power.BACHELOR090_PDF, id='bachelor090'),
     pytest.param(power.BACHELOR111_PDF, id='bachelor111'),
 ])
 def test_validate(source, testdir, monkeypatch):
