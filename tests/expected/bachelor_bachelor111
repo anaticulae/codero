@@ -1,4 +1,4 @@
-############ 35 ############
+################################# 35 #################################
 TOKENS:
 1 <row>
 2 <c o l V a l u e nr=" 1 ">1 . 1 1 . 4 0 E n t h a l p i e −S e n s o r HLK Aussen</ c o l V a l u e>
@@ -13,7 +13,11 @@ TOKENS:
 11 </row>
 CAPTION:
 Listing 3.1: Auszug aus der Geräte-Konfigurationsdatei der ETS
-############ 45 ############
+
+
+
+
+################################# 45 #################################
 TOKENS:
 1 " Main " ; " Middle " ; " Sub " ; " Address "
 2 " Haus␣1 " ; ; ; " 0/−/− "
@@ -24,7 +28,11 @@ TOKENS:
 7 ; ; " Temperatur ␣ i n n e n " ; " 0/1/1 "
 CAPTION:
 Listing 4.1: Auszug aus der Gruppen-Konfigurationsdatei der ETS
-############ 56 ############
+
+
+
+
+################################# 56 #################################
 TOKENS:
 1 − ( v o i d ) p a r s e r D i d S t a r t D o c u m e n t : ( NSXMLParser * ) p a r s e r ;
 2 − ( v o i d ) parserDidEndDocument: ( NSXMLParser * ) p a r s e r ;
@@ -55,7 +63,11 @@ TOKENS:
 8 f o u n d C h a r a c t e r s = s t r i n g ;
 CAPTION:
 Listing 5.2: Das Sammeln und Ergänzen von Zeichenketten im Delegate-
-############ 57 ############
+
+
+
+
+################################# 57 #################################
 TOKENS:
 1 KnxTelegram t ;
 2 . . .
@@ -79,7 +91,11 @@ TOKENS:
 20 t . t a r g e t _ a d d r = CFSwapInt16BigToHost ( p . t a r g e t _ a d d r ) ;
 CAPTION:
 Listing 5.3: Schreiben der Zieladresse in die Struktur KnxTelegram mit
-############ 62 ############
+
+
+
+
+################################# 62 #################################
 TOKENS:
 1 @ p r o t o c o l T e l e g r a m S e n d e r I n t e r f a c e
 2
@@ -90,7 +106,11 @@ TOKENS:
 7 @end
 CAPTION:
 Listing 5.5: Schnittstelle TelegramSenderInterface des MainController zum
-############ 65 ############
+
+
+
+
+################################# 65 #################################
 TOKENS:
 1 // g e t dpt and c r e a t e UISwitch o b j e c t when dpt i s " 1001 "
 2 i f ( [ [ s g d p t S t r i n g ] i s E q u a l T o S t r i n g : @ " 1001 " ] ) {

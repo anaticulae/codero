@@ -1,4 +1,4 @@
-############ 11 ############
+################################# 11 #################################
 TOKENS:
 1 $ ./spark-shell
 2 [...]
@@ -20,7 +20,11 @@ TOKENS:
 18 res0: Array[(String, Int)] = Array((Tyrann,,1), (im,2), (Doch,1) ...)
 CAPTION:
 Listing 2.1: Word Count in der Spark Konsole
-############ 18 ############
+
+
+
+
+################################# 18 #################################
 TOKENS:
 1 /**
 2 * Return a new RDD by applying a function to all elements of
@@ -43,7 +47,11 @@ TOKENS:
 7 }
 CAPTION:
 Listing 2.3: foreach-Methode aus org.apache.spark.rdd.RDD v1.3.0
-############ 20 ############
+
+
+
+
+################################# 20 #################################
 TOKENS:
 6 */
 7 class MinimalPartitioner extends Partitioner {
@@ -57,14 +65,22 @@ TOKENS:
 15 }
 CAPTION:
 Listing 2.4: Beispiel: Minimaler Partitionierer
-############ 40 ############
+
+
+
+
+################################# 40 #################################
 TOKENS:
 1 val documents: RDD[Seq[String]] = sc.textFile(textFile)
 2 .map(_.toLowerCase)
 3 .map(_.split(" ").filter(_.length > 2).toSeq)
 CAPTION:
 
-############ 41 ############
+
+
+
+
+################################# 41 #################################
 TOKENS:
 1 val idf = new IDF().fit(tf)
 2 val tfidf: RDD[Vector] = idf.transform(tf)
@@ -76,7 +92,11 @@ TOKENS:
 3 .reduce((vector1, vector2) =>
 CAPTION:
 
-############ 42 ############
+
+
+
+
+################################# 42 #################################
 TOKENS:
 1 // Split text string into single words
 2 val splitTweets = {
@@ -95,12 +115,20 @@ TOKENS:
 15 ).sum./(splitTweet._2.getText.split(" ").length),
 CAPTION:
 
-############ 43 ############
+
+
+
+
+################################# 43 #################################
 TOKENS:
 19 }
 CAPTION:
 Listing 3.1: Bewertung von Tweets
-############ 47 ############
+
+
+
+
+################################# 47 #################################
 TOKENS:
 1 val documents: RDD[Seq[String]] = sc.textFile(textFile)
 2 .map(_.toLowerCase) // stage 0
@@ -124,7 +152,11 @@ TOKENS:
 20 val finishFeatureExtraction = System.currentTimeMillis()
 CAPTION:
 Listing 3.2: Laufzeitmessung
-############ 59 ############
+
+
+
+
+################################# 59 #################################
 TOKENS:
 1 echo 3 > /proc/sys/vm/drop_caches
 2 dd if=/dev/zero of=test512.out bs=512MB count=1
@@ -134,7 +166,11 @@ TOKENS:
 1 iperf -c <IP-Adresse des Peers> -r -P 4
 CAPTION:
 Listing 2: Messung der Netzwerkperformance
-############ 60 ############
+
+
+
+
+################################# 60 #################################
 TOKENS:
 28 done
 29 cp ~/$1.log ~/metrics/dstat/$1_dell01_$TIME.csv
@@ -173,7 +209,11 @@ TOKENS:
 25 <emailaccount> <passwort>
 CAPTION:
 Listing 4: Einfache Continuous Deployment Pipeline. Beispiel: ModelBuilder
-############ 61 ############
+
+
+
+
+################################# 61 #################################
 TOKENS:
 2 Konfigurationen
 1 <configuration>

@@ -66,6 +66,7 @@ class Evaluate(utilatest.BaseLiner):
             ptcn = utila.select_page(ptcns, page.page)
             collected.append(rawpage(ptcn, page))
         result = utila.NEWLINE.join(collected)
+        result = result.rstrip()
         return result
 
 
@@ -78,6 +79,6 @@ def rawpage(ptcn, page) -> str:
         captio = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.caption)
         collected.append('TOKENS:\n' + code)
         collected.append('CAPTION:\n' + captio)
-    header = f'############ {pagenr} ############\n'
-    result = header + utila.NEWLINE.join(collected)
+    header = f'################################# {pagenr} #################################\n'
+    result = header + utila.NEWLINE.join(collected) + utila.NEWLINE * 4
     return result

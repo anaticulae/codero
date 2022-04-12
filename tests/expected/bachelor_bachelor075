@@ -1,10 +1,14 @@
-############ 18 ############
+################################# 18 #################################
 TOKENS:
 WHEN REAR ENDED WITH FOOT ON BRAKE, DRIVERS SHOULDER BELT DIDN’T RESTRAIN FROM MAKING
 CONTACT, RESULTING IN AN INJURY. ESTIMATED SPEED OF IMPACT 30 MPH.
 CAPTION:
 Listing 2.1 Eine Beschwerde aus dem NHTSA-Datensatz.
-############ 43 ############
+
+
+
+
+################################# 43 #################################
 TOKENS:
 class RegexSubstitution(PreprocessBase):
 """Class for searching for regular expressions and when found, it will be replaced
@@ -16,7 +20,11 @@ def transform_tokens(self, tokens):
 return [re.sub(self._regex, self._substitution, token) for token in tokens]
 CAPTION:
 Listing 6.1 Beispielimplementierung eines Vorverarbeitungsschritts - Regex-Substitution
-############ 47 ############
+
+
+
+
+################################# 47 #################################
 TOKENS:
 class GermanStemmer(PreprocessBase):
 """Class for applying the german stemmer from nltk."""
@@ -28,7 +36,11 @@ def transform_tokens(self, tokens):
 return [self._stemmer.stem(token) for token in tokens]
 CAPTION:
 Listing 6.2 Erweiterung des Prototyps - GermanStemmer
-############ 48 ############
+
+
+
+
+################################# 48 #################################
 TOKENS:
 def handle_preprocessing(self, preprocessing_dict):
 (...)
@@ -45,7 +57,11 @@ TOKENS:
 stemmer = option(PorterStemmer, GermanStemmer, default=None)
 CAPTION:
 Listing 6.4 Erweiterung des Prototyps - Konfigurationsspezifikation
-############ 53 ############
+
+
+
+
+################################# 53 #################################
 TOKENS:
 [INPUT]
 input_type = MSACCESS #Eingabeformat MSACCESS oder CSV
@@ -85,7 +101,11 @@ algorithm = kmeans #Wahl des Clustering-Algorithmus
 n_clusters = 12 #Anzahl der Cluster
 CAPTION:
 Listing 7.1 Beispielhafte Konfigurationsdatei
-############ 54 ############
+
+
+
+
+################################# 54 #################################
 TOKENS:
 SHAPE: 88017, 225
 FEATURES:
@@ -103,7 +123,11 @@ Cluster 7 9304 : light 0.320, (...)
 (...)
 CAPTION:
 Listing 7.2 Ausgabe der Cluster-Informationen
-############ 57 ############
+
+
+
+
+################################# 57 #################################
 TOKENS:
 SPRING FAILURE IN AIRBAG.
 HEAD ON COLLISION AT 50MPH FAILED TO SET OFF AIRBAG
@@ -117,7 +141,11 @@ SELECT CMPLID, MAKETXT, MODELTXT, YEARTXT, FIRE COMPDESC, ClusterMainTerm, Dista
 ClusterMainTermWeight from FLAT_CMPL WHERE ClusterMainTerm NOT IN (’’) AND
 CAPTION:
 Listing 8.2 SQL-Befehl zur Filterung der zu analysierenden Beschwerden
-############ 62 ############
+
+
+
+
+################################# 62 #################################
 TOKENS:
 SELECT FLAT_CMPL.COMPLID, FLAT_CMPL.MAKETXT, FLAT_CMPL.MODELTXT, FLAT_CMPL.YEARTXT,
 FLAT_CMPL.COMPDESC, FLAT_CMPL.CDESCR, FLAT_CMPL.ClusterMainterm, FLAT_CMPL.Distance,
