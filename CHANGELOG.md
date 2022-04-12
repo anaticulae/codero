@@ -2,6 +2,23 @@
 
 Every noteable change is logged here.
 
+## v0.4.0
+
+### Feature
+
+* extend bash detector (5d35a8579102)
+* run more code extractor to increase code detection (c104662ec326)
+* add bash code detector (9c6cf611c8b8)
+
+### Fix
+
+* run final step if no invalid number ends (ffc93f959bf1)
+
+### Documentation
+
+* adjust module path (da324f653968)
+* Happy New Year! (e02730a03f29)
+
 ## v0.3.2
 
 ## v0.3.1
