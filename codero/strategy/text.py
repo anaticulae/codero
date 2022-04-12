@@ -28,13 +28,32 @@ import codero.loc
 
 
 def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
-    content = linenumbers_and_caption(ptn)
-    if not content:
-        content = code_without_caption(ptn)
-    if not content:
-        content = raw_code(ptn)
-    result = iamraw.PageContent(content=content, page=ptn.page)
-    return result
+    pagenumber = ptn.page
+    collected = []
+    if content := linenumbers_and_caption(ptn):
+        collected.extend(content)
+    ptn = hide_result(ptn, collected)
+    if content := code_without_caption(ptn):
+        collected.extend(content)
+    ptn = hide_result(ptn, collected)
+    if not collected:
+        collected = raw_code(ptn)
+    pagecontent = iamraw.PageContent(
+        content=collected,
+        page=pagenumber,
+    )
+    return pagecontent
+
+
+def hide_result(ptn, codes):
+    done = set()
+    for item in codes:
+        done |= item.caption
+        done |= item.tokens
+    ptn = ptn[:]
+    for item in done:
+        ptn[item] = texmex.TextInfo(text='')
+    return ptn
 
 
 NOHEADLINE = '<<<NOHEADLINE>>>'
@@ -197,6 +216,12 @@ class CodeWithoutCaption(DetectorLineNumbers):
         self.empty_line_count = 0
 
     def loc(self, text: str) -> bool:
+        """\
+        Bash Code
+        >>> cwc = CodeWithoutCaption()
+        >>> cwc.loc('1 #/bin/bash')
+        True
+        """
         if not CODE_NUMBER.search(text):
             return False
         nonumber = CODE_NUMBER.sub('', text).strip()

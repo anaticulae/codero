@@ -75,7 +75,7 @@ def test_text_bachelor67all():
     )
     codes = [len(page.content) for page in parsed]
     # 11, 17, 18, 20, 42, 47, 59, 60, 61
-    expected = [1, 2, 1, 1, 1, 2, 2, 2]  # TODO: VALIDATE LATER
+    expected = [1, 2, 1, 1, 1, 4, 2, 2]  # TODO: VALIDATE LATER
     assert codes == expected
 
 

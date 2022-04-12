@@ -166,6 +166,23 @@ TOKENS:
 1 iperf -c <IP-Adresse des Peers> -r -P 4
 CAPTION:
 Listing 2: Messung der Netzwerkperformance
+TOKENS:
+9
+10 for host in $WORKERS; do
+11 ssh $host "screen -d -m dstat -cdlsmn --output $1.log"
+12 done
+13 screen -d -m dstat -cdlsm --output $1.log
+14
+CAPTION:
+
+TOKENS:
+20 for host in $WORKERS; do
+21 ssh $host ’screen -X quit’
+22 done
+23 screen -X quit
+24
+CAPTION:
+
 
 
 
