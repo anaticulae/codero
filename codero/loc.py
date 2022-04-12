@@ -21,6 +21,7 @@ def determine(text: str) -> bool:
     methods = [
         isjs,
         ispython,
+        isbash,
     ]
     if any(method(text) for method in methods):
         return True
@@ -90,5 +91,21 @@ def isjs(text: str) -> bool:
     if JAVASCRIPT_METHODS.search(text):
         return True
     if JAVASCRIPT_START.search(text):
+        return True
+    return False
+
+
+BASH_KEYWORDS = utila.splititems("""for do done in while screen quit ssh
+ #/bin/bash bin bash .sh csp
+""")
+BASH_KEYWORDS = prepare(BASH_KEYWORDS, escape=True)
+
+
+def isbash(text: str) -> bool:
+    """\
+    >>> isbash('#/bin/bash')
+    True
+    """
+    if BASH_KEYWORDS.search(text):
         return True
     return False
