@@ -46,8 +46,9 @@ if __name__ == "__main__":
             'codero',
             'codero.features',
             'codero.strategy',
+            'codero.strategy.text',
         ],
         entry_points={
-            'console_scripts': ['codero = codero.cli:main',],
+            'console_scripts': ['codero = codero.cli:main'],
         },
     )
