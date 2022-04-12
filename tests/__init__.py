@@ -7,26 +7,11 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-import functools
-
 import power
 import utilatest
 
 import codero
-import codero.cli
 
 power.setup(codero.ROOT)
 
-run = functools.partial(  #pylint:disable=C0103
-    utilatest.run_command,
-    main=codero.cli.main,
-    process=codero.PROCESS,
-    success=True,
-)
-
-fail = functools.partial(  #pylint:disable=C0103
-    utilatest.run_command,
-    main=codero.cli.main,
-    process=codero.PROCESS,
-    success=False,
-)
+run, fail = utilatest.create_cli_runner(codero)
