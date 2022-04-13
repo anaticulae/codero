@@ -77,6 +77,14 @@ JAVASCRIPT_START = prepare(
     right='',
     escape=True,
 )
+# 2 val tfidf
+JAVASCRIPT_ASSIGNMENT = utila.compiles(r"""
+    ^
+    (var|val)
+    [ ]{0,3}
+    \w[\w\d]{1,40}
+    [\:\=]
+""")
 
 
 def isjs(text: str) -> bool:
@@ -85,12 +93,18 @@ def isjs(text: str) -> bool:
     True
     >>> isjs('}')
     True
+    >>> isjs('var tfidf:')
+    True
+    >>> isjs('val tfidf=230')
+    True
     """
     if JAVASCRIPT_KEYWORDS.search(text):
         return True
     if JAVASCRIPT_METHODS.search(text):
         return True
     if JAVASCRIPT_START.search(text):
+        return True
+    if JAVASCRIPT_ASSIGNMENT.match(text):
         return True
     return False
 
