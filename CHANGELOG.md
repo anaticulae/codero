@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.4.1
+
+### Feature
+
+* extend JavaScript detector (6513ac1f8efb)
+
 ## v0.4.0
 
 ### Feature
