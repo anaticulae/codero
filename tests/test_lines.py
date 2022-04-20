@@ -8,6 +8,7 @@
 # =============================================================================
 
 import power
+import utila
 
 import codero.strategy.lines
 import tests.utils
@@ -65,3 +66,14 @@ def test_lines_bachelor111all():
     # expected = [1, 1, 2, 1, 1, 1, 1]
     expected = [1, 1, 2, 1, 0, 1, 1]
     assert codes == expected
+
+
+def test_lines_diss205():
+    parsed = tests.utils.run(
+        codero.strategy.lines.parse,
+        resource=power.DISS205_PDF,
+        horizontals=True,
+        pages=(135, 138, 139),
+    )
+    flat = utila.flatten_content(parsed)
+    assert len(flat) == 3
