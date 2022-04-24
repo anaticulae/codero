@@ -26,6 +26,7 @@ ARCHIVE = utila.join(codero.ROOT, 'tests/expected', exist=True)
     pytest.param(power.BACHELOR075_PDF, id='bachelor075'),
     pytest.param(power.BACHELOR090_PDF, id='bachelor090'),
     pytest.param(power.BACHELOR111_PDF, id='bachelor111'),
+    pytest.param(power.DISS205_PDF, id='diss205'),
 ])
 def test_validate(source, testdir, monkeypatch):
     utilatest.fixture_requires(source)

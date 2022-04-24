@@ -1,0 +1,76 @@
+################################# 135 #################################
+TOKENS:
+Input: B𝑖𝑛𝑖𝑡 is the initial box representing the complete search space
+𝑓 is the set of functions to satistfy
+Output: no, one or more solutions represented as boxes
+Preliminaries: 𝐿 is the set of all boxes possibly containing solutions
+𝑒𝑥𝑡𝑟𝑎𝑐𝑡𝑠𝑡𝑟𝑎𝑡(𝐿) is a function that pops a box from 𝐿 by a specific strategy
+𝑝𝑟𝑢𝑛𝑒𝑠𝑡𝑟𝑎𝑡(X) is a function that runs pruning-operators on X
+𝑝𝑟𝑜𝑣𝑒𝑠𝑡𝑟𝑎𝑡(X) is a function that checks, whether a solution X is relevant
+𝑏𝑖𝑠𝑒𝑐𝑡𝑠𝑡𝑟𝑎𝑡(X) is a function that splits X by choosing a splittable interval
+1 push(L, B)
+2 repeat
+3 X := 𝑒𝑥𝑡𝑟𝑎𝑐𝑡𝑠𝑡𝑟𝑎𝑡(𝐿)
+4 𝑝𝑟𝑢𝑛𝑒𝑠𝑡𝑟𝑎𝑡(X)
+5 if X cannot contain solutions then
+6 discard X
+7 if X cannot be split anymore then
+8 𝑝𝑟𝑜𝑣𝑒𝑠𝑡𝑟𝑎𝑡(X)
+9 else
+10 {X1, X2} := 𝑏𝑖𝑠𝑒𝑐𝑡𝑠𝑡𝑟𝑎𝑡(X)
+11 push(L, X1 and X2)
+12 end
+13 until L is ∅ OR all relevant solutions have been evaluated
+CAPTION:
+Algorithmus 7.1: Basis-Algorithmus nach dem Prinzip des Branch-and-Prune
+
+
+
+
+################################# 138 #################################
+TOKENS:
+Input: B is the box of a branch, that should be pruned
+𝑓𝑂(X) is the objective function for minimization
+Output: no, one or many solutions represented as boxes
+Preliminaries: 𝑋𝑏𝑒𝑠𝑡 is the interval representing the lowest found value for
+𝑓𝑂(X) with a solution’s box X so far
+1 if 𝑚𝑖𝑑(X) is a solution then
+2 prove solution 𝑚𝑖𝑑(X) by Prove-Operator
+3 end
+4 if 𝑋𝑏𝑒𝑠𝑡 has not been set then
+5 return no pruning possible; Branch-and-Prune has to continue, until a first
+solution is found
+6 end
+7 foreach variable 𝑉 included in 𝑓𝑂 do
+8 𝑓𝑖𝑛𝑣 := invert 𝑓𝑂(X) for 𝑉
+9 𝑉𝑝𝑟𝑢𝑛𝑒𝑑𝑣𝑎𝑙𝑢𝑒 := 𝑓𝑖𝑛𝑣(𝑋𝑏𝑒𝑠𝑡, B)
+10 𝑉𝑛𝑒𝑤𝑣𝑎𝑙𝑢𝑒 := 𝑉𝑝𝑟𝑢𝑛𝑒𝑑𝑣𝑎𝑙𝑢𝑒 ∩ 𝑉𝑜𝑙𝑑𝑣𝑎𝑙𝑢𝑒
+11 if 𝑉 = ∅ then
+12 return discard B, that does not include a better value than 𝑋𝑏𝑒𝑠𝑡
+13 else
+14 put 𝑉𝑛𝑒𝑤𝑣𝑎𝑙𝑢𝑒 into B
+15 end
+16 end
+17 return deliver B to Branch-and-Prune
+CAPTION:
+Algorithmus 7.2: Prune-Operator für die Minimierung nach der Methode der
+oberen Begrenzung
+
+
+
+
+################################# 139 #################################
+TOKENS:
+Input: B is the box of a branch, that represents a solution
+𝑓𝑂(X) is the objective function for minimization
+Preliminaries: 𝑋𝑏𝑒𝑠𝑡 is the interval representing the lowest found value for
+𝑓𝑂(X) with a solution’s box X so far
+1 𝐵𝑐𝑎𝑛𝑑𝑖𝑑𝑎𝑡𝑒:=𝑓𝑂(B)
+2 if 𝑋𝑏𝑒𝑠𝑡 has not been set OR 𝐵𝑐𝑎𝑛𝑑𝑖𝑑𝑎𝑡𝑒 < 𝑋𝑏𝑒𝑠𝑡 then
+3 𝑋𝑏𝑒𝑠𝑡:=𝐵𝑐𝑎𝑛𝑑𝑖𝑑𝑎𝑡𝑒
+4 X := B
+5 else
+6 end
+CAPTION:
+Algorithmus 7.3: Prove-Operator für die Aktualisierung der bisher besten
+Lösung bei der Minimierung nach der Methode der oberen Begrenzung
