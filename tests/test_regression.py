@@ -8,7 +8,6 @@
 # =============================================================================
 
 import power
-import pytest
 import serializeraw
 import utila
 import utilatest
@@ -16,7 +15,6 @@ import utilatest
 import tests
 
 
-@pytest.mark.xfail(reason='split decider')
 @utilatest.requires(power.BACHELOR111_PDF)
 def test_bachelor111p35(testdir, monkeypatch):
     source = power.link(power.BACHELOR111_PDF)
