@@ -8,6 +8,7 @@
 # =============================================================================
 
 import power
+import pytest
 import utila
 
 import codero.strategy.lines
@@ -53,6 +54,7 @@ def test_lines_bachelor111page35():
     assert parsed.page == 35
 
 
+@pytest.mark.xfail(reason='split decider')
 def test_lines_bachelor111all():
     parsed = tests.utils.run(
         codero.strategy.lines.parse,

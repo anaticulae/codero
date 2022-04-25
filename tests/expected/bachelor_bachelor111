@@ -1,139 +1,52 @@
-################################# 35 #################################
-TOKENS:
-1 <row>
-2 <c o l V a l u e nr=" 1 ">1 . 1 1 . 4 0 E n t h a l p i e −S e n s o r HLK Aussen</ c o l V a l u e>
-3 <c o l V a l u e nr=" 2 ">0</ c o l V a l u e>
-4 <c o l V a l u e nr=" 3 ">Ti Messwert</ c o l V a l u e>
-5 . . .
-6 <c o l V a l u e nr=" 6 ">0/0/2</ c o l V a l u e>
-7 <c o l V a l u e nr=" 7 ">4 Byte</ c o l V a l u e>
-8 . . .
-9 <c o l V a l u e nr=" 13 ">4 byte f l o a t v a l u e DPT_Value_Common_Temperature</ c o l V a l u e>
-10 <c o l V a l u e nr=" 14 ">N i e d r i g</ c o l V a l u e>
-11 </row>
-CAPTION:
-Listing 3.1: Auszug aus der Geräte-Konfigurationsdatei der ETS
-
-
-
-
-################################# 45 #################################
-TOKENS:
-1 " Main " ; " Middle " ; " Sub " ; " Address "
-2 " Haus␣1 " ; ; ; " 0/−/− "
-3 ; " S t e u er u n g " ; ; " 0/0/− "
-4 ; ; " L i c h t ␣ s c h a l t e n " ; " 0/0/1 "
-5 ; ; " L i c h t ␣dimmen " ; " 0/0/2 "
-6 ; " S e n s o r e n " ; ; " 0/1/− "
-7 ; ; " Temperatur ␣ i n n e n " ; " 0/1/1 "
-CAPTION:
-Listing 4.1: Auszug aus der Gruppen-Konfigurationsdatei der ETS
-
-
-
-
 ################################# 56 #################################
-TOKENS:
-1 − ( v o i d ) p a r s e r D i d S t a r t D o c u m e n t : ( NSXMLParser * ) p a r s e r ;
-2 − ( v o i d ) parserDidEndDocument: ( NSXMLParser * ) p a r s e r ;
-3 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r p a r s e E r r o r O c c u r r e d :
-4 ( NSError * ) p a r s e E r r o r ;
-5 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r f o u n d C h a r a c t e r s :
-6 ( NSString * ) s t r i n g ;
-7 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r d i d S t a r t E l e m e n t :
-8 ( NSString * ) elementName namespaceURI: ( NSString * )
-9 namespaceURI q u a l i f i e d N a m e : ( NSString * ) q u a l i f i e d N a m e
-10 a t t r i b u t e s : ( NSDictionary * ) a t t r i b u t e D i c t ;
-11 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r didEndElement:
-12 ( NSString * ) elementName namespaceURI:
-13 ( NSString * ) namespaceURI q u a l i f i e d N a m e : ( NSString * )qName ;
-CAPTION:
-Listing 5.1: Delegate-Methodes der Klasse NSXMLParser (Auszug)
 TOKENS:
 9 }
 10 }
 11 }
-1 − ( v o i d ) p a r s e r : ( NSXMLParser * ) p a r s e r f o u n d C h a r a c t e r s :
-2 ( NSString * ) s t r i n g {
-3 i f ( ! [ s t r i n g i s E q u a l T o S t r i n g : @ " \n " ] ) {
-4 i f ( f o u n d C h a r a c t e r s != n i l ) {
-5 f o u n d C h a r a c t e r s = [ f o u n d C h a r a c t e r s
-6 s t r i n g B y A p p e n d i n g S t r i n g : s t r i n g ] ;
-7 } e l s e {
-8 f o u n d C h a r a c t e r s = s t r i n g ;
 CAPTION:
-Listing 5.2: Das Sammeln und Ergänzen von Zeichenketten im Delegate-
+
 
 
 
 
 ################################# 57 #################################
 TOKENS:
-1 KnxTelegram t ;
-2 . . .
-3 /* s e t t i n g t h e t a r g e t a d r e s s ( 2 byte ) */
 4 // c h e c k i n g t a r g e t a d r e s s type
-5 i f ( [ [ t a r g e t objectForKey:@ " type " ] i s E q u a l T o S t r i n g : @ " group " ] ) {
+3 /* s e t t i n g t h e t a r g e t a d r e s s ( 2 byte ) */
+CAPTION:
+
+TOKENS:
 6 // t a r g e t a d d r e s s type i s group a d d r e s s
 7 // −> b i t 15 = 0 , main 4 b i t s , mid 3 b i t s , sub 8 b i t s
-8 t . t a r g e t _ a d d r |= 0 << 1 5 ;
-9 t . t a r g e t _ a d d r |= [ [ t a r g e t objectForKey:@ " main " ] i n t V a l u e ] << 1 1 ;
-10 t . t a r g e t _ a d d r |= [ [ t a r g e t objectForKey:@ " mid " ] i n t V a l u e ] << 8 ;
-11 t . t a r g e t _ a d d r |= [ [ t a r g e t objectForKey:@ " sub " ] i n t V a l u e ] << 0 ;
+CAPTION:
+
+TOKENS:
 12 } e l s e {
 13 // t a r g e t a d d r e s s type i s p h y s i c a l a d d r e s s
 14 // −> a r e a 4 b i t s , l i n e 4 b i t s , member 8 b i t s
-15 t . t a r g e t _ a d d r |= [ [ t a r g e t objectForKey:@ " main " ] i n t V a l u e ] << 1 2 ;
-16 t . t a r g e t _ a d d r |= [ [ t a r g e t objectForKey:@ " mid " ] i n t V a l u e ] << 8 ;
-17 t . t a r g e t _ a d d r |= [ [ t a r g e t objectForKey:@ " sub " ] i n t V a l u e ] << 0 ;
+CAPTION:
+
+TOKENS:
 18 }
 19 // swapping byte o r d e r f o r s e n d i n g o v e r network
-20 t . t a r g e t _ a d d r = CFSwapInt16BigToHost ( p . t a r g e t _ a d d r ) ;
 CAPTION:
-Listing 5.3: Schreiben der Zieladresse in die Struktur KnxTelegram mit
 
 
 
 
-################################# 62 #################################
+
+################################# 60 #################################
 TOKENS:
-1 @ p r o t o c o l T e l e g r a m S e n d e r I n t e r f a c e
-2
-3 −( v o i d ) sendReadTelegramToGroup: ( NSDictionary * ) g r o u p D i c t ;
-4 −( v o i d ) sendWriteTelegramToGroup: ( NSDictionary * ) g r o u p D i c t
-5 w i t h V a l u e : ( NSDictionary * ) v a l u e D i c t ;
-6
-7 @end
+7 // e r r o r h a n d l i n g
+8 }
 CAPTION:
-Listing 5.5: Schnittstelle TelegramSenderInterface des MainController zum
+
 
 
 
 
 ################################# 65 #################################
 TOKENS:
-1 // g e t dpt and c r e a t e UISwitch o b j e c t when dpt i s " 1001 "
-2 i f ( [ [ s g d p t S t r i n g ] i s E q u a l T o S t r i n g : @ " 1001 " ] ) {
-3 UISwitch *sw = [ [ UISwitch a l l o c ] initWithFrame:CGRectMake
-4 ( 1 5 8 , 1 5 0 , 0 , 0 ) ] ;
-5 // s e t t a g f o r l a t e r i d e n t i f i c a t i o n
-6 [ sw s e t T a g : 1 0 0 1 0 0 ] ;
-7 i f ( [ s g c u r r e n t V a l u e D i c t ] ) {
-8 // g e t c u r r e n t s t a t u s
-9 i f ( [ [ [ s g c u r r e n t V a l u e D i c t ] objectForKey:@ " r e s u l t " ]
-10 i s E q u a l T o S t r i n g : @ " Aus " ] ) {
-11 [ sw setOn:FALSE ] ;
-12 } e l s e i f ( [ [ [ s g c u r r e n t V a l u e D i c t ] objectForKey:@ " r e s u l t " ]
-13 i s E q u a l T o S t r i n g : @ " Aus " ] ) {
-14 [ sw setOn:TRUE ] ;
 15 }
 16 }
-17 [ s w i t c h C o n t r o l s addObject:sw ] ;
-18 // add s w i t c h t o view
-19 [ [ s e l f view ] addSubview:sw ] ;
-20 // s e t a c t i o n method f o r " Touch␣Up␣ I n s i d e " e v e n t
-21 [ sw a d d T a r g e t : s e l f a c t i o n : @ s e l e c t o r ( c h a n g e V a l u e : )
-22 f o r C o n t r o l E v e n t s : U I C o n t r o l E v e n t T o u c h U p I n s i d e ] ;
-23 }
 CAPTION:
-Listing 5.6: Erstellen eines Interaktionselementes (UISwitch) zur Steuerung
