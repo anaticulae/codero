@@ -7,10 +7,24 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import utila
+import serializeraw
+
+import codero.decider
 
 
-def work(textx: str) -> str:
-    # TODO: INTRODUCE DECIDER AFTER ADDING FURTHER STRATEGIES
-    text = utila.file_read(textx)
-    return text
+def work(
+    horizontalx: str,
+    textx: str,
+    pages: tuple = None,
+) -> str:
+    horizontalx = serializeraw.load_codes(
+        horizontalx,
+        pages=pages,
+    )
+    textx = serializeraw.load_codes(
+        textx,
+        pages=pages,
+    )
+    result = codero.decider.decide(horizontalx, textx)
+    dumped = serializeraw.dump_codes(result)
+    return dumped

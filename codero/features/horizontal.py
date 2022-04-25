@@ -9,6 +9,7 @@
 
 import serializeraw
 
+import codero.finalize
 import codero.strategy.lines
 
 
@@ -44,4 +45,5 @@ def run(ptcns) -> list:
         if not parsed.content:
             continue
         result.append(parsed)
+    result = codero.finalize.run(result, ptcns)
     return result

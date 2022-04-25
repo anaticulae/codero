@@ -9,7 +9,8 @@
 
 import serializeraw
 
-import codero.strategy.decider
+import codero.finalize
+import codero.strategy.text
 
 
 def work(
@@ -32,6 +33,17 @@ def work(
         horizontals=horizontalx,
         pages=pages,
     )
-    done = codero.strategy.decider.run(ptcns)
-    dumped = serializeraw.dump_codes(done)
+    parsed = run(ptcns)
+    dumped = serializeraw.dump_codes(parsed)
     return dumped
+
+
+def run(ptcns) -> list:
+    result = []
+    for ptn in ptcns:
+        parsed = codero.strategy.text.parse(ptn)
+        if not parsed.content:
+            continue
+        result.append(parsed)
+    result = codero.finalize.run(result, ptcns)
+    return result

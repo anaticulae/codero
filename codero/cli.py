@@ -25,9 +25,9 @@ SOURCES = [
 
 WORKPLAN = [
     utila.create_step(
-        'horizontals',
+        'horizontal',
         inputs=SOURCES,
-        output=('text',),
+        output=('horizontal',),
     ),
     utila.create_step(
         'text',
@@ -37,6 +37,7 @@ WORKPLAN = [
     utila.create_step(
         'result',
         inputs=[
+            utila.ResultFile('codero', 'horizontal_horizontal'),
             utila.ResultFile('codero', 'text_text'),
         ],
         output=('result',),

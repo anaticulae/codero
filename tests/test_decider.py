@@ -11,16 +11,22 @@ import power
 import serializeraw
 import utilatest
 
-import codero.strategy.decider
+import codero.decider
+import codero.features.horizontal
+import codero.features.text
 
 
 @utilatest.requires(power.BACHELOR075_PDF)
 def test_decider_bachelor75all():
     source = power.link(power.BACHELOR075_PDF)
-    ptcn = serializeraw.ptcn_frompath(
+    ptcns = serializeraw.ptcn_frompath(
         path=source,
         prefix='oneline',
         horizontals=True,
     )
-    done = codero.strategy.decider.run(ptcn)
+    done = (
+        codero.features.horizontal.run(ptcns),
+        codero.features.text.run(ptcns),
+    )
+    done: list = codero.decider.decide(*done)
     assert len(done) == 8

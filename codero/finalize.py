@@ -1,7 +1,7 @@
 # =============================================================================
 # C O P Y R I G H T
 # -----------------------------------------------------------------------------
-# Copyright (c) 2021-2022 by Helmut Konrad Fahrendholz. All rights reserved.
+# Copyright (c) 2022 by Helmut Konrad Fahrendholz. All rights reserved.
 # This file is property of Helmut Konrad Fahrendholz. Any unauthorized copy,
 # use or distribution is an offensive act against international law and may
 # be prosecuted under federal law. Its content is company confidential.
@@ -11,39 +11,11 @@ import iamraw
 import texmex
 import utila
 
-import codero.strategy.lines
-import codero.strategy.text
 
-STRATEGIES = [
-    codero.strategy.lines.parse,
-    codero.strategy.text.parse,
-]
-
-
-def run(navigators: texmex.PageTextContentNavigators):
-    work = [[strategy(page) for page in navigators] for strategy in STRATEGIES]
-    # remove empty page parsing
-    noempty = [[page for page in result if page.content] for result in work]
-    best = decide(noempty, navigators)
-    return best
-
-
-def decide(results, ptns):
-    best = results[0]
-    for item in results[1:]:
-        if score(item) > score(best):
-            best = item
-    best = insert_code_boundings(best, ptns)
-    best = horizontals_remove(best, ptns)
-    return best
-
-
-def score(result) -> int:
-    """Count number of detected lines of code and comments."""
-    count = 0
-    for item in result:
-        count += len(item.content)
-    return count
+def run(codes: iamraw.PeaceOfCodes, ptns):
+    codes = insert_code_boundings(codes, ptns)
+    codes = horizontals_remove(codes, ptns)
+    return codes
 
 
 def insert_code_boundings(codes: iamraw.PeaceOfCodes, ptns):
