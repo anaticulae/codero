@@ -2,6 +2,14 @@
 
 Every noteable change is logged here.
 
+## v0.5.0
+
+### Feature
+
+* add objectc as valid code input (54e80a28e3f2)
+* split into separate step (ed6f29a62053)
+* add separate horizontals step (c40bebcd2905)
+
 ## v0.4.2
 
 ## v0.4.1
