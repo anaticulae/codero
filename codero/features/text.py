@@ -19,7 +19,7 @@ def work(
     oneline_font_content: str,
     sizeandborder: str,
     headerfooter: str,
-    horizontals: str,
+    horizontalx: str,
     pages: tuple = None,
 ) -> str:
     ptcns = serializeraw.ptcn_fromfile(
@@ -29,7 +29,7 @@ def work(
         headerfooter,
         oneline_font_header,
         oneline_font_content,
-        horizontals=horizontals,
+        horizontals=horizontalx,
         pages=pages,
     )
     done = codero.strategy.decider.run(ptcns)

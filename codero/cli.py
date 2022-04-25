@@ -13,18 +13,25 @@ import codero
 
 DESCRIPTION = 'TODO'
 
+SOURCES = [
+    utila.ResultFile('rawmaker', 'oneline_text_text'),
+    utila.ResultFile('rawmaker', 'oneline_text_positions'),
+    utila.ResultFile('rawmaker', 'oneline_fonts_header'),
+    utila.ResultFile('rawmaker', 'oneline_fonts_content'),
+    utila.ResultFile('rawmaker', 'border_pages'),
+    utila.ResultFile('groupme', 'footer_footerheader'),
+    utila.ResultFile('rawmaker', 'horizontals_horizontals'),
+]
+
 WORKPLAN = [
     utila.create_step(
+        'horizontals',
+        inputs=SOURCES,
+        output=('text',),
+    ),
+    utila.create_step(
         'text',
-        inputs=[
-            utila.ResultFile('rawmaker', 'oneline_text_text'),
-            utila.ResultFile('rawmaker', 'oneline_text_positions'),
-            utila.ResultFile('rawmaker', 'oneline_fonts_header'),
-            utila.ResultFile('rawmaker', 'oneline_fonts_content'),
-            utila.ResultFile('rawmaker', 'border_pages'),
-            utila.ResultFile('groupme', 'footer_footerheader'),
-            utila.ResultFile('rawmaker', 'horizontals_horizontals'),
-        ],
+        inputs=SOURCES,
         output=('text',),
     ),
     utila.create_step(
