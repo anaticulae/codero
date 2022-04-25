@@ -22,6 +22,7 @@ def determine(text: str) -> bool:
         isjs,
         ispython,
         isbash,
+        isobjectc,
     ]
     if any(method(text) for method in methods):
         return True
@@ -144,5 +145,23 @@ def isbash(text: str) -> bool:
     if BASH_COMMENT.search(text):
         return True
     if BASH_VAR.search(text):
+        return True
+    return False
+
+
+OBJECTC_START = utila.splititems("""// /** /* * ) } )} ...""")
+OBJECTC_START = prepare(OBJECTC_START, escape=True)
+OBJECTC_KEYWORDS = utila.splititems("""target << |= [[""")
+OBJECTC_KEYWORDS = prepare(OBJECTC_KEYWORDS, escape=True)
+
+
+def isobjectc(text: str) -> bool:
+    """\
+    >>> isobjectc('t.target_addr |= [[ target objectForKey:@"main"] intValue] << 11; ')
+    True
+    """
+    if OBJECTC_START.search(text):
+        return True
+    if OBJECTC_KEYWORDS.search(text):
         return True
     return False
