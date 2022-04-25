@@ -22,9 +22,9 @@ power.setup(codero.ROOT)
 
 RESOURCES = [
     power.MASTER110_PDF,
+    power.BACHELOR111_PDF,
     power.BACHELOR090_PDF,
     (power.BACHELOR075_PDF, '18,40:65'),
-    (power.BACHELOR111_PDF, '35,45:66'),
     power.BACHELOR067_PDF,
     power.BACHELOR063_PDF,
     (power.BACHELOR241_PDF, '156,200:240'),
