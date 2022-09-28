@@ -38,7 +38,9 @@ def extract(resources):
     genex.extract(
         files=resources,
         pdfinfo=False,
-        groupme='--border --pagenumbers --footer',
+        groupme='--border',
+        pagenumber=True,
+        footnote=True,
         pages=':',
         worker=WORKER,
     )
