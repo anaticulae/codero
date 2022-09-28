@@ -20,10 +20,10 @@ import tests.utils
 
 
 @utilatest.requires(power.MASTER110_PDF)
-def test_nocodes(testdir, monkeypatch):
+def test_nocodes(td, mp):
     source = power.link(power.MASTER110_PDF)
-    tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
-    outpath = os.path.join(testdir.tmpdir, 'codero__text_text.yaml')
+    tests.run(f'-i {source} -o {td.tmpdir}', mp=mp)
+    outpath = os.path.join(td.tmpdir, 'codero__text_text.yaml')
     loaded = serializeraw.load_codes(outpath)
     if loaded:
         utila.log(tests.utils.raw(source, loaded))
@@ -34,13 +34,13 @@ def test_nocodes(testdir, monkeypatch):
     pytest.param(power.BACHELOR241_PDF, id='bachelor241'),
     pytest.param(power.BACHELOR063_PDF, id='bachelor063'),
 ))
-def test_cli_all(source, testdir, monkeypatch):
+def test_cli_all(source, td, mp):
     """\
     bachelor063: regression test to skip invalid parsings
     """
     utilatest.fixture_requires(source)
     source = power.link(source)
-    tests.run(f'-i {source} -o {testdir.tmpdir}', monkeypatch=monkeypatch)
-    loaded = serializeraw.load_codes(testdir.tmpdir)
+    tests.run(f'-i {source} -o {td.tmpdir}', mp=mp)
+    loaded = serializeraw.load_codes(td.tmpdir)
     # ensure that loader is runned correctly
     assert loaded or loaded == []

@@ -16,12 +16,12 @@ import tests
 
 
 @utilatest.requires(power.BACHELOR111_PDF)
-def test_bachelor111p35(testdir, monkeypatch):
+def test_bachelor111p35(td, mp):
     source = power.link(power.BACHELOR111_PDF)
     tests.run(
-        f'-i {source} -o {testdir.tmpdir}',
-        monkeypatch=monkeypatch,
+        f'-i {source} -o {td.tmpdir}',
+        mp=mp,
     )
-    loaded = serializeraw.load_codes(testdir.tmpdir)
+    loaded = serializeraw.load_codes(td.tmpdir)
     page35 = utila.select_page(loaded, page=35)
     assert page35

@@ -28,20 +28,20 @@ ARCHIVE = utila.join(codero.ROOT, 'tests/expected', exist=True)
     pytest.param(power.BACHELOR111_PDF, id='bachelor111'),
     pytest.param(power.DISS205_PDF, id='diss205'),
 ])
-def test_validate(source, testdir, monkeypatch):
+def test_validate(source, td, mp):
     utilatest.fixture_requires(source)
     Evaluate(
         source,
-        testdir.tmpdir,
-        monkeypatch=monkeypatch,
+        td.tmpdir,
+        mp=mp,
     ).evaluate()
 
 
 class Evaluate(utilatest.BaseLiner):
 
-    def __init__(self, source, workdir, monkeypatch):
+    def __init__(self, source, workdir, mp):
         super().__init__(
-            program=functools.partial(tests.run, monkeypatch=monkeypatch),
+            program=functools.partial(tests.run, mp=mp),
             step='',
             pages=':',
             source=power.link(source),
