@@ -39,11 +39,12 @@ WORKER = utilatest.worker_count(7, onci=len(RESOURCES))
 def extract(resources):
     genex.extract(
         files=resources,
-        pdfinfo=False,
+        cleanup=True,
+        footnote=True,
         groupme='--border',
         headnote=True,
         pagenumber=True,
-        footnote=True,
+        pdfinfo=False,
         pages=':',
         worker=WORKER,
     )
