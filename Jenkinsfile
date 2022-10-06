@@ -1,12 +1,14 @@
-pipeline {
-    agent {
-        docker {
+@Library('caelum@e5c35590fa70bc13c087756276e7e041c163d574') _
+
+pipeline{
+    agent{
+        docker{
             image '169.254.149.20:6001/arch_python_baw_opengl:0.10.6'
             args  '-v $WORKSPACE:/var/workdir'
         }
     }
 
-    parameters {
+    parameters{
         string(name: 'BRANCH', defaultValue: 'master')
         booleanParam(name: 'RELEASE', defaultValue: false)
     }
@@ -42,6 +44,11 @@ pipeline {
             steps{
                 sh 'baw test nightly -n16 --cov --junit_xml=report.xml'
                 junit '**/report.xml'
+            }
+            post{
+                failure{
+                    script{publish.resource_generated()}
+                }
             }
         }
         stage('release'){
