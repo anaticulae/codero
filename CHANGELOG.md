@@ -2,6 +2,23 @@
 
 Every noteable change is logged here.
 
+## v0.6.0 (2022-10-06)
+
+### Chore
+
+* change nightly to all (a36f90913f23)
+* add separate generate step (3f4e51b32e55)
+* publish generated data if nightly fails (72817ed76d51)
+* do not run in privileged mode (ffafd36e793e)
+* run cleanup (c42009dd99cd)
+* add headnote step (d187ebd2e5b7)
+* add headnote extractor (7e0a55eebe92)
+* upgrade requirements.txt (1079364e31dd)
+* increase max worker count (b0e44350d875)
+* adjust resource data generator (18fd2b04adcf)
+* add Jenkinsfile (b252ce9856ac)
+* upgrade requirements.txt (264f637af385)
+
 ## v0.5.0
 
 ### Feature
