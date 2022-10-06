@@ -41,6 +41,7 @@ def extract(resources):
         files=resources,
         pdfinfo=False,
         groupme='--border',
+        headnote=True,
         pagenumber=True,
         footnote=True,
         pages=':',
