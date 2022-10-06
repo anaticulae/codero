@@ -30,11 +30,6 @@ pipeline{
                 sh 'baw test fast -n5'
             }
         }
-        stage('long'){
-            steps{
-                sh 'baw test long -n8'
-            }
-        }
         stage('lint'){
             steps{
                 sh 'baw lint'
@@ -45,9 +40,9 @@ pipeline{
                 sh 'baw test skip --generate'
             }
         }
-        stage('nightly'){
+        stage('all'){
             steps{
-                sh 'baw test nightly -n16 --cov --junit_xml=report.xml'
+                sh 'baw test all -n16 --cov --junit_xml=report.xml'
                 junit '**/report.xml'
             }
             post{
