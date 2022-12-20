@@ -19,7 +19,7 @@ import texmex
 import utila
 
 
-def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
+def parse(ptn: texmex.PTCN) -> iamraw.PageContent:
     content = all_inside_textual_horizontals(ptn)
     if not content:
         content = caption_below_code(ptn)
@@ -45,7 +45,7 @@ def all_inside_textual_horizontals(ptn):
         done = collector.run(line, index)
         if not done:
             continue
-        if len(utila.make_unique(done)) != 3:
+        if len(utila.unique(done)) != 3:
             # false posititve, a lot of lines with any content. We require
             # content between detected lines to have valid code detection.
             collector.reset()
@@ -55,8 +55,8 @@ def all_inside_textual_horizontals(ptn):
         collector.reset()
     converted = [
         iamraw.PeaceOfCode(
-            caption=utila.ranged_tuple(done[0] + 1, done[1]),
-            tokens=utila.ranged_tuple(done[1] + 1, done[2]),
+            caption=utila.rtuple(done[0] + 1, done[1]),
+            tokens=utila.rtuple(done[1] + 1, done[2]),
         ) for done in code
     ]
     content = remove_invalids(converted, ptn)
@@ -75,15 +75,15 @@ def caption_below_code(ptn):
         collector.reset()
     content = [
         iamraw.PeaceOfCode(
-            caption=utila.ranged_tuple(done[1] + 1, done[2] + 1),
-            tokens=utila.ranged_tuple(done[0] + 1, done[1]),
+            caption=utila.rtuple(done[1] + 1, done[2] + 1),
+            tokens=utila.rtuple(done[0] + 1, done[1]),
         ) for done in code
     ]
     content = remove_invalids(content, ptn)
     return content
 
 
-def remove_invalids(content, navigator: texmex.PageTextContentNavigator):
+def remove_invalids(content, navigator: texmex.PTCN):
     result = []
     for item in content:
         if not item.tokens:

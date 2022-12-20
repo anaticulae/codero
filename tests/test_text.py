@@ -99,7 +99,7 @@ def test_text_bachelor241all():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
         resource=power.BACHELOR241_PDF,
-        pages=utila.ranged_tuple(200, 240),
+        pages=utila.rtuple(200, 240),
     )
     codes = [len(page.content) for page in parsed]
     expected = [

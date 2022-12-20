@@ -28,7 +28,7 @@ import codero.loc
 import codero.strategy.text.numbers
 
 
-def parse(ptn: texmex.PageTextContentNavigator) -> iamraw.PageContent:
+def parse(ptn: texmex.PTCN) -> iamraw.PageContent:
     pagenumber = ptn.page
     collected = []
     if content := codero.strategy.text.numbers.linenumbers_and_caption(ptn):
@@ -76,10 +76,10 @@ def raw_code(ptn):
         # raw code till page end
         code.append((collector.start, collector.middle, len(ptn)))
     content = [
-        iamraw.PeaceOfCode(tokens=set(utila.ranged_tuple(done[1], done[2])))
+        iamraw.PeaceOfCode(tokens=set(utila.rtuple(done[1], done[2])))
         if done[0] == NOHEADLINE else iamraw.PeaceOfCode(
-            caption=set(utila.ranged_tuple(done[0], done[1])),
-            tokens=set(utila.ranged_tuple(done[1], done[2])),
+            caption=set(utila.rtuple(done[0], done[1])),
+            tokens=set(utila.rtuple(done[1], done[2])),
         ) for done in code
     ]
 

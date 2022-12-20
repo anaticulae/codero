@@ -7,8 +7,6 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import os
-
 import power
 import pytest
 import serializeraw
@@ -23,7 +21,7 @@ import tests.utils
 def test_nocodes(td, mp):
     source = power.link(power.MASTER110_PDF)
     tests.run(f'-i {source} -o {td.tmpdir}', mp=mp)
-    outpath = os.path.join(td.tmpdir, 'codero__text_text.yaml')
+    outpath = td.tmpdir.join('codero__text_text.yaml')
     loaded = serializeraw.load_codes(outpath)
     if loaded:
         utila.log(tests.utils.raw(source, loaded))
@@ -43,4 +41,4 @@ def test_cli_all(source, td, mp):
     tests.run(f'-i {source} -o {td.tmpdir}', mp=mp)
     loaded = serializeraw.load_codes(td.tmpdir)
     # ensure that loader is runned correctly
-    assert loaded or loaded == []
+    assert loaded or loaded == []  # pylint:disable=C1803
