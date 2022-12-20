@@ -2,6 +2,15 @@
 
 Every noteable change is logged here.
 
+## v0.6.1 (2022-12-20)
+
+### Chore
+
+* add missing resource generator (264edc7d5dbe)
+* upgrade requirements.txt (eed4055d5832)
+* upgrade pipeline (e9440ae2a653)
+* upgrade pipe library (c189d96b8619)
+
 ## v0.6.0 (2022-10-06)
 
 ### Chore
