@@ -41,7 +41,7 @@ def extract(resources):
         files=resources,
         cleanup=True,
         footnote=True,
-        groupme='--border',
+        groupme='--border --hefopa',
         headnote=True,
         pagenumber=True,
         pdfinfo=False,
