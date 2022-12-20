@@ -1,4 +1,4 @@
-@Library('caelum@e5c35590fa70bc13c087756276e7e041c163d574') _
+@Library('caelum@refs/tags/v0.8.0') _
 
 pipeline{
     agent{
