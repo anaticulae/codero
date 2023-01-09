@@ -16,7 +16,7 @@ PACKAGES = [
     'codero.strategy',
     'codero.strategy.text',
 ]
-entry_points = dict(console_scripts=[
+ENTRY_POINTS = dict(console_scripts=[
     'codero = codero.cli:main',
 ])
 
