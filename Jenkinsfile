@@ -48,6 +48,11 @@ pipeline{
                 }
             }
         }
+        stage('pre'){
+            steps{
+                script{baw.pre()}
+            }
+        }
         stage('generate'){
             steps{
                 sh 'baw --docken generate all'
