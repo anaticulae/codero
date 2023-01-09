@@ -2,6 +2,20 @@
 
 Every noteable change is logged here.
 
+## v0.6.3 (2023-01-09)
+
+### Fix
+
+* deliver cli (8a6452e30a2b)
+
+### Documentation
+
+* happy New Year! (4c9fc3addefd)
+
+### Chore
+
+* upgrade requirements.txt (8cd8fbea4fce)
+
 ## v0.6.2 (2023-01-09)
 
 ### Chore
