@@ -2,6 +2,16 @@
 
 Every noteable change is logged here.
 
+## v0.6.2 (2023-01-09)
+
+### Chore
+
+* add pre-release step (4c2cb4e4ee64)
+* use quick install (ad61cf00e364)
+* upgrade requirements.txt (2f45893ae431)
+* upgrade Jenkinsfile (15eb1b25bdf1)
+* upgrade pipe library (46e359d64921)
+
 ## v0.6.1 (2022-12-20)
 
 ### Chore
