@@ -10,7 +10,7 @@
 =========================
 
 Detect code as a normal part of written text. There are no special
-elements which help detecting these lines of code.
+elementae which help detecting these lines of code.
 
 1. Strategy: Lines number and caption below
 2. Strategy: Specialized R-Code with headline detector
@@ -18,8 +18,8 @@ elements which help detecting these lines of code.
 
 import re
 
-import configo
-import elements
+import configos
+import elementae
 import iamraw
 import texmex
 import utilo
@@ -59,7 +59,7 @@ def hide_result(ptn, codes):
 
 NOHEADLINE = '<<<NOHEADLINE>>>'
 
-RAWCODE_LENGTH_MIN = configo.HV_INT_PLUS(default=5)
+RAWCODE_LENGTH_MIN = configos.HV_INT_PLUS(default=5)
 
 
 def raw_code(ptn):

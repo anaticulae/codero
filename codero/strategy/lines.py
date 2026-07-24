@@ -13,7 +13,7 @@
 2. Backup: Code is detected inside 2 horizonals and caption is detected below
 """
 
-import elements
+import elementae
 import iamraw
 import texmex
 import utilo
@@ -93,7 +93,7 @@ def remove_invalids(content, navigator: texmex.PTCN):
             # skip three horizontals in a row
             continue
         firstindex = item.caption[0]
-        if not elements.iscaption_code(navigator[firstindex].text):
+        if not elementae.iscaption_code(navigator[firstindex].text):
             continue
         result.append(item)
     return result
@@ -159,7 +159,7 @@ class DetectorBelow:
             if text == texmex.HORIZONTAL:
                 self.middle = index
             return None
-        if not elements.iscaption_code(text):
+        if not elementae.iscaption_code(text):
             # invalid parsing, reset Detector
             self.reset()
             return None

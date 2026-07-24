@@ -9,8 +9,8 @@
 
 import re
 
-import configo
-import elements
+import configos
+import elementae
 import iamraw
 import utilo
 
@@ -99,7 +99,7 @@ class DetectorLineNumbers:
         return CODE_NUMBER.search(text)
 
     def valid(self, text: str) -> bool:  # pylint:disable=R0201
-        return elements.iscaption_code(text)
+        return elementae.iscaption_code(text)
 
     def final(self):
         result = self.start, self.middle, self.end
@@ -110,7 +110,7 @@ class DetectorLineNumbers:
         self.start, self.middle, self.end = None, None, None
 
 
-CWC_CODE_LENGTH_MIN = configo.HV_INT_PLUS(default=2)
+CWC_CODE_LENGTH_MIN = configos.HV_INT_PLUS(default=2)
 
 
 class CodeWithoutCaption(DetectorLineNumbers):
@@ -156,7 +156,7 @@ class CodeWithoutCaption(DetectorLineNumbers):
         return True
 
     def valid(self, text: str) -> bool:
-        if elements.iscaption_code(text):
+        if elementae.iscaption_code(text):
             # see DetectorLineNumbers
             self.reset()
             return False
