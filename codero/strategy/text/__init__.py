@@ -22,7 +22,7 @@ import configo
 import elements
 import iamraw
 import texmex
-import utila
+import utilo
 
 import codero.loc
 import codero.strategy.text.numbers
@@ -76,10 +76,10 @@ def raw_code(ptn):
         # raw code till page end
         code.append((collector.start, collector.middle, len(ptn)))
     content = [
-        iamraw.PeaceOfCode(tokens=set(utila.rtuple(done[1], done[2])))
+        iamraw.PeaceOfCode(tokens=set(utilo.rtuple(done[1], done[2])))
         if done[0] == NOHEADLINE else iamraw.PeaceOfCode(
-            caption=set(utila.rtuple(done[0], done[1])),
-            tokens=set(utila.rtuple(done[1], done[2])),
+            caption=set(utilo.rtuple(done[0], done[1])),
+            tokens=set(utilo.rtuple(done[1], done[2])),
         ) for done in code
     ]
 

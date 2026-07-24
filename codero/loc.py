@@ -9,7 +9,7 @@
 
 import re
 
-import utila
+import utilo
 
 
 def determine(text: str) -> bool:
@@ -33,15 +33,15 @@ def prepare(keys, left=r'\b', right=r'\b', escape: bool = False):
     if escape:
         keys = (re.escape(item) for item in keys)
     items = [left + item + right for item in keys]
-    result = utila.compiles('(' + '|'.join(items) + ')')
+    result = utilo.compiles('(' + '|'.join(items) + ')')
     return result
 
 
-PYTHON_KEYWORDS = utila.splititems("""assert async await break continue
+PYTHON_KEYWORDS = utilo.splititems("""assert async await break continue
 del elif else except finally for global if lambda pass raise nonlocal
 return try while yield yield from as with import""")
 PYTHON_KEYWORDS = prepare(PYTHON_KEYWORDS)
-PYTHON_METHODS = utila.splititems("""
+PYTHON_METHODS = utilo.splititems("""
 __import__ abs all any bin bool bytearray bytes chr classmethod compile
 complex delattr dict dir divmod enumerate eval filter float format
 frozenset getattr globals hasattr hash hex id input int isinstance
@@ -64,14 +64,14 @@ def ispython(text: str) -> bool:
     return False
 
 
-JAVASCRIPT_KEYWORDS = utila.splitlines("""for own in of while until loop
+JAVASCRIPT_KEYWORDS = utilo.splitlines("""for own in of while until loop
 break return continue switch when then if unless else throw try catch
 finally new delete typeof instanceof super true false yes no on off null
 NaN Infinity undefined void val map apply length split sum""")
 JAVASCRIPT_KEYWORDS = prepare(JAVASCRIPT_KEYWORDS)
 # .reduce(
-JAVASCRIPT_METHODS = utila.compiles(r'\.[a-z]{3,15}\(')
-JAVASCRIPT_START = utila.splititems("""// /** /* * ) } )} val""")
+JAVASCRIPT_METHODS = utilo.compiles(r'\.[a-z]{3,15}\(')
+JAVASCRIPT_START = utilo.splititems("""// /** /* * ) } )} val""")
 JAVASCRIPT_START = prepare(
     keys=JAVASCRIPT_START,
     left=r'^',
@@ -79,7 +79,7 @@ JAVASCRIPT_START = prepare(
     escape=True,
 )
 # 2 val tfidf
-JAVASCRIPT_ASSIGNMENT = utila.compiles(r"""
+JAVASCRIPT_ASSIGNMENT = utilo.compiles(r"""
     ^
     (var|val)
     [ ]{0,3}
@@ -110,21 +110,21 @@ def isjs(text: str) -> bool:
     return False
 
 
-BASH_KEYWORDS = utila.splititems("""for do done in while screen quit ssh
+BASH_KEYWORDS = utilo.splititems("""for do done in while screen quit ssh
  #/bin/bash bin bash .sh csp scp
 """)
 BASH_KEYWORDS = prepare(BASH_KEYWORDS, escape=True)
-BASH_ASSIGNMENT = utila.compiles(r"""
+BASH_ASSIGNMENT = utilo.compiles(r"""
     ^
     [\w|\_]{1,30}
     \=
     ["'‘]
 """)
-BASH_COMMENT = utila.compiles(r"""
+BASH_COMMENT = utilo.compiles(r"""
     ^
     \#{1,4}[ ]
 """)
-BASH_VAR = utila.compiles(r"""
+BASH_VAR = utilo.compiles(r"""
     [$]
     (
         \d|
@@ -149,9 +149,9 @@ def isbash(text: str) -> bool:
     return False
 
 
-OBJECTC_START = utila.splititems("""// /** /* * ) } )} ...""")
+OBJECTC_START = utilo.splititems("""// /** /* * ) } )} ...""")
 OBJECTC_START = prepare(OBJECTC_START, escape=True)
-OBJECTC_KEYWORDS = utila.splititems("""target << |= [[""")
+OBJECTC_KEYWORDS = utilo.splititems("""target << |= [[""")
 OBJECTC_KEYWORDS = prepare(OBJECTC_KEYWORDS, escape=True)
 
 

@@ -7,15 +7,15 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import power
+import hoverpower
 import serializeraw
-import utila
-import utilatest
+import utilo
+import utilotest
 
 
 def run(strategy, resource, pages: tuple = None, horizontals: bool = False):
-    utilatest.fixture_requires(resource)
-    source = power.link(resource)
+    utilotest.fixture_requires(resource)
+    source = hoverpower.link(resource)
     ptcn = serializeraw.ptcn_frompath(
         path=source,
         prefix='oneline',
@@ -37,9 +37,9 @@ def raw(source, extracted) -> str:
         horizontals=False,
     )
     for page in extracted:
-        ptcn = utila.select_page(ptcns, page.page)
+        ptcn = utilo.select_page(ptcns, page.page)
         collected.append(rawpage(ptcn, page))
-    result = utila.NEWLINE.join(collected)
+    result = utilo.NEWLINE.join(collected)
     return result
 
 
@@ -48,10 +48,10 @@ def rawpage(ptcn, page) -> str:
     content = page.content
     collected = []
     for poc in content:
-        code = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.tokens)
-        captio = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.caption)
+        code = utilo.NEWLINE.join(ptcn[it].text.strip() for it in poc.tokens)
+        captio = utilo.NEWLINE.join(ptcn[it].text.strip() for it in poc.caption)
         collected.append('TOKENS:\n' + code)
         collected.append('CAPTION:\n' + captio)
     header = f'############ {pagenr} ############\n'
-    result = header + utila.NEWLINE.join(collected)
+    result = header + utilo.NEWLINE.join(collected)
     return result

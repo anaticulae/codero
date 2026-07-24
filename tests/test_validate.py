@@ -9,27 +9,27 @@
 
 import functools
 
-import power
+import hoverpower
 import pytest
 import serializeraw
-import utila
-import utilatest
+import utilo
+import utilotest
 
 import codero
 import tests
 
-ARCHIVE = utila.join(codero.ROOT, 'tests/expected', exist=True)
+ARCHIVE = utilo.join(codero.ROOT, 'tests/expected', exist=True)
 
 
 @pytest.mark.parametrize('source', [
-    pytest.param(power.BACHELOR067_PDF, id='bachelor067'),
-    pytest.param(power.BACHELOR075_PDF, id='bachelor075'),
-    pytest.param(power.BACHELOR090_PDF, id='bachelor090'),
-    pytest.param(power.BACHELOR111_PDF, id='bachelor111'),
-    pytest.param(power.DISS205_PDF, id='diss205'),
+    pytest.param(hoverpower.BACHELOR067_PDF, id='bachelor067'),
+    pytest.param(hoverpower.BACHELOR075_PDF, id='bachelor075'),
+    pytest.param(hoverpower.BACHELOR090_PDF, id='bachelor090'),
+    pytest.param(hoverpower.BACHELOR111_PDF, id='bachelor111'),
+    pytest.param(hoverpower.DISS205_PDF, id='diss205'),
 ])
 def test_validate(source, td, mp):
-    utilatest.fixture_requires(source)
+    utilotest.fixture_requires(source)
     Evaluate(
         source,
         td.tmpdir,
@@ -37,20 +37,20 @@ def test_validate(source, td, mp):
     ).evaluate()
 
 
-class Evaluate(utilatest.BaseLiner):
+class Evaluate(utilotest.BaseLiner):
 
     def __init__(self, source, workdir, mp):
         super().__init__(
             program=functools.partial(tests.run, mp=mp),
             step='',
             pages=':',
-            source=power.link(source),
+            source=hoverpower.link(source),
             workdir=workdir,
             archive=ARCHIVE,
             loader=self.frompath,
             convert_source=False,
         )
-        self.generated = power.link(source)
+        self.generated = hoverpower.link(source)
 
     def frompath(self, workdir):  # pylint:disable=no-self-use
         loaded = serializeraw.load_codes(workdir)
@@ -64,9 +64,9 @@ class Evaluate(utilatest.BaseLiner):
             horizontals=False,
         )
         for page in value:
-            ptcn = utila.select_page(ptcns, page.page)
+            ptcn = utilo.select_page(ptcns, page.page)
             collected.append(rawpage(ptcn, page))
-        result = utila.NEWLINE.join(collected)
+        result = utilo.NEWLINE.join(collected)
         result = result.rstrip()
         return result
 
@@ -76,10 +76,10 @@ def rawpage(ptcn, page) -> str:
     content = page.content
     collected = []
     for poc in content:
-        code = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.tokens)
-        captio = utila.NEWLINE.join(ptcn[it].text.strip() for it in poc.caption)
+        code = utilo.NEWLINE.join(ptcn[it].text.strip() for it in poc.tokens)
+        captio = utilo.NEWLINE.join(ptcn[it].text.strip() for it in poc.caption)
         collected.append('TOKENS:\n' + code)
         collected.append('CAPTION:\n' + captio)
     header = f'################################# {pagenr} #################################\n'
-    result = header + utila.NEWLINE.join(collected) + utila.NEWLINE * 4
+    result = header + utilo.NEWLINE.join(collected) + utilo.NEWLINE * 4
     return result

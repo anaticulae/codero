@@ -16,7 +16,7 @@
 import elements
 import iamraw
 import texmex
-import utila
+import utilo
 
 
 def parse(ptn: texmex.PTCN) -> iamraw.PageContent:
@@ -45,7 +45,7 @@ def all_inside_textual_horizontals(ptn):
         done = collector.run(line, index)
         if not done:
             continue
-        if len(utila.unique(done)) != 3:
+        if len(utilo.unique(done)) != 3:
             # false posititve, a lot of lines with any content. We require
             # content between detected lines to have valid code detection.
             collector.reset()
@@ -55,8 +55,8 @@ def all_inside_textual_horizontals(ptn):
         collector.reset()
     converted = [
         iamraw.PeaceOfCode(
-            caption=utila.rtuple(done[0] + 1, done[1]),
-            tokens=utila.rtuple(done[1] + 1, done[2]),
+            caption=utilo.rtuple(done[0] + 1, done[1]),
+            tokens=utilo.rtuple(done[1] + 1, done[2]),
         ) for done in code
     ]
     content = remove_invalids(converted, ptn)
@@ -75,8 +75,8 @@ def caption_below_code(ptn):
         collector.reset()
     content = [
         iamraw.PeaceOfCode(
-            caption=utila.rtuple(done[1] + 1, done[2] + 1),
-            tokens=utila.rtuple(done[0] + 1, done[1]),
+            caption=utilo.rtuple(done[1] + 1, done[2] + 1),
+            tokens=utilo.rtuple(done[0] + 1, done[1]),
         ) for done in code
     ]
     content = remove_invalids(content, ptn)

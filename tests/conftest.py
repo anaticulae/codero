@@ -7,12 +7,12 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import genex
-import power
+import gennex
+import hoverpower
 import pytest
-import utilatest
-from utilatest import mp  # pylint:disable=W0611
-from utilatest import td  # pylint:disable=W0611
+import utilotest
+from utilotest import mp  # pylint:disable=W0611
+from utilotest import td  # pylint:disable=W0611
 
 import codero
 
@@ -20,24 +20,24 @@ pytest_plugins = ['pytester', 'xdist']  # pylint: disable=invalid-name
 
 PACKAGE = codero.PROCESS
 
-power.setup(codero.ROOT)
+hoverpower.setup(codero.ROOT)
 
 RESOURCES = [
-    power.MASTER110_PDF,
-    power.BACHELOR111_PDF,
-    power.BACHELOR090_PDF,
-    (power.BACHELOR075_PDF, '18,40:65'),
-    power.BACHELOR067_PDF,
-    power.BACHELOR063_PDF,
-    (power.BACHELOR241_PDF, '156,200:240'),
-    (power.DISS205_PDF, '130:145'),
+    hoverpower.MASTER110_PDF,
+    hoverpower.BACHELOR111_PDF,
+    hoverpower.BACHELOR090_PDF,
+    (hoverpower.BACHELOR075_PDF, '18,40:65'),
+    hoverpower.BACHELOR067_PDF,
+    hoverpower.BACHELOR063_PDF,
+    (hoverpower.BACHELOR241_PDF, '156,200:240'),
+    (hoverpower.DISS205_PDF, '130:145'),
 ]
 
-WORKER = utilatest.worker_count(7, onci=len(RESOURCES))
+WORKER = utilotest.worker_count(7, onci=len(RESOURCES))
 
 
 def extract(resources):
-    genex.extract(
+    gennex.extract(
         files=resources,
         cleanup=True,
         footnote=True,
@@ -52,4 +52,4 @@ def extract(resources):
 
 @pytest.mark.usefixtures('session')
 def pytest_sessionstart():
-    power.run()
+    hoverpower.run()

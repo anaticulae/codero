@@ -7,21 +7,21 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import power
+import hoverpower
 import serializeraw
-import utila
-import utilatest
+import utilo
+import utilotest
 
 import tests
 
 
-@utilatest.requires(power.BACHELOR111_PDF)
+@utilotest.requires(hoverpower.BACHELOR111_PDF)
 def test_bachelor111p35(td, mp):
-    source = power.link(power.BACHELOR111_PDF)
+    source = hoverpower.link(hoverpower.BACHELOR111_PDF)
     tests.run(
         f'-i {source} -o {td.tmpdir}',
         mp=mp,
     )
     loaded = serializeraw.load_codes(td.tmpdir)
-    page35 = utila.select_page(loaded, page=35)
+    page35 = utilo.select_page(loaded, page=35)
     assert page35

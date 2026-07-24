@@ -8,13 +8,13 @@
 # =============================================================================
 
 import iamraw
-import utila
+import utilo
 
 
 def decide(horizontal, text):
     data = (horizontal, text)
     result = []
-    for pagenumber, (horizontalx, textx) in utila.sync_pages(iterators=data,):
+    for pagenumber, (horizontalx, textx) in utilo.sync_pages(iterators=data,):
         horizontalx = horizontalx.content if horizontalx else []
         textx = textx.content if textx else []
         best = horizontalx if score(horizontalx) > score(textx) else textx

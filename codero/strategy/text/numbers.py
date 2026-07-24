@@ -12,7 +12,7 @@ import re
 import configo
 import elements
 import iamraw
-import utila
+import utilo
 
 import codero.loc
 
@@ -29,8 +29,8 @@ def linenumbers_and_caption(ptn):
         collector.reset()
     content = [
         iamraw.PeaceOfCode(
-            caption=set(utila.rtuple(done[1], done[2])),
-            tokens=set(utila.rtuple(done[0], done[1])),
+            caption=set(utilo.rtuple(done[1], done[2])),
+            tokens=set(utilo.rtuple(done[0], done[1])),
         ) for done in code
     ]
     return content
@@ -51,7 +51,7 @@ def code_without_caption(ptn):
     content = [
         iamraw.PeaceOfCode(
             caption=set(),
-            tokens=set(utila.rtuple(done[0], done[1])),
+            tokens=set(utilo.rtuple(done[0], done[1])),
         ) for done in code
     ]
     return content

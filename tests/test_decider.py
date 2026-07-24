@@ -7,18 +7,18 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import power
+import hoverpower
 import serializeraw
-import utilatest
+import utilotest
 
 import codero.decider
 import codero.features.horizontal
 import codero.features.text
 
 
-@utilatest.requires(power.BACHELOR075_PDF)
+@utilotest.requires(hoverpower.BACHELOR075_PDF)
 def test_decider_bachelor75all():
-    source = power.link(power.BACHELOR075_PDF)
+    source = hoverpower.link(hoverpower.BACHELOR075_PDF)
     ptcns = serializeraw.ptcn_frompath(
         path=source,
         prefix='oneline',

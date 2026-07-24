@@ -7,9 +7,9 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import power
+import hoverpower
 import pytest
-import utila
+import utilo
 
 import codero.strategy.text
 import tests.utils
@@ -18,7 +18,7 @@ import tests.utils
 def test_text_bachelor67page11():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
-        resource=power.BACHELOR067_PDF,
+        resource=hoverpower.BACHELOR067_PDF,
         pages=11,
     )
     assert len(parsed.content) == 1
@@ -32,7 +32,7 @@ def test_text_bachelor67page11():
 def test_text_bachelor67p40():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
-        resource=power.BACHELOR067_PDF,
+        resource=hoverpower.BACHELOR067_PDF,
         pages=40,
     )
     content = parsed.content
@@ -43,7 +43,7 @@ def test_text_bachelor67p40():
 def test_text_bachelor67page41():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
-        resource=power.BACHELOR067_PDF,
+        resource=hoverpower.BACHELOR067_PDF,
         pages=41,
     )
     content = parsed.content
@@ -59,7 +59,7 @@ def test_text_bachelor67page20():
     """
     parsed = tests.utils.run(
         codero.strategy.text.parse,
-        resource=power.BACHELOR067_PDF,
+        resource=hoverpower.BACHELOR067_PDF,
         pages=20,
     )
     code = parsed.content[0].tokens
@@ -71,7 +71,7 @@ def test_text_bachelor67page20():
 def test_text_bachelor67all():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
-        resource=power.BACHELOR067_PDF,
+        resource=hoverpower.BACHELOR067_PDF,
         pages=(11, 18, 20, 43, 47, 59, 60, 61),
     )
     codes = [len(page.content) for page in parsed]
@@ -84,7 +84,7 @@ def test_text_bachelor67all():
 def test_text_bachelor241page156():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
-        resource=power.BACHELOR241_PDF,
+        resource=hoverpower.BACHELOR241_PDF,
         pages=156,
     )
     # 2 block auf code
@@ -98,8 +98,8 @@ def test_text_bachelor241page156():
 def test_text_bachelor241all():
     parsed = tests.utils.run(
         codero.strategy.text.parse,
-        resource=power.BACHELOR241_PDF,
-        pages=utila.rtuple(200, 240),
+        resource=hoverpower.BACHELOR241_PDF,
+        pages=utilo.rtuple(200, 240),
     )
     codes = [len(page.content) for page in parsed]
     expected = [

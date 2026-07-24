@@ -7,11 +7,11 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-import power
-import utilatest
+import hoverpower
+import utilotest
 
 import codero
 
-power.setup(codero.ROOT)
+hoverpower.setup(codero.ROOT)
 
-run, fail = utilatest.create_cli_runner(codero)
+run, fail = utilotest.create_cli_runner(codero)

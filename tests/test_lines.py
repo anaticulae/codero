@@ -7,8 +7,8 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import power
-import utila
+import hoverpower
+import utilo
 
 import codero.strategy.lines
 import tests.utils
@@ -17,7 +17,7 @@ import tests.utils
 def test_lines_bachelor75page18():
     parsed = tests.utils.run(
         codero.strategy.lines.parse,
-        resource=power.BACHELOR075_PDF,
+        resource=hoverpower.BACHELOR075_PDF,
         horizontals=True,
         pages=18,
     )
@@ -33,7 +33,7 @@ def test_lines_bachelor75page18():
 def test_lines_bachelor75all():
     parsed = tests.utils.run(
         codero.strategy.lines.parse,
-        resource=power.BACHELOR075_PDF,
+        resource=hoverpower.BACHELOR075_PDF,
         horizontals=True,
         pages=(18, 43, 47, 48, 53, 54, 57, 62),
     )
@@ -45,7 +45,7 @@ def test_lines_bachelor75all():
 def test_lines_bachelor111page35():
     parsed = tests.utils.run(
         codero.strategy.lines.parse,
-        resource=power.BACHELOR111_PDF,
+        resource=hoverpower.BACHELOR111_PDF,
         horizontals=True,
         pages=35,
     )
@@ -56,7 +56,7 @@ def test_lines_bachelor111page35():
 def test_lines_bachelor111all():
     parsed = tests.utils.run(
         codero.strategy.lines.parse,
-        resource=power.BACHELOR111_PDF,
+        resource=hoverpower.BACHELOR111_PDF,
         horizontals=True,
         pages=(35, 45, 56, 57, 60, 62, 65),
     )
@@ -71,9 +71,9 @@ def test_lines_bachelor111all():
 def test_lines_diss205():
     parsed = tests.utils.run(
         codero.strategy.lines.parse,
-        resource=power.DISS205_PDF,
+        resource=hoverpower.DISS205_PDF,
         horizontals=True,
         pages=(135, 138, 139),
     )
-    flat = utila.flatten_content(parsed)
+    flat = utilo.flatten_content(parsed)
     assert len(flat) == 3

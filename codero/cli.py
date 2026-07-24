@@ -7,38 +7,38 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import utila
+import utilo
 
 import codero
 
 DESCRIPTION = 'TODO'
 
 SOURCES = [
-    utila.ResultFile('rawmaker', 'oneline_text_text'),
-    utila.ResultFile('rawmaker', 'oneline_text_positions'),
-    utila.ResultFile('rawmaker', 'oneline_fonts_header'),
-    utila.ResultFile('rawmaker', 'oneline_fonts_content'),
-    utila.ResultFile('rawmaker', 'border_pages'),
-    utila.ResultFile('groupme', 'footer_footerheader'),
-    utila.ResultFile('rawmaker', 'horizontals_horizontals'),
+    utilo.ResultFile('rawmaker', 'oneline_text_text'),
+    utilo.ResultFile('rawmaker', 'oneline_text_positions'),
+    utilo.ResultFile('rawmaker', 'oneline_fonts_header'),
+    utilo.ResultFile('rawmaker', 'oneline_fonts_content'),
+    utilo.ResultFile('rawmaker', 'border_pages'),
+    utilo.ResultFile('groupme', 'footer_footerheader'),
+    utilo.ResultFile('rawmaker', 'horizontals_horizontals'),
 ]
 
 WORKPLAN = [
-    utila.create_step(
+    utilo.create_step(
         'horizontal',
         inputs=SOURCES,
         output=('horizontal',),
     ),
-    utila.create_step(
+    utilo.create_step(
         'text',
         inputs=SOURCES,
         output=('text',),
     ),
-    utila.create_step(
+    utilo.create_step(
         'result',
         inputs=[
-            utila.ResultFile('codero', 'horizontal_horizontal'),
-            utila.ResultFile('codero', 'text_text'),
+            utilo.ResultFile('codero', 'horizontal_horizontal'),
+            utilo.ResultFile('codero', 'text_text'),
         ],
         output=('result',),
     ),
@@ -46,11 +46,11 @@ WORKPLAN = [
 
 
 def main():
-    utila.featurepack(
+    utilo.featurepack(
         root=codero.ROOT,
         workplan=WORKPLAN,
         featurepackage='codero.features',
-        config=utila.FeaturePackConfig(
+        config=utilo.FeaturePackConfig(
             description=DESCRIPTION,
             multiprocessed=True,
             name=codero.PROCESS,

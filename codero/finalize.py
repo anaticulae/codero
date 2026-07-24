@@ -9,7 +9,7 @@
 
 import iamraw
 import texmex
-import utila
+import utilo
 
 
 def run(codes: iamraw.PeaceOfCodes, ptns):
@@ -20,7 +20,7 @@ def run(codes: iamraw.PeaceOfCodes, ptns):
 
 def insert_code_boundings(codes: iamraw.PeaceOfCodes, ptns):
     for page in codes:
-        ptn = utila.select_page(ptns, page=page.page)
+        ptn = utilo.select_page(ptns, page=page.page)
         for code in page.content:
             for caption in code.caption:
                 code.caption_bounding.append(tuple(ptn[caption].bounding))
@@ -32,7 +32,7 @@ def insert_code_boundings(codes: iamraw.PeaceOfCodes, ptns):
 def horizontals_remove(codes: iamraw.PeaceOfCodes, ptns):
     """Adjust indexes of caption and token to ptns without horizontals."""
     for page in codes:
-        ptn = utila.select_page(ptns, page=page.page)
+        ptn = utilo.select_page(ptns, page=page.page)
         before = horizontals_before(ptn)
         for code in page.content:
             code.caption = {item - before[item] for item in code.caption}
