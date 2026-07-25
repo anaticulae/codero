@@ -1,159 +1,587 @@
-# Changelog
+# CHANGELOG
 
-Every noteable change is logged here.
+
+## v1.0.0 (2026-07-25)
+
+### Chores
+
+- **github**: Add .github
+  ([`032226f`](https://github.com/anaticulae/codero/commit/032226fbe1f9acdd59f62b52ac15106f1c6ebf19))
+
+- **pyproject**: Add modern layout
+  ([`68e94ed`](https://github.com/anaticulae/codero/commit/68e94ede792c0f40a5746870e1830ea8fe1e9a8f))
+
+- **pyproject**: Remove outdated files
+  ([`4489c1d`](https://github.com/anaticulae/codero/commit/4489c1d4080b24fd2bec88e97af39764597cffc0))
+
+### Documentation
+
+- **readme**: Adjust data type
+  ([`2cecfb7`](https://github.com/anaticulae/codero/commit/2cecfb77c2bdb646e765acbae430bee83c78cc78))
+
+### Refactoring
+
+- **packages**: Adjust names
+  ([`f2fa93b`](https://github.com/anaticulae/codero/commit/f2fa93b5ab021362a076e6d4e0b31a3da78e5eb0))
+
+### Testing
+
+- **conftest**: Adjust parameter to new interface
+  ([`00d674f`](https://github.com/anaticulae/codero/commit/00d674f57f69fc2b837964db1eb85db488d0a5fd))
+
 
 ## v0.6.3 (2023-01-09)
 
-### Fix
+### Bug Fixes
 
-* deliver cli (8a6452e30a2b)
+- **setup**: Deliver cli
+  ([`8a6452e`](https://github.com/anaticulae/codero/commit/8a6452e30a2b8be6816a0c0aab3831c49386fed2))
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`8cd8fbe`](https://github.com/anaticulae/codero/commit/8cd8fbea4fce5600f604340abf5854da163d934d))
 
 ### Documentation
 
-* happy New Year! (4c9fc3addefd)
+- **copyright**: Happy New Year!
+  ([`4c9fc3a`](https://github.com/anaticulae/codero/commit/4c9fc3addefdaf613d957693af0e6cf26d887b40))
 
-### Chore
-
-* upgrade requirements.txt (8cd8fbea4fce)
 
 ## v0.6.2 (2023-01-09)
 
-### Chore
+### Chores
 
-* add pre-release step (4c2cb4e4ee64)
-* use quick install (ad61cf00e364)
-* upgrade requirements.txt (2f45893ae431)
-* upgrade Jenkinsfile (15eb1b25bdf1)
-* upgrade pipe library (46e359d64921)
+- **Jenkins**: Add pre-release step
+  ([`4c2cb4e`](https://github.com/anaticulae/codero/commit/4c2cb4e4ee642224aea594ef7650d99c50677ec7))
+
+- **Jenkins**: Upgrade Jenkinsfile
+  ([`15eb1b2`](https://github.com/anaticulae/codero/commit/15eb1b25bdf129e8633691612a7481785095a00f))
+
+- **Jenkins**: Upgrade pipe library
+  ([`46e359d`](https://github.com/anaticulae/codero/commit/46e359d64921cb1f30a8214370e943d714ee0fea))
+
+- **requirements**: Upgrade requirements.txt
+  ([`2f45893`](https://github.com/anaticulae/codero/commit/2f45893ae43174d4ccd90ecb52d51ca70effe09f))
+
+- **setup**: Use quick install
+  ([`ad61cf0`](https://github.com/anaticulae/codero/commit/ad61cf00e364f9a680c5c50782c8b37a4c1518c4))
+
 
 ## v0.6.1 (2022-12-20)
 
-### Chore
+### Chores
 
-* add missing resource generator (264edc7d5dbe)
-* upgrade requirements.txt (eed4055d5832)
-* upgrade pipeline (e9440ae2a653)
-* upgrade pipe library (c189d96b8619)
+- **Jenkins**: Upgrade pipe library
+  ([`c189d96`](https://github.com/anaticulae/codero/commit/c189d96b8619aa277d2cfb4fabe8ee8a73d575d0))
+
+- **Jenkins**: Upgrade pipeline
+  ([`e9440ae`](https://github.com/anaticulae/codero/commit/e9440ae2a6530e77889ded8e57b1305a2474f532))
+
+- **requirements**: Upgrade requirements.txt
+  ([`eed4055`](https://github.com/anaticulae/codero/commit/eed4055d5832ae85733e14bb70c4a653385c2a6b))
+
+- **resources**: Add missing resource generator
+  ([`264edc7`](https://github.com/anaticulae/codero/commit/264edc7d5dbe4e4f12355cc226cc78506f37237e))
+
+### Refactoring
+
+- **replace**: Automated replacement
+  ([`c228529`](https://github.com/anaticulae/codero/commit/c2285297fb65049616bb1daaad208febc31679b3))
+
 
 ## v0.6.0 (2022-10-06)
 
-### Chore
+### Chores
 
-* change nightly to all (a36f90913f23)
-* add separate generate step (3f4e51b32e55)
-* publish generated data if nightly fails (72817ed76d51)
-* do not run in privileged mode (ffafd36e793e)
-* run cleanup (c42009dd99cd)
-* add headnote step (d187ebd2e5b7)
-* add headnote extractor (7e0a55eebe92)
-* upgrade requirements.txt (1079364e31dd)
-* increase max worker count (b0e44350d875)
-* adjust resource data generator (18fd2b04adcf)
-* add Jenkinsfile (b252ce9856ac)
-* upgrade requirements.txt (264f637af385)
+- **ci**: Add Jenkinsfile
+  ([`b252ce9`](https://github.com/anaticulae/codero/commit/b252ce9856acbff381bde6740994d8980cf9c8c8))
 
-## v0.5.0
+- **ci**: Increase max worker count
+  ([`b0e4435`](https://github.com/anaticulae/codero/commit/b0e44350d875ab14701377caf218034fd0c5c1b1))
 
-### Feature
+- **Jenkinsfile**: Add separate generate step
+  ([`3f4e51b`](https://github.com/anaticulae/codero/commit/3f4e51b32e55ae5aa92b2fe036e5e317cd5ab600))
 
-* add objectc as valid code input (54e80a28e3f2)
-* split into separate step (ed6f29a62053)
-* add separate horizontals step (c40bebcd2905)
+- **Jenkinsfile**: Change nightly to all
+  ([`a36f909`](https://github.com/anaticulae/codero/commit/a36f90913f23a7cffeb73b7643105370f3b895c9))
 
-## v0.4.2
+- **Jenkinsfile**: Do not run in privileged mode
+  ([`ffafd36`](https://github.com/anaticulae/codero/commit/ffafd36e793e3c830038c20b57e78bd12ecc6753))
 
-## v0.4.1
+- **Jenkinsfile**: Publish generated data if nightly fails
+  ([`72817ed`](https://github.com/anaticulae/codero/commit/72817ed76d51725f1f518215a9c14d4e41577368))
 
-### Feature
+- **requirements**: Upgrade requirements.txt
+  ([`1079364`](https://github.com/anaticulae/codero/commit/1079364e31dd52a575fab9222c953d293d4886a9))
 
-* extend JavaScript detector (6513ac1f8efb)
+- **requirements**: Upgrade requirements.txt
+  ([`264f637`](https://github.com/anaticulae/codero/commit/264f637af3858721fe6853dfe75e24a5a14fd470))
 
-## v0.4.0
+- **resources**: Add headnote extractor
+  ([`7e0a55e`](https://github.com/anaticulae/codero/commit/7e0a55eebe92d4763ceffc4e9ea7271a61503489))
 
-### Feature
+- **resources**: Add headnote step
+  ([`d187ebd`](https://github.com/anaticulae/codero/commit/d187ebd2e5b7d8e4a238ee426916f1e7396a9171))
 
-* extend bash detector (5d35a8579102)
-* run more code extractor to increase code detection (c104662ec326)
-* add bash code detector (9c6cf611c8b8)
+- **resources**: Adjust resource data generator
+  ([`18fd2b0`](https://github.com/anaticulae/codero/commit/18fd2b04adcfdf714bf4e8f34311d71ab7e99ca6))
 
-### Fix
+- **resources**: Run cleanup
+  ([`c42009d`](https://github.com/anaticulae/codero/commit/c42009dd99cd4d186f4429a676a920650ffd9c42))
 
-* run final step if no invalid number ends (ffc93f959bf1)
+### Code Style
+
+- **changelog**: Adjust for automation tool
+  ([`07e3f24`](https://github.com/anaticulae/codero/commit/07e3f24dc9d248b0346b565f37a78dc65ecb7a89))
+
+### Testing
+
+- **adjust**: Adjust test after software integration
+  ([`32452af`](https://github.com/anaticulae/codero/commit/32452affc8984ab3827af1cf0c7861e60c764fa9))
+
+- **chore**: Remove defaults
+  ([`50b4a73`](https://github.com/anaticulae/codero/commit/50b4a73de397df8d0faa463a63bbb68590fdce4e))
+
+- **refactor**: Use fixture shortcuts
+  ([`f5b73bc`](https://github.com/anaticulae/codero/commit/f5b73bcec3f966c76519ed6a964e0caa8d287290))
+
+
+## v0.5.0 (2022-04-25)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`5a382ef`](https://github.com/anaticulae/codero/commit/5a382efb3f0e6eef48adf80aa18ab04704c5880e))
+
+### Features
+
+- **cli**: Add separate horizontals step
+  ([`c40bebc`](https://github.com/anaticulae/codero/commit/c40bebcd290561a8c50be2039dde2b4a46a9318f))
+
+- **decider**: Split into separate step
+  ([`ed6f29a`](https://github.com/anaticulae/codero/commit/ed6f29a62053b5dc33342e5017b485318481d53e))
+
+- **loc**: Add objectc as valid code input
+  ([`54e80a2`](https://github.com/anaticulae/codero/commit/54e80a28e3f22174c1e349ec5ceb9353f0051605))
+
+### Testing
+
+- **adjust**: Adjust unit test after improving decider
+  ([`9e0e837`](https://github.com/anaticulae/codero/commit/9e0e8375fc7a3a9a4240ed1516a004881e0b2504))
+
+
+## v0.4.2 (2022-04-25)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`42d00e6`](https://github.com/anaticulae/codero/commit/42d00e6a4fc718189ba6afdb4190c76bd4d9c277))
+
+- **resources**: Extend test data generator
+  ([`d0e4f32`](https://github.com/anaticulae/codero/commit/d0e4f323fa812f46e80d6f146e7b186e10e32963))
+
+### Refactoring
+
+- **style**: Shorten naming
+  ([`a1cc2c0`](https://github.com/anaticulae/codero/commit/a1cc2c05ed65d8515a4d0f82dd428a958a113711))
+
+### Testing
+
+- **bachelor**: Disable failing test
+  ([`abf16d3`](https://github.com/anaticulae/codero/commit/abf16d3910f639b2ee5c7fc965db2d92c59c9c1c))
+
+- **regression**: Add bachelor111 single page test
+  ([`ee9e293`](https://github.com/anaticulae/codero/commit/ee9e29354ee3d581b2673ca608b52b0c2f7d712e))
+
+- **validate**: Validate diss205
+  ([`873363b`](https://github.com/anaticulae/codero/commit/873363bd8e6d1de47eecab00ba1031ed5c6dc1cd))
+
+
+## v0.4.1 (2022-04-20)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`5ee696b`](https://github.com/anaticulae/codero/commit/5ee696bf6b11c7fe4b8ef8ab3949ac8c59eba7a9))
+
+- **resources**: Extend test data generator
+  ([`278d13b`](https://github.com/anaticulae/codero/commit/278d13bc58165c1f41c05157594b4b395615927b))
+
+### Features
+
+- **loc**: Extend JavaScript detector
+  ([`6513ac1`](https://github.com/anaticulae/codero/commit/6513ac1f8efb8d317789860d7b22d659c7caf7fa))
+
+### Testing
+
+- **lines**: Verify diss205 algorithm parser
+  ([`e7f74c3`](https://github.com/anaticulae/codero/commit/e7f74c34fd4be037221fde3a56e9765f4bf6f8f0))
+
+
+## v0.4.0 (2022-04-12)
+
+### Bug Fixes
+
+- **number**: Run final step if no invalid number ends
+  ([`ffc93f9`](https://github.com/anaticulae/codero/commit/ffc93f959bf128a23c433cfb6fcc02bd0bf8ae54))
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`e36dd34`](https://github.com/anaticulae/codero/commit/e36dd3421b48d80dfc25c692e8cd4cef0e346de2))
+
+- **resources**: Extend bachelor067 validation
+  ([`4641d53`](https://github.com/anaticulae/codero/commit/4641d53981bca9a05be24e7dc8fee82a146769a2))
+
+- **resources**: Extend test data generator
+  ([`db8cfc5`](https://github.com/anaticulae/codero/commit/db8cfc527924ebe0c45f0a92d874ed44361afaa0))
 
 ### Documentation
 
-* adjust module path (da324f653968)
-* Happy New Year! (e02730a03f29)
+- **copyright**: Happy New Year!
+  ([`e02730a`](https://github.com/anaticulae/codero/commit/e02730a03f29414f535cc3c558bbbd098aba1ec8))
 
-## v0.3.2
+- **fix**: Adjust module path
+  ([`da324f6`](https://github.com/anaticulae/codero/commit/da324f6539681d59039c4807966d01f0cd676f1e))
 
-## v0.3.1
+### Features
 
-### Fix
+- **loc**: Add bash code detector
+  ([`9c6cf61`](https://github.com/anaticulae/codero/commit/9c6cf611c8b85fb996558680bb12b5f9dac05d1e))
 
-* remove magic parameter (6159a59afa34)
+- **loc**: Extend bash detector
+  ([`5d35a85`](https://github.com/anaticulae/codero/commit/5d35a85791023fe2d006066320eb00822092b1c0))
 
-## v0.3.0
+- **text**: Run more code extractor to increase code detection
+  ([`c104662`](https://github.com/anaticulae/codero/commit/c104662ec32636873692a50f58c2aa59461ba75e))
 
-### Feature
+### Refactoring
 
-* convert codero detection to non horizontal ptn indexes (01af6acfaae8)
-* extend loc detector (2b762f1bb604)
-* add loc line decider (8fea1c21981a)
-* add code detector without caption to general strategy (445431ebbfe4)
-* add code inside text extractor (b3465180d9c1)
+- **text**: Move text into separate package
+  ([`1a8fc68`](https://github.com/anaticulae/codero/commit/1a8fc6842e97f0407d137379d9c4e135bc5c5ded))
 
-### Fix
+### Testing
 
-* adjust index and remove invalids (d0d8fa9591e4)
-* adjust horizontal non horizontal line numbering (92a735e64719)
-* distinguish code from list (86bb980c7542)
+- **code**: Validate bachelor090
+  ([`03bb12d`](https://github.com/anaticulae/codero/commit/03bb12db762afa5678455edbf1f268767e85eefa))
+
+- **fix**: Skip tests if resources are not generated
+  ([`9526533`](https://github.com/anaticulae/codero/commit/95265332b3ad81561927be0e536864473628c074))
+
+- **refactor**: Use new baseliner concept
+  ([`0419951`](https://github.com/anaticulae/codero/commit/041995182c843372ea64b3c77795df264a8fe7f7))
+
+- **refactor**: Use new utilatest concept
+  ([`b46f304`](https://github.com/anaticulae/codero/commit/b46f304e70c458b1642b9941ceefae57a8da279d))
+
+- **validate**: Make expected data more readable
+  ([`93e26a6`](https://github.com/anaticulae/codero/commit/93e26a650477adfd0676aafc96b3b4c5b5163367))
+
+
+## v0.3.2 (2021-12-07)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`f66348b`](https://github.com/anaticulae/codero/commit/f66348b73603c90abf28e242a0e9f18c6a5b1c03))
+
+
+## v0.3.1 (2021-11-11)
+
+### Bug Fixes
+
+- **cli**: Remove magic parameter
+  ([`6159a59`](https://github.com/anaticulae/codero/commit/6159a59afa34ffcceef70902a4e2c0d1bddb96ff))
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`b8fb4c0`](https://github.com/anaticulae/codero/commit/b8fb4c01357a7942d1b34db485e80b629eeacf0f))
+
+
+## v0.3.0 (2021-10-29)
+
+### Bug Fixes
+
+- **lines**: Adjust horizontal non horizontal line numbering
+  ([`92a735e`](https://github.com/anaticulae/codero/commit/92a735e64719ea0aa6727aece3d90046393c5e55))
+
+- **lines**: Adjust index and remove invalids
+  ([`d0d8fa9`](https://github.com/anaticulae/codero/commit/d0d8fa9591e4d3895263c9b5b6c84d65ab10df67))
+
+- **text**: Distinguish code from list
+  ([`86bb980`](https://github.com/anaticulae/codero/commit/86bb980c7542bbe49e19f86a5e9ce0ea27f57b2e))
+
+### Chores
+
+- **requirements**: Add configo
+  ([`5b270eb`](https://github.com/anaticulae/codero/commit/5b270eb4216406159b6aac3f01ca441960f4dd38))
+
+- **requirements**: Upgrade requirements.txt
+  ([`bf92d9a`](https://github.com/anaticulae/codero/commit/bf92d9a31d9c5abdf76863baeaa8c1a03652a4f8))
+
+- **requirements**: Upgrade requirements.txt
+  ([`a4cd40a`](https://github.com/anaticulae/codero/commit/a4cd40afc94892e2dc04dd5803cffc52102a65da))
+
+- **test**: Reduce test data generator
+  ([`b99b381`](https://github.com/anaticulae/codero/commit/b99b38172c4458e5f7e61d9d48a0a85dcc4e4622))
+
+### Code Style
+
+- **lines**: Format code
+  ([`3e372fa`](https://github.com/anaticulae/codero/commit/3e372fa53d8790cb825f27609242e27c315e634b))
 
 ### Documentation
 
-* add module documentation (830d110dec52)
-* add module documentation (9b23306085f1)
+- **lines**: Add module documentation
+  ([`9b23306`](https://github.com/anaticulae/codero/commit/9b23306085f1f956f143cf4c5333003d6b77e724))
 
-## v0.2.2
+- **text**: Add module documentation
+  ([`830d110`](https://github.com/anaticulae/codero/commit/830d110dec5242c0f76e38d93bb3bdd70d9016c0))
 
-### Fix
+### Features
 
-* skip code out of navigator range (f1f7ab5249f6)
+- **decider**: Convert codero detection to non horizontal ptn indexes
+  ([`01af6ac`](https://github.com/anaticulae/codero/commit/01af6acfaae8a2054d62da6663fe201f4d0d9b18))
 
-## v0.2.1
+- **loc**: Add loc line decider
+  ([`8fea1c2`](https://github.com/anaticulae/codero/commit/8fea1c21981a3f5f8bfdccabeec59401884d78d4))
 
-### Fix
+- **loc**: Extend loc detector
+  ([`2b762f1`](https://github.com/anaticulae/codero/commit/2b762f1bb604b118c1e7730dfb98ed07502f488d))
 
-* skip false positive parsing (5b3a24a089ab)
+- **text**: Add code detector without caption to general strategy
+  ([`445431e`](https://github.com/anaticulae/codero/commit/445431ebbfe479c46257be759bef8e0c07988950))
 
-## v0.2.0
+- **text**: Add code inside text extractor
+  ([`b346518`](https://github.com/anaticulae/codero/commit/b3465180d9c18a0caead20ba2d71e91636c3ea17))
 
-### Feature
+### Refactoring
 
-* insert code bounding to best result (4d101a0cb1e6)
+- **cli**: Use codero path loader
+  ([`5214616`](https://github.com/anaticulae/codero/commit/52146168cc7e27da10bd114351050fad27271b31))
 
-## v0.1.1
+- **decider**: Clarify naming and extend documentation
+  ([`d4f52aa`](https://github.com/anaticulae/codero/commit/d4f52aa4e7c158850852318733181aa37cc6a8aa))
 
-### Feature
+- **hv**: Replace with real holy value
+  ([`52fe49f`](https://github.com/anaticulae/codero/commit/52fe49f97f7601fe5cfc8ad91443e50dc6cb7ab4))
 
-* add result step to select best code parsing (9e17b3593742)
+- **lines**: Simplify code
+  ([`ff16b34`](https://github.com/anaticulae/codero/commit/ff16b345c5f3fa247b169d566dfe944a2a987554))
 
-## v0.1.0
+- **move**: Move detected codes renderer
+  ([`b1bad84`](https://github.com/anaticulae/codero/commit/b1bad84bdfa54f2c21e79710f5570c96bc2a4591))
 
-### Feature
+- **text**: Clarify naming
+  ([`dbbda35`](https://github.com/anaticulae/codero/commit/dbbda358a493fcfcff6b31c356912af8d445d6f6))
 
-* add text step to cli (a609df5c5088)
-* add text step (7e716cf146cf)
-* add cli and feature package (ef1bb23c1de6)
-* add specialized rcode parser (38b133d0b0c2)
-* add decider to select best strategy (12060631c419)
-* add text based code parser (ccf09da50b7c)
-* add strategy to detect linting with caption below (b845e9edb596)
-* add code detection validator (8ebe3cb62c74)
-* add strategy to detect listing between lines (b8d59a76adf4)
+- **text**: Make text code line extractor extendable
+  ([`7095699`](https://github.com/anaticulae/codero/commit/7095699317ac3715247cd9a085d3982f09b8ddeb))
 
-### Fix
+- **text**: Replace with const
+  ([`21e1549`](https://github.com/anaticulae/codero/commit/21e15493e80436a05ea8e39c2439fe5bf6d9c4b6))
 
-* skip very short codes without any caption (4b98f6bb2b5c)
+- **text**: Simplify interface
+  ([`34ababd`](https://github.com/anaticulae/codero/commit/34ababdc8ff15c857ce89720e27f2229f772a526))
 
-## v0.0.0 Initial release
+- **text**: Use improved loc detector
+  ([`025e636`](https://github.com/anaticulae/codero/commit/025e6368c9d11afe53181859c0ab6d6bec348d6a))
+
+### Testing
+
+- **nocodes**: Display detected codes in error case
+  ([`cac0d96`](https://github.com/anaticulae/codero/commit/cac0d9670ea812833f21c78cee887ed95c2a9d87))
+
+- **style**: Format test code
+  ([`c798da9`](https://github.com/anaticulae/codero/commit/c798da93450ae88076a5556cd75a54c007ef98f5))
+
+- **text**: Verify bachelor067 page 41 code
+  ([`3f92c07`](https://github.com/anaticulae/codero/commit/3f92c079be942593fc43a2b079082ed1b955f3fa))
+
+- **text**: Verify code without caption parser
+  ([`43af786`](https://github.com/anaticulae/codero/commit/43af786bfc8f3cbbf701edb52475a80d929d9c5c))
+
+- **validate**: Add code validation step
+  ([`ed9e8bc`](https://github.com/anaticulae/codero/commit/ed9e8bc928e915a6b32f0b78d4cb45c1f8ffab80))
+
+- **validate**: Validate bachelor075 codes
+  ([`6b8e028`](https://github.com/anaticulae/codero/commit/6b8e028841d5605feacc1aa428ea96bb9dcd5436))
+
+- **validate**: Validate bachelor111
+  ([`d0b5df9`](https://github.com/anaticulae/codero/commit/d0b5df916b161a7b67fa18472b42727c5cde980d))
+
+
+## v0.2.2 (2021-09-27)
+
+### Bug Fixes
+
+- **line**: Skip code out of navigator range
+  ([`f1f7ab5`](https://github.com/anaticulae/codero/commit/f1f7ab5249f6e9378a72bd551244444cfd138ce6))
+
+
+## v0.2.1 (2021-09-21)
+
+### Bug Fixes
+
+- **lines**: Skip false positive parsing
+  ([`5b3a24a`](https://github.com/anaticulae/codero/commit/5b3a24a089abf2d3481870663e153c2db720268a))
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`e50f2fa`](https://github.com/anaticulae/codero/commit/e50f2fa934e109d055831d1a34bca7641a930b23))
+
+- **resources**: Extend test data generator
+  ([`995cc70`](https://github.com/anaticulae/codero/commit/995cc709e96eb5b52a5a958ed384107c0d6f8025))
+
+- **resources**: Shrink test data generator
+  ([`5710602`](https://github.com/anaticulae/codero/commit/5710602a9f831e6ffb787bdf85ff27a14153af6f))
+
+### Testing
+
+- **cli**: Verify bachelor063 codero run
+  ([`9cd718c`](https://github.com/anaticulae/codero/commit/9cd718cb07781430f3011074aff490003209705c))
+
+- **refactor**: Make test reusable
+  ([`8b6250c`](https://github.com/anaticulae/codero/commit/8b6250c4d2b3b600461f2d0abba8c7a2e48907f9))
+
+
+## v0.2.0 (2021-09-18)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`b726cb4`](https://github.com/anaticulae/codero/commit/b726cb4cb62478cfa809088b37ae2cf07fdc0e8b))
+
+### Features
+
+- **decider**: Insert code bounding to best result
+  ([`4d101a0`](https://github.com/anaticulae/codero/commit/4d101a0cb1e69f6dadf4f908adc125a329c343ca))
+
+### Testing
+
+- **cli**: Add test to run cli with valid code example
+  ([`3638c4f`](https://github.com/anaticulae/codero/commit/3638c4f9f34a4cf0a87d515cd32987de6501d030))
+
+
+## v0.1.1 (2021-09-18)
+
+### Features
+
+- **cli**: Add result step to select best code parsing
+  ([`9e17b35`](https://github.com/anaticulae/codero/commit/9e17b35937420ae4a9aabc072526efcac22f245f))
+
+
+## v0.1.0 (2021-09-14)
+
+### Bug Fixes
+
+- **rawcode**: Skip very short codes without any caption
+  ([`4b98f6b`](https://github.com/anaticulae/codero/commit/4b98f6bb2b5c9b4b587de5675e5c2180df01c1fd))
+
+### Chores
+
+- **requirements**: Add basic requirements
+  ([`ee385b4`](https://github.com/anaticulae/codero/commit/ee385b4cb0fe0f03ca22737942e1f75f8e7241de))
+
+- **requirements**: Add elements package
+  ([`e6fd6bc`](https://github.com/anaticulae/codero/commit/e6fd6bcb6246197f55495e611a32f7c83be52115))
+
+- **requirements**: Add resource generator
+  ([`9f115e3`](https://github.com/anaticulae/codero/commit/9f115e39609434e8b000398e840eaca9bc898693))
+
+- **requirements**: Upgrade requirements.txt
+  ([`252ea36`](https://github.com/anaticulae/codero/commit/252ea363772f95c9792805ff7c34e7cb13eb2e99))
+
+- **requirements**: Upgrade requirements.txt
+  ([`7f2cb26`](https://github.com/anaticulae/codero/commit/7f2cb26bc425f9f34977bd7550ffeb08208ed094))
+
+- **resources**: Extend test data generator
+  ([`6f2cf23`](https://github.com/anaticulae/codero/commit/6f2cf23bf75c60aafedacce864cd4a6856c40d47))
+
+- **resources**: Extend test data generator
+  ([`185d2f9`](https://github.com/anaticulae/codero/commit/185d2f97bc38e8270b677bee2e78ce2cbf24510c))
+
+- **resources**: Extend test data generator
+  ([`8b40002`](https://github.com/anaticulae/codero/commit/8b400028e2d7488cd615a3d400f98235892ffa5f))
+
+- **resources**: Extend test data generator
+  ([`07a0646`](https://github.com/anaticulae/codero/commit/07a0646be349f76b41895622485102b03d584570))
+
+- **resources**: Setup resource generator
+  ([`68f5e72`](https://github.com/anaticulae/codero/commit/68f5e724bbda38ffcec833767a4e60b0c4059b4e))
+
+### Code Style
+
+- **format**: Remove newlines
+  ([`4ff67c8`](https://github.com/anaticulae/codero/commit/4ff67c864da947cd7238e7942de649f71b0c5f97))
+
+### Features
+
+- **cli**: Add cli and feature package
+  ([`ef1bb23`](https://github.com/anaticulae/codero/commit/ef1bb23c1de6b4bd42ff4501ac346d836c60385d))
+
+- **cli**: Add text step to cli
+  ([`a609df5`](https://github.com/anaticulae/codero/commit/a609df5c5088adb904dc4edf640f4fb2d7e11729))
+
+- **decider**: Add decider to select best strategy
+  ([`1206063`](https://github.com/anaticulae/codero/commit/12060631c4195531d27f72c5323bb6738ecbb352))
+
+- **features**: Add text step
+  ([`7e716cf`](https://github.com/anaticulae/codero/commit/7e716cf146cf62e27ee31fdd811cc2b6936b4ab9))
+
+- **lines**: Add code detection validator
+  ([`8ebe3cb`](https://github.com/anaticulae/codero/commit/8ebe3cb62c74f9ee1e5c4c563d6d07dd70822bad))
+
+- **lines**: Add strategy to detect linting with caption below
+  ([`b845e9e`](https://github.com/anaticulae/codero/commit/b845e9edb59666c3904784a4346e162201143e88))
+
+- **lines**: Add strategy to detect listing between lines
+  ([`b8d59a7`](https://github.com/anaticulae/codero/commit/b8d59a76adf451f4d7562fff64024404f50d6551))
+
+- **text**: Add specialized rcode parser
+  ([`38b133d`](https://github.com/anaticulae/codero/commit/38b133d0b0c20ab4c11abc2d0b70b638621cb120))
+
+- **text**: Add text based code parser
+  ([`ccf09da`](https://github.com/anaticulae/codero/commit/ccf09da50b7cb5d7fe698e9cdec8aa347a021c38))
+
+### Refactoring
+
+- **lines**: Move to separate strategy
+  ([`ca07860`](https://github.com/anaticulae/codero/commit/ca07860501f469818925a20714172646db36a1e0))
+
+- **lines**: Replace with elements code
+  ([`4a70298`](https://github.com/anaticulae/codero/commit/4a702983830b4047976d69d4c85d652127e580fb))
+
+- **replace**: Replace with iamraw code
+  ([`6a4d95d`](https://github.com/anaticulae/codero/commit/6a4d95d1a4635fc921e85e56c685e1bb0e157dc7))
+
+- **test**: Simplify test code
+  ([`d164547`](https://github.com/anaticulae/codero/commit/d1645472b747ee7193a4d22ea2c3db1a95abbcad))
+
+### Testing
+
+- **cli**: Verify cli
+  ([`1fee5d8`](https://github.com/anaticulae/codero/commit/1fee5d88e9d355539f33129bfa11961803d0d5e9))
+
+- **decider**: Verify decider
+  ([`2ce21a6`](https://github.com/anaticulae/codero/commit/2ce21a68b913cae5b1a19d0202f03fb871189e14))
+
+- **lines**: Verify bachelor076 codes extraction
+  ([`4ea19a0`](https://github.com/anaticulae/codero/commit/4ea19a07d00f4ae424977617bcd1a71b61e96398))
+
+- **lines**: Verify bachelor111 listings
+  ([`1b5cd52`](https://github.com/anaticulae/codero/commit/1b5cd52cbe986f08f476c654ea8db98d24c8c289))
+
+- **lines**: Verify second type of line base peace of code
+  ([`a012ef9`](https://github.com/anaticulae/codero/commit/a012ef970bbc1f968e8f3306f9467db946f782db))
+
+- **text**: Verify rcode parser
+  ([`1fa54ce`](https://github.com/anaticulae/codero/commit/1fa54cebdec391a666dd9761fbcccba349672314))
+
+
+## v0.0.0 (2021-09-12)
+
+- Initial Release
