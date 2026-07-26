@@ -22,14 +22,14 @@ docker-doctest: docker-build
 docker-fasttest: docker-decrypt
 	docker run\
 		-v $(CURDIR):/var/workdir\
-		-v /tmp/capita_ref:/tmp/capita_ref\
+		-v /tmp/codero:/tmp/codero\
 		$(IMAGE_NAME)\
 		"baw test fast --generate"
 
 docker-longtest: docker-decrypt
 	docker run\
 		-v $(CURDIR):/var/workdir\
-		-v /tmp/capita_ref:/tmp/capita_ref\
+		-v /tmp/codero:/tmp/codero\
 		$(IMAGE_NAME)\
 		"baw test long"
 
@@ -42,7 +42,7 @@ docker-lint: docker-build
 docker-decrypt: docker-build
 	docker run\
 		-v $(CURDIR):/var/workdir\
-		-v /tmp/capita_ref:/tmp/capita_ref\
+		-v /tmp/codero:/tmp/codero\
 		-e HOVERPOWER_STORE=/var/workdir/hoverpower/repo\
 		-e HOVERPOWER_SECRET\
 		$(IMAGE_NAME)\
