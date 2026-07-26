@@ -1,58 +1,64 @@
-.PHONY: docker-build\
-	docker-decrypt\
-	docker-doctest\
-	docker-fasttest\
-	docker-lint\
-	docker-release\
+.PHONY: docker-build \
+	docker-decrypt \
+	docker-doctest \
+	docker-fasttest \
+	docker-lint \
+	docker-release \
 	docker-upload
 
+NAME := codero
 VERSION := $(shell git rev-parse --short HEAD 2>/dev/null || echo "latest")
-CURDIR := $(CURDIR)
-
-NAME = codero
 IMAGE := ghcr.io/anaticulae/$(NAME):$(VERSION)
+
+WORKDIR := /var/workdir
+CODE_DIR := $(CURDIR)
+CODERO_TMP := /tmp/codero
+
+DOCKER_RUN := docker run \
+	-v $(CODE_DIR):$(WORKDIR) \
+	-v $(CODERO_TMP):$(CODERO_TMP)
+
 
 docker-build:
 	docker build -t $(IMAGE) .
 
+
 docker-upload:
 	docker push $(IMAGE)
 
+
 docker-doctest: docker-build
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		$(IMAGE)\
-		"baw test docs"
+	$(DOCKER_RUN) \
+		$(IMAGE) \
+		baw test docs
+
 
 docker-fasttest: docker-decrypt
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		-v /tmp/codero:/tmp/codero\
-		$(IMAGE)\
-		"baw test fast --generate"
+	$(DOCKER_RUN) \
+		$(IMAGE) \
+		baw test fast --generate
+
 
 docker-lint: docker-build
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		$(IMAGE)\
-		"baw lint all"
+	$(DOCKER_RUN) \
+		$(IMAGE) \
+		baw lint all
+
 
 docker-decrypt: docker-build
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		-v /tmp/codero:/tmp/codero\
-		-e HOVERPOWER_STORE=/var/workdir/hoverpower/repo\
-		-e HOVERPOWER_SECRET\
-		$(IMAGE)\
-		"powerdownload && powerdecrypt"
+	$(DOCKER_RUN) \
+		-e HOVERPOWER_STORE=$(WORKDIR)/hoverpower/repo \
+		-e HOVERPOWER_SECRET \
+		$(IMAGE) \
+		powerdownload && powerdecrypt
+
 
 docker-release: docker-build
-	@if git describe --exact-match --tags HEAD >/dev/null 2>&1; then\
-		echo "Current commit is already tagged. Skipping release.";\
+	@if git describe --exact-match --tags HEAD >/dev/null 2>&1; then \
+		echo "Current commit is already tagged. Skipping release."; \
 	else \
-		docker run\
-			-v $(CURDIR):/var/workdir\
-			-e GH_TOKEN\
-			$(IMAGE)\
-			"baw release --no_test --no_linter";\
+		$(DOCKER_RUN) \
+			-e GH_TOKEN \
+			$(IMAGE) \
+			baw release --no_test --no_linter; \
 	fi
