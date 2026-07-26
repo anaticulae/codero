@@ -1,6 +1,37 @@
 # CHANGELOG
 
 
+## v1.0.1 (2026-07-26)
+
+### Chores
+
+- **github**: Remove duplicated step
+  ([`60c43d2`](https://github.com/anaticulae/codero/commit/60c43d22025759151223809d1481a98eebcbcb9e))
+
+- **make**: Add missing linter step
+  ([`5db53ce`](https://github.com/anaticulae/codero/commit/5db53ce8d2daaf9506a39f15f1eeca61194ec87a))
+
+- **make**: Define step phony
+  ([`14ea3d6`](https://github.com/anaticulae/codero/commit/14ea3d653540780a15d7a2da471a7d01cc8dce75))
+
+- **make**: Fix tmp path
+  ([`c88b42d`](https://github.com/anaticulae/codero/commit/c88b42df81f9a4d504c474a8a192f622acb89e9f))
+
+- **make**: Format make
+  ([`8836e38`](https://github.com/anaticulae/codero/commit/8836e38e249fa95730b73aa753bf05aa9e4ca6ab))
+
+- **make**: Remove unused step
+  ([`2d17078`](https://github.com/anaticulae/codero/commit/2d17078586102bc63de5313e48d286fa4c0708b1))
+
+- **make, upload**: Ensure that docker image is created before uploaded
+  ([`1f9d2bc`](https://github.com/anaticulae/codero/commit/1f9d2bccb5b988f8ad5bd9571d7ab1eabe85f1c7))
+
+### Refactoring
+
+- **make**: Improve naming
+  ([`3d0325c`](https://github.com/anaticulae/codero/commit/3d0325cb37af268deba22453dadf70f7120096c3))
+
+
 ## v1.0.0 (2026-07-25)
 
 ### Chores
