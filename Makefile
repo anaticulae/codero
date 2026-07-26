@@ -4,26 +4,25 @@ VERSION := $(shell git rev-parse --short HEAD 2>/dev/null || echo "latest")
 CURDIR := $(CURDIR)
 
 NAME = codero
-IMAGE := $(NAME):$(VERSION)
-IMAGE_NAME := ghcr.io/anaticulae/$(IMAGE)
+IMAGE := ghcr.io/anaticulae/$(NAME):$(VERSION)
 
 docker-build:
-	docker build -t $(IMAGE_NAME) .
+	docker build -t $(IMAGE) .
 
 docker-upload:
-	docker push $(IMAGE_NAME)
+	docker push $(IMAGE)
 
 docker-doctest: docker-build
 	docker run\
 		-v $(CURDIR):/var/workdir\
-		$(IMAGE_NAME)\
+		$(IMAGE)\
 		"baw test docs"
 
 docker-fasttest: docker-decrypt
 	docker run\
 		-v $(CURDIR):/var/workdir\
 		-v /tmp/codero:/tmp/codero\
-		$(IMAGE_NAME)\
+		$(IMAGE)\
 		"baw test fast --generate"
 
 docker-longtest: docker-decrypt
@@ -36,7 +35,7 @@ docker-longtest: docker-decrypt
 docker-lint: docker-build
 	docker run\
 		-v $(CURDIR):/var/workdir\
-		$(IMAGE_NAME)\
+		$(IMAGE)\
 		"baw lint all"
 
 docker-decrypt: docker-build
@@ -45,7 +44,7 @@ docker-decrypt: docker-build
 		-v /tmp/codero:/tmp/codero\
 		-e HOVERPOWER_STORE=/var/workdir/hoverpower/repo\
 		-e HOVERPOWER_SECRET\
-		$(IMAGE_NAME)\
+		$(IMAGE)\
 		"powerdownload && powerdecrypt"
 
 docker-release: docker-build
@@ -55,6 +54,6 @@ docker-release: docker-build
 		docker run\
 			-v $(CURDIR):/var/workdir\
 			-e GH_TOKEN\
-			$(IMAGE_NAME)\
+			$(IMAGE)\
 			"baw release --no_test --no_linter";\
 	fi
