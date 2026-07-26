@@ -33,6 +33,12 @@ docker-longtest: docker-decrypt
 		$(IMAGE_NAME)\
 		"baw test long"
 
+docker-lint: docker-build
+	docker run\
+		-v $(CURDIR):/var/workdir\
+		$(IMAGE_NAME)\
+		"baw lint all"
+
 docker-decrypt: docker-build
 	docker run\
 		-v $(CURDIR):/var/workdir\
