@@ -1,4 +1,10 @@
-.PHONY: docker-build docker-run build clean
+.PHONY: docker-build\
+	docker-decrypt\
+	docker-doctest\
+	docker-fasttest\
+	docker-lint\
+	docker-release\
+	docker-upload
 
 VERSION := $(shell git rev-parse --short HEAD 2>/dev/null || echo "latest")
 CURDIR := $(CURDIR)
