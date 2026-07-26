@@ -1,54 +1,57 @@
-.PHONY: docker-build docker-run build clean
+.PHONY: docker-build \
+	docker-decrypt \
+	docker-doctest \
+	docker-fasttest \
+	docker-lint \
+	docker-release \
+	docker-upload
 
+NAME := codero
 VERSION := $(shell git rev-parse --short HEAD 2>/dev/null || echo "latest")
-CURDIR := $(CURDIR)
+IMAGE := ghcr.io/anaticulae/$(NAME):$(VERSION)
 
-NAME = codero
-IMAGE := $(NAME):$(VERSION)
-IMAGE_NAME := ghcr.io/anaticulae/$(IMAGE)
+WORKDIR := /var/workdir
+CODE_DIR := $(CURDIR)
+CODERO_TMP := /tmp/codero
+
+DOCKER_RUN := docker run \
+	-v $(CODE_DIR):$(WORKDIR) \
+	-v $(CODERO_TMP):$(CODERO_TMP)
 
 docker-build:
-	docker build -t $(IMAGE_NAME) .
+	docker build -t $(IMAGE) .
 
-docker-upload:
-	docker push $(IMAGE_NAME)
+docker-upload: docker-build
+	docker push $(IMAGE)
 
 docker-doctest: docker-build
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		$(IMAGE_NAME)\
+	$(DOCKER_RUN) \
+		$(IMAGE) \
 		"baw test docs"
 
 docker-fasttest: docker-decrypt
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		-v /tmp/capita_ref:/tmp/capita_ref\
-		$(IMAGE_NAME)\
+	$(DOCKER_RUN) \
+		$(IMAGE) \
 		"baw test fast --generate"
 
-docker-longtest: docker-decrypt
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		-v /tmp/capita_ref:/tmp/capita_ref\
-		$(IMAGE_NAME)\
-		"baw test long"
+docker-lint: docker-build
+	$(DOCKER_RUN) \
+		$(IMAGE) \
+		"baw lint all"
 
 docker-decrypt: docker-build
-	docker run\
-		-v $(CURDIR):/var/workdir\
-		-v /tmp/capita_ref:/tmp/capita_ref\
-		-e HOVERPOWER_STORE=/var/workdir/hoverpower/repo\
-		-e HOVERPOWER_SECRET\
-		$(IMAGE_NAME)\
+	$(DOCKER_RUN) \
+		-e HOVERPOWER_STORE=$(WORKDIR)/hoverpower/repo \
+		-e HOVERPOWER_SECRET \
+		$(IMAGE) \
 		"powerdownload && powerdecrypt"
 
 docker-release: docker-build
-	@if git describe --exact-match --tags HEAD >/dev/null 2>&1; then\
-		echo "Current commit is already tagged. Skipping release.";\
+	@if git describe --exact-match --tags HEAD >/dev/null 2>&1; then \
+		echo "Current commit is already tagged. Skipping release."; \
 	else \
-		docker run\
-			-v $(CURDIR):/var/workdir\
-			-e GH_TOKEN\
-			$(IMAGE_NAME)\
-			"baw release --no_test --no_linter";\
+		$(DOCKER_RUN) \
+			-e GH_TOKEN \
+			$(IMAGE) \
+			"baw release --no_test --no_linter"; \
 	fi
